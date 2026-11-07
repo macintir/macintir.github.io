@@ -629,15 +629,19 @@ function initButterflyCanvas() {
       let sepX = 0;
       let sepY = 0;
       let neighbors = 0;
-      const minDistance = 55;
+      const minDistance = 50;
+      const minDistSq = minDistance * minDistance;
 
       for (let i = 0; i < allButterflies.length; i++) {
         const other = allButterflies[i];
         if (other === this) continue;
         const dx = this.x - other.x;
+        if (Math.abs(dx) > minDistance) continue;
         const dy = this.y - other.y;
-        const dist = Math.hypot(dx, dy);
-        if (dist > 0 && dist < minDistance) {
+        if (Math.abs(dy) > minDistance) continue;
+        const distSq = dx * dx + dy * dy;
+        if (distSq > 0 && distSq < minDistSq) {
+          const dist = Math.sqrt(distSq);
           sepX += dx / dist;
           sepY += dy / dist;
           neighbors++;
@@ -832,8 +836,9 @@ function initButterflyCanvas() {
     });
   }
 
-  // População serena de borboletas (quantidade equilibrada)
-  const count = Math.max(18, Math.min(28, Math.floor(width / 60)));
+  // População abundante de borboletas (cerca de 100 borboletas em voo suave)
+  const isCompactScreen = window.innerWidth < 640;
+  const count = isCompactScreen ? 80 : 100;
   const butterflies = Array.from({ length: count }, () => new Butterfly());
 
   function animate() {
