@@ -114,7 +114,7 @@ function playPollenBurstSound() {
     if (!ctx) return;
     const now = ctx.currentTime;
 
-    // 1. Som delicado de asas e ar floral (ruído filtrado suave)
+    // Som delicado de asas e ar floral
     const bufferSize = Math.floor(ctx.sampleRate * 0.14);
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
@@ -139,7 +139,7 @@ function playPollenBurstSound() {
     gain.connect(ctx.destination);
     noise.start(now);
 
-    // 2. Chime cristalino sutil
+    // Chime cristalino sutil
     const osc = ctx.createOscillator();
     const oscGain = ctx.createGain();
     osc.type = 'sine';
@@ -159,12 +159,12 @@ function playPollenBurstSound() {
 }
 
 /* ==========================================================================
-   2. BIO-CANVAS: BORBOLETÁRIO DA MATA ATLÂNTICA (BORBOLETAS NO FUNDO)
-   Similar à Lagoa dos Girinos de Lucas Aøsf:
-   - Borboletas nativas voando livremente pelo FUNDO do portfólio
-   - Nado/voo esvoaçante ondulante em 3 camadas de profundidade
-   - Janela de observação interativa (#butterfly-sanctuary-zone)
-   - Ao interagir ou clicar, dispersam ou explodem em névoa floral de pólen
+   2. BIO-CANVAS: BORBOLETÁRIO DA MATA ATLÂNTICA (BORBOLETAS REAIS NO FUNDO)
+   - Espécies autênticas da Mata Atlântica (Heliconius, Morpho, Parides, Phoebis)
+   - Anatomia lepidóptera fidedigna: asas anteriores, posteriores, nervuras,
+     margens recortadas, corpo segmentado e antenas com clava apical.
+   - Voo biológico real: flutuações, elevação aerodinâmica a cada bater de asas,
+     planeios suaves e ausência de aglomeração ("não embalado").
    ========================================================================== */
 function initButterflyCanvas() {
   const canvas = document.getElementById('bio-canvas');
@@ -183,7 +183,7 @@ function initButterflyCanvas() {
     setTimeout(updateCanvasDimensions, 150);
   });
 
-  // Janela dedicada de observação: Borboletário da Mata Atlântica
+  // Janela de observação interativa
   const sanctuaryZone = document.getElementById('butterfly-sanctuary-zone');
   let mouseInSanctuary = false;
   let mouseX = -1000;
@@ -194,24 +194,18 @@ function initButterflyCanvas() {
   const pollens = [];
   const butterflies = [];
 
-  function isInsideSanctuary(cx, cy) {
-    if (!sanctuaryZone) return false;
-    const rect = sanctuaryZone.getBoundingClientRect();
-    return cx >= rect.left && cx <= rect.right && cy >= rect.top && cy <= rect.bottom;
-  }
-
   function triggerSanctuaryRipple(x, y) {
     shockwaves.push({
       x: x,
       y: y,
-      radius: 5,
-      maxRadius: 75,
-      speed: 3.5,
-      alpha: 0.85
+      radius: 4,
+      maxRadius: 65,
+      speed: 2.8,
+      alpha: 0.8
     });
 
-    // Dispersão e explosão de pólen floral
-    for (let i = 0; i < 22; i++) {
+    // Névoa suave de pólen floral
+    for (let i = 0; i < 18; i++) {
       pollens.push(new PollenParticle(x, y));
     }
 
@@ -253,7 +247,7 @@ function initButterflyCanvas() {
       clearTimeout(touchResetTimer);
       touchResetTimer = setTimeout(() => {
         isTouchInteraction = false;
-      }, 800);
+      }, 700);
 
       if (e.touches && e.touches.length > 0) {
         const touch = e.touches[0];
@@ -268,13 +262,11 @@ function initButterflyCanvas() {
     }, { passive: true });
   }
 
-  // Permite interação ao clicar no fundo geral
+  // Interação no clique geral
   window.addEventListener('pointerdown', (e) => {
-    // Se o clique foi fora de botões/links interativos principais
     const targetTag = e.target.tagName.toLowerCase();
     if (['button', 'a', 'input', 'textarea'].includes(targetTag)) return;
 
-    // Verifica se acertou alguma borboleta próxima
     let hitButterfly = false;
     for (let i = butterflies.length - 1; i >= 0; i--) {
       const b = butterflies[i];
@@ -293,7 +285,7 @@ function initButterflyCanvas() {
   });
 
   // ==========================================
-  // CLASSE: PARTÍCULA DE PÓLEN FLORAL (POLLEN)
+  // CLASSE: PÓLEN FLORAL (POLLEN)
   // ==========================================
   class PollenParticle {
     constructor(x, y, baseColor) {
@@ -301,69 +293,99 @@ function initButterflyCanvas() {
       this.y = y;
 
       const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 4.2 + 1.2;
+      const speed = Math.random() * 3.5 + 0.8;
       this.vx = Math.cos(angle) * speed;
-      this.vy = Math.sin(angle) * speed - 1.2; // Leve impulso para cima
+      this.vy = Math.sin(angle) * speed - 1.0;
 
-      this.drag = Math.random() * 0.03 + 0.92;
-      this.gravity = Math.random() * 0.025 + 0.03;
+      this.drag = Math.random() * 0.03 + 0.93;
+      this.gravity = Math.random() * 0.02 + 0.025;
 
       this.swayPhase = Math.random() * Math.PI * 2;
-      this.swaySpeed = Math.random() * 0.04 + 0.02;
-      this.swayAmp = Math.random() * 1.4 + 0.6;
+      this.swaySpeed = Math.random() * 0.035 + 0.02;
+      this.swayAmp = Math.random() * 1.2 + 0.5;
 
-      this.radius = Math.random() * 2.4 + 1.2;
-      this.isPetal = Math.random() < 0.35; // Algumas são pequenas pétalas/escamas
+      this.radius = Math.random() * 2.0 + 1.0;
+      const COLORS = ['#C5A059', '#1C5933', '#C47D3B', '#D98236', '#FAF6F0'];
+      this.color = baseColor || COLORS[Math.floor(Math.random() * COLORS.length)];
 
-      const POLLEN_COLORS = [
-        '#C5A059', '#1C5933', '#C47D3B', '#D99B26', '#EAD8C3', '#2A7244'
-      ];
-      this.color = baseColor || POLLEN_COLORS[Math.floor(Math.random() * POLLEN_COLORS.length)];
-
-      this.life = Math.random() * 220 + 260;
+      this.life = Math.random() * 180 + 200;
       this.maxLife = this.life;
     }
 
     update() {
       this.vx *= this.drag;
       this.vy = this.vy * this.drag + this.gravity;
-
       this.swayPhase += this.swaySpeed;
-      const swayX = Math.sin(this.swayPhase) * this.swayAmp;
-
-      this.x += this.vx + swayX;
+      this.x += this.vx + Math.sin(this.swayPhase) * this.swayAmp;
       this.y += this.vy;
-
       this.life--;
     }
 
     draw() {
       if (this.life <= 0) return;
-      const alpha = this.life > this.maxLife * 0.35
+      const alpha = this.life > this.maxLife * 0.3
         ? 0.85
-        : (this.life / (this.maxLife * 0.35)) * 0.85;
+        : (this.life / (this.maxLife * 0.3)) * 0.85;
 
       ctx.save();
       ctx.translate(this.x, this.y);
       ctx.globalAlpha = Math.max(0, alpha);
       ctx.fillStyle = this.color;
-
-      if (this.isPetal) {
-        ctx.beginPath();
-        ctx.ellipse(0, 0, this.radius * 2, this.radius, this.swayPhase, 0, Math.PI * 2);
-        ctx.fill();
-      } else {
-        ctx.beginPath();
-        ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
+      ctx.beginPath();
+      ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+      ctx.fill();
       ctx.restore();
     }
   }
 
   // ==========================================
-  // CLASSE: BORBOLETA DA MATA ATLÂNTICA (BUTTERFLY)
+  // PALETAS DE ESPÉCIES REAIS DA MATA ATLÂNTICA
+  // ==========================================
+  const SPECIES_PALETTES = [
+    // 1. Heliconius besckei (Âmbar Terracota, Preto Aveludado e Marfim)
+    {
+      name: 'Heliconius besckei',
+      wingBase: '#C47D3B',
+      wingAccent: '#FAF6F0',
+      wingBorder: '#1A120A',
+      bodyColor: '#1A120A'
+    },
+    // 2. Morpho helenor (Azul Esmeralda da Mata Atlântica)
+    {
+      name: 'Morpho helenor',
+      wingBase: '#1C5933',
+      wingAccent: '#52C284',
+      wingBorder: '#0B1D11',
+      bodyColor: '#0B1D11'
+    },
+    // 3. Parides bunichus (Verde Pinheiro BioKuri com Mancha Rubra)
+    {
+      name: 'Parides bunichus',
+      wingBase: '#153D23',
+      wingAccent: '#C94A4A',
+      wingBorder: '#0C1A11',
+      bodyColor: '#0C1A11'
+    },
+    // 4. Phoebis philea / Anteos (Borboleta-Gema / Marfim & Dourado BioKuri)
+    {
+      name: 'Phoebis philea',
+      wingBase: '#FAF6F0',
+      wingAccent: '#C5A059',
+      wingBorder: '#383020',
+      bodyColor: '#2B2418'
+    },
+    // 5. Danaus plexippus (Monarca / Laranja Terracota & Borda Negra com Pontos)
+    {
+      name: 'Danaus',
+      wingBase: '#D97E36',
+      wingAccent: '#FFFFFF',
+      wingBorder: '#1F140A',
+      bodyColor: '#1F140A'
+    }
+  ];
+
+  // ==========================================
+  // CLASSE: BORBOLETA REAL (BUTTERFLY)
   // ==========================================
   class Butterfly {
     constructor(initial = false) {
@@ -372,92 +394,68 @@ function initButterflyCanvas() {
 
     reset(initial = false) {
       this.x = Math.random() * width;
-      this.y = initial ? Math.random() * height : (Math.random() < 0.5 ? -40 : height + 40);
+      this.y = initial ? Math.random() * height : (Math.random() < 0.5 ? -50 : height + 50);
       this.angle = Math.random() * Math.PI * 2;
       this.targetAngle = this.angle;
-      this.speed = Math.random() * 1.1 + 0.8;
 
-      // Profundidade (Depth Layers): similar aos girinos do Lucas
+      // Velocidade serena, graciosa e natural (NUNCA acelerada ou "embalada")
+      this.speed = Math.random() * 0.35 + 0.75; // 0.75 a 1.10 px/frame
+
+      // Escala e camadas de profundidade
       const depth = Math.random();
-      this.isDeep = depth < 0.45; // 45% fundo suave para profundidade
+      this.isDeep = depth < 0.40; // 40% em profundidade suave
       if (this.isDeep) {
-        this.size = Math.random() * 2.2 + 4.2;
-        this.alpha = Math.random() * 0.15 + 0.18;
-      } else if (depth < 0.85) {
-        this.size = Math.random() * 3.2 + 7.2;
-        this.alpha = Math.random() * 0.22 + 0.38;
+        this.size = Math.random() * 2.0 + 9.0;
+        this.alpha = Math.random() * 0.12 + 0.35;
       } else {
-        this.size = Math.random() * 4.2 + 11.2;
-        this.alpha = Math.random() * 0.25 + 0.65;
+        this.size = Math.random() * 3.5 + 13.5;
+        this.alpha = Math.random() * 0.18 + 0.72;
       }
 
-      this.hitRadius = Math.max(38, this.size * 3.5);
+      this.hitRadius = Math.max(34, this.size * 2.2);
+      this.palette = SPECIES_PALETTES[Math.floor(Math.random() * SPECIES_PALETTES.length)];
 
-      // Paletas nativas da Mata Atlântica e BioKuri
-      const PALETTES = [
-        { wing: '#1C5933', accent: '#C5A059', body: '#14291B' }, // Parides Verde Pinheiro & Ouro
-        { wing: '#C47D3B', accent: '#FAF6F0', body: '#2A1808' }, // Heliconius Âmbar & Marfim
-        { wing: '#2A7244', accent: '#72C28D', body: '#0E2515' }, // Esmeralda da Mata
-        { wing: '#C5A059', accent: '#1C5933', body: '#261E0A' }, // Dourada BioKuri
-        { wing: '#D98236', accent: '#FFFFFF', body: '#331B05' }, // Monarca Laranja
-        { wing: '#8C6338', accent: '#C5A059', body: '#24190D' }  // Caligo Marrom Florestal
-      ];
-      this.palette = PALETTES[Math.floor(Math.random() * PALETTES.length)];
-
-      // Cores pré-computadas para zero alocação de memória no loop a 60 FPS
-      const aStr = this.alpha.toFixed(2);
-      const aAccentStr = Math.min(1, this.alpha * 1.3).toFixed(2);
-      this.wingColor = this.hexToRgba(this.palette.wing, aStr);
-      this.accentColor = this.hexToRgba(this.palette.accent, aAccentStr);
-      this.bodyColor = this.hexToRgba(this.palette.body, aStr);
-
-      // Bater de asas em 3D
+      // Ciclo biológico de asas: bater e planar
       this.wingPhase = Math.random() * Math.PI * 2;
-      this.wingSpeed = Math.random() * 0.16 + 0.24;
+      this.wingSpeed = Math.random() * 0.05 + 0.18; // Frequência de bater de asas realista
+      this.gliding = false;
+      this.flapTimer = Math.floor(Math.random() * 50) + 30;
+      this.glideTimer = 0;
 
-      // Voo ondulante esvoaçante típico de borboletas
+      // Esvoaçar ondulante e poético
       this.flutterPhase = Math.random() * Math.PI * 2;
-      this.flutterSpeed = Math.random() * 0.08 + 0.06;
+      this.flutterSpeed = Math.random() * 0.06 + 0.04;
+      this.flutterWiggle = 0;
 
-      this.turnTimer = Math.floor(Math.random() * 80) + 40;
+      this.turnTimer = Math.floor(Math.random() * 90) + 40;
       this.scatterTimer = 0;
       this.alive = true;
       this.respawnTimer = 0;
     }
 
-    hexToRgba(hex, alpha) {
-      let c = hex.replace('#', '');
-      if (c.length === 3) c = c.split('').map(x => x + x).join('');
-      const r = parseInt(c.substring(0, 2), 16);
-      const g = parseInt(c.substring(2, 4), 16);
-      const b = parseInt(c.substring(4, 6), 16);
-      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
-
     explode() {
       if (!this.alive) return;
       this.alive = false;
-      this.respawnTimer = Math.floor(Math.random() * 60 + 50);
+      this.respawnTimer = Math.floor(Math.random() * 60) + 50;
 
-      // Explosão de pólen floral
-      const count = Math.floor(Math.random() * 8 + 22);
+      const count = Math.floor(Math.random() * 8) + 18;
       for (let i = 0; i < count; i++) {
-        pollens.push(new PollenParticle(this.x, this.y, this.palette.wing));
+        pollens.push(new PollenParticle(this.x, this.y, this.palette.wingBase));
       }
 
       shockwaves.push({
         x: this.x,
         y: this.y,
         radius: 4,
-        maxRadius: 55,
-        speed: 3.2,
-        alpha: 0.85
+        maxRadius: 50,
+        speed: 2.8,
+        alpha: 0.8
       });
 
       playPollenBurstSound();
     }
 
-    update() {
+    update(all) {
       if (!this.alive) {
         this.respawnTimer--;
         if (this.respawnTimer <= 0) {
@@ -466,81 +464,111 @@ function initButterflyCanvas() {
         return;
       }
 
-      // 1. Reação a ondas de choque (dispersão localizada)
+      // 1. Reação a shockwaves (dispersão suave)
       for (let s = 0; s < shockwaves.length; s++) {
         const sw = shockwaves[s];
         const dx = this.x - sw.x;
         const dy = this.y - sw.y;
         const dist = Math.hypot(dx, dy);
 
-        if (dist < sw.radius + 20 && dist > sw.radius - 16) {
+        if (dist < sw.radius + 30 && dist > sw.radius - 18) {
           const awayAngle = Math.atan2(dy, dx);
-          this.angle = awayAngle + (Math.random() - 0.5) * 1.5;
-          this.targetAngle = this.angle + (Math.random() - 0.5) * 1.0;
-          this.speed = Math.max(this.speed, 2.6 + Math.random() * 0.8);
-          this.scatterTimer = Math.floor(Math.random() * 80) + 50;
+          this.angle = awayAngle + (Math.random() - 0.5) * 0.7;
+          this.targetAngle = this.angle;
+          this.speed = Math.min(1.8, this.speed + 0.6);
+          this.scatterTimer = 35;
+          this.gliding = false;
           break;
         }
       }
 
-      // 2. Comportamento durante dispersão ou atração no Borboletário
+      // 2. Separação suave entre borboletas (impede aglomeração / "embalamento")
+      for (let j = 0; j < all.length; j++) {
+        const other = all[j];
+        if (other === this || !other.alive) continue;
+        const sepDx = this.x - other.x;
+        const sepDy = this.y - other.y;
+        const sepDist = Math.hypot(sepDx, sepDy);
+        if (sepDist < 42 && sepDist > 0.1) {
+          const push = (42 - sepDist) * 0.012;
+          this.x += (sepDx / sepDist) * push;
+          this.y += (sepDy / sepDist) * push;
+        }
+      }
+
+      // 3. Comportamento calmo no Borboletário (SEM correria)
       if (this.scatterTimer > 0) {
         this.scatterTimer--;
-        this.angle += (Math.random() - 0.5) * 0.08;
+        this.speed *= 0.97;
       } else if (mouseInSanctuary && !isTouchInteraction) {
-        // Atração suave e orgânica em direção ao cursor no Borboletário
         const dx = mouseX - this.x;
         const dy = mouseY - this.y;
         const dist = Math.hypot(dx, dy);
 
-        if (dist < 400 && dist > 45) {
+        // Apenas borboletas já por perto sentem uma atração calma
+        if (dist < 220 && dist > 65) {
           const toMouse = Math.atan2(dy, dx);
           let diff = toMouse - this.angle;
           while (diff < -Math.PI) diff += Math.PI * 2;
           while (diff > Math.PI) diff -= Math.PI * 2;
 
-          const steer = Math.max(0.035, 0.11 * (1 - dist / 400));
-          this.angle += diff * steer;
-          this.speed = Math.min(this.speed + 0.05, 2.2);
+          this.angle += diff * 0.022;
+          this.speed = Math.max(0.7, Math.min(this.speed, 1.05));
         } else {
-          this.naturalSteer();
+          this.naturalFlutter();
         }
       } else {
-        this.naturalSteer();
+        this.naturalFlutter();
       }
 
-      // 3. Voo esvoaçante de borboleta (ondulação suave + bater de asas)
+      // 4. Alternância natural de voo: bater de asas e planar
+      if (this.gliding) {
+        this.glideTimer--;
+        if (this.glideTimer <= 0) {
+          this.gliding = false;
+          this.flapTimer = Math.floor(Math.random() * 55) + 35;
+        }
+        this.wingPhase = 0; // Asas abertas no planeio
+        this.speed = Math.max(0.65, this.speed * 0.988);
+      } else {
+        this.wingPhase += this.wingSpeed;
+        this.flapTimer--;
+        if (this.flapTimer <= 0) {
+          this.gliding = true;
+          this.glideTimer = Math.floor(Math.random() * 45) + 25;
+        }
+
+        // Elevação aerodinâmica a cada batida de asas (ondulação vertical real)
+        const lift = Math.abs(Math.sin(this.wingPhase)) * 0.38;
+        this.y -= lift * 0.6;
+      }
+
+      // Esvoaçar característico da borboleta
+      this.flutterWiggle = Math.sin(this.flutterPhase) * 0.16;
       this.flutterPhase += this.flutterSpeed;
-      const flutterWiggle = Math.sin(this.flutterPhase) * 0.28;
 
-      this.x += Math.cos(this.angle + flutterWiggle) * this.speed;
-      this.y += Math.sin(this.angle + flutterWiggle) * this.speed;
-      this.wingPhase += this.wingSpeed * (this.speed * 0.95);
+      this.x += Math.cos(this.angle + this.flutterWiggle) * this.speed;
+      this.y += Math.sin(this.angle + this.flutterWiggle) * this.speed;
 
-      // Desaceleração suave
-      if (this.speed > 1.5) {
-        this.speed *= 0.95;
-      }
-
-      // Retorno infinito e contínuo pelas bordas
-      if (this.x < -60) this.x = width + 60;
-      if (this.x > width + 60) this.x = -60;
-      if (this.y < -60) this.y = height + 60;
-      if (this.y > height + 60) this.y = -60;
+      // Bordas
+      if (this.x < -80) this.x = width + 80;
+      if (this.x > width + 80) this.x = -80;
+      if (this.y < -80) this.y = height + 80;
+      if (this.y > height + 80) this.y = -80;
     }
 
-    naturalSteer() {
+    naturalFlutter() {
       this.turnTimer--;
       if (this.turnTimer <= 0) {
-        this.targetAngle += (Math.random() - 0.5) * 1.5;
-        this.turnTimer = Math.floor(Math.random() * 100) + 40;
-        this.speed = Math.random() * 1.1 + 0.8;
+        this.targetAngle += (Math.random() - 0.5) * 1.1;
+        this.turnTimer = Math.floor(Math.random() * 90) + 40;
+        this.speed = Math.random() * 0.35 + 0.75;
       }
 
       let diff = this.targetAngle - this.angle;
       while (diff < -Math.PI) diff += Math.PI * 2;
       while (diff > Math.PI) diff -= Math.PI * 2;
-      this.angle += diff * 0.045;
+      this.angle += diff * 0.035;
     }
 
     draw() {
@@ -548,91 +576,162 @@ function initButterflyCanvas() {
 
       const cos = Math.cos(this.angle);
       const sin = Math.sin(this.angle);
-
-      // Transformação de matriz ultrarrápida (sem criar objetos ou lixo para GC)
       ctx.setTransform(cos, sin, -sin, cos, this.x, this.y);
 
-      // Bater de asas em 3D: a largura aparente oscila com o cosseno
-      const flap = Math.cos(this.wingPhase);
-      const wingScaleX = Math.abs(flap) * 0.88 + 0.12;
+      // Bater de asas em 3D: a largura lateral contrai suavemente em perspectiva
+      const rawFlap = Math.cos(this.wingPhase);
+      const flapScale = Math.abs(rawFlap) * 0.82 + 0.18;
       const s = this.size;
 
-      if (this.isDeep) {
-        // Borboleta do plano profundo: renderização minimalista e translúcida
-        ctx.fillStyle = this.wingColor;
-        ctx.beginPath();
-        // Asa esquerda
-        ctx.ellipse(-s * 0.9 * wingScaleX, -s * 0.6, s * 1.1 * wingScaleX, s * 0.75, -0.4, 0, Math.PI * 2);
-        // Asa direita
-        ctx.ellipse(-s * 0.9 * wingScaleX, s * 0.6, s * 1.1 * wingScaleX, s * 0.75, 0.4, 0, Math.PI * 2);
-        ctx.fill();
+      const { wingBase, wingAccent, wingBorder, bodyColor } = this.palette;
 
-        // Corpo
-        ctx.fillStyle = this.bodyColor;
-        ctx.beginPath();
-        ctx.ellipse(0, 0, s * 0.7, s * 0.25, 0, 0, Math.PI * 2);
-        ctx.fill();
-        return;
-      }
+      ctx.globalAlpha = this.alpha;
 
-      // Borboleta detalhada (meio-campo e primeiro plano)
-      // 1. ASAS ANTERIORES (Forewings)
-      ctx.fillStyle = this.wingColor;
-
-      // Asa anterior esquerda
+      // ==========================================
+      // 1. ANTENAS COM CLAVAS APICAIS (Lepidoptera)
+      // ==========================================
+      ctx.strokeStyle = bodyColor;
+      ctx.lineWidth = Math.max(0.7, s * 0.07);
       ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(-s * 0.6 * wingScaleX, -s * 1.4, -s * 1.8 * wingScaleX, -s * 1.8, -s * 2.2 * wingScaleX, -s * 1.0);
-      ctx.bezierCurveTo(-s * 2.4 * wingScaleX, -s * 0.4, -s * 1.2 * wingScaleX, -s * 0.2, 0, 0);
-      ctx.fill();
-
-      // Asa anterior direita
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.bezierCurveTo(-s * 0.6 * wingScaleX, s * 1.4, -s * 1.8 * wingScaleX, s * 1.8, -s * 2.2 * wingScaleX, s * 1.0);
-      ctx.bezierCurveTo(-s * 2.4 * wingScaleX, s * 0.4, -s * 1.2 * wingScaleX, s * 0.2, 0, 0);
-      ctx.fill();
-
-      // 2. ASAS POSTERIORES (Hindwings)
-      ctx.beginPath();
-      ctx.moveTo(-s * 0.3, 0);
-      ctx.bezierCurveTo(-s * 1.4 * wingScaleX, -s * 0.9, -s * 1.8 * wingScaleX, -s * 0.2, -s * 1.3 * wingScaleX, 0);
-      ctx.bezierCurveTo(-s * 1.8 * wingScaleX, s * 0.2, -s * 1.4 * wingScaleX, s * 0.9, -s * 0.3, 0);
-      ctx.fill();
-
-      // 3. DETALHES DE MANCHAS NAS ASAS (Accent Spots)
-      ctx.fillStyle = this.accentColor;
-      ctx.beginPath();
-      ctx.arc(-s * 1.3 * wingScaleX, -s * 0.9, s * 0.28, 0, Math.PI * 2);
-      ctx.arc(-s * 1.3 * wingScaleX, s * 0.9, s * 0.28, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 4. CORPO (Tórax e Abdômen)
-      ctx.fillStyle = this.bodyColor;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, s * 0.85, s * 0.22, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      // 5. ANTENAS DELICADAS
-      ctx.strokeStyle = this.bodyColor;
-      ctx.lineWidth = 0.8;
-      ctx.beginPath();
-      ctx.moveTo(s * 0.7, -s * 0.08);
-      ctx.quadraticCurveTo(s * 1.2, -s * 0.35, s * 1.4, -s * 0.45);
-      ctx.moveTo(s * 0.7, s * 0.08);
-      ctx.quadraticCurveTo(s * 1.2, s * 0.35, s * 1.4, s * 0.45);
+      ctx.moveTo(s * 0.5, -s * 0.08);
+      ctx.quadraticCurveTo(s * 1.05, -s * 0.35, s * 1.38, -s * 0.52);
+      ctx.moveTo(s * 0.5, s * 0.08);
+      ctx.quadraticCurveTo(s * 1.05, s * 0.35, s * 1.38, s * 0.52);
       ctx.stroke();
 
-      // Clava da antena
+      // Clavas antenais dilatadas
+      ctx.fillStyle = bodyColor;
       ctx.beginPath();
-      ctx.arc(s * 1.4, -s * 0.45, s * 0.1, 0, Math.PI * 2);
-      ctx.arc(s * 1.4, s * 0.45, s * 0.1, 0, Math.PI * 2);
+      ctx.arc(s * 1.4, -s * 0.53, s * 0.11, 0, Math.PI * 2);
+      ctx.arc(s * 1.4, s * 0.53, s * 0.11, 0, Math.PI * 2);
       ctx.fill();
+
+      // ==========================================
+      // 2. ASAS POSTERIORES (Hindwings) - Leque recortado
+      // ==========================================
+      [-1, 1].forEach(side => {
+        ctx.save();
+        const sy = side * flapScale;
+
+        ctx.beginPath();
+        ctx.moveTo(-s * 0.1, sy * s * 0.15);
+        ctx.bezierCurveTo(-s * 0.2, sy * s * 0.85, -s * 0.65, sy * s * 1.35, -s * 1.1, sy * s * 1.25);
+        ctx.bezierCurveTo(-s * 1.45, sy * s * 0.95, -s * 1.35, sy * s * 0.45, -s * 0.95, sy * s * 0.1);
+        ctx.closePath();
+
+        ctx.fillStyle = wingBase;
+        ctx.fill();
+
+        // Borda aveludada escura
+        ctx.strokeStyle = wingBorder;
+        ctx.lineWidth = Math.max(0.6, s * 0.1);
+        ctx.stroke();
+
+        // Mancha ocelar / detalhe de espécie
+        ctx.fillStyle = wingAccent;
+        ctx.beginPath();
+        ctx.ellipse(-s * 0.75, sy * s * 0.72, s * 0.24, s * 0.18, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      });
+
+      // ==========================================
+      // 3. ASAS ANTERIORES (Forewings) - Amplas e aerodinâmicas
+      // ==========================================
+      [-1, 1].forEach(side => {
+        ctx.save();
+        const sy = side * flapScale;
+
+        ctx.beginPath();
+        ctx.moveTo(s * 0.2, sy * s * 0.15);
+        // Borda costal arqueada até o ápice
+        ctx.bezierCurveTo(s * 0.5, sy * s * 0.85, s * 0.92, sy * s * 1.6, s * 0.88, sy * s * 2.15);
+        // Margem externa até o ângulo anal (tornus)
+        ctx.bezierCurveTo(s * 0.45, sy * s * 2.2, -s * 0.22, sy * s * 1.75, -s * 0.38, sy * s * 1.15);
+        // Margem interna retornando ao tórax
+        ctx.bezierCurveTo(-s * 0.25, sy * s * 0.5, -s * 0.05, sy * s * 0.2, s * 0.2, sy * s * 0.15);
+        ctx.closePath();
+
+        ctx.fillStyle = wingBase;
+        ctx.fill();
+
+        // Faixa discal / Mancha de espécie
+        ctx.fillStyle = wingAccent;
+        ctx.beginPath();
+        ctx.ellipse(s * 0.35, sy * s * 1.18, s * 0.35, s * 0.55 * Math.abs(rawFlap), side * 0.4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Borda externa aveludada
+        ctx.strokeStyle = wingBorder;
+        ctx.lineWidth = Math.max(0.8, s * 0.12);
+        ctx.stroke();
+
+        // Nervuras delicadas da asa (Veins)
+        ctx.strokeStyle = wingBorder;
+        ctx.lineWidth = Math.max(0.4, s * 0.05);
+        ctx.beginPath();
+        ctx.moveTo(s * 0.2, sy * s * 0.15);
+        ctx.lineTo(s * 0.68, sy * s * 1.85);
+        ctx.moveTo(s * 0.2, sy * s * 0.15);
+        ctx.lineTo(s * 0.22, sy * s * 1.8);
+        ctx.moveTo(s * 0.2, sy * s * 0.15);
+        ctx.lineTo(-s * 0.15, sy * s * 1.3);
+        ctx.stroke();
+
+        // Pontos marginais brancos característicos
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(s * 0.75, sy * s * 2.0, s * 0.065, 0, Math.PI * 2);
+        ctx.arc(s * 0.52, sy * s * 1.95, s * 0.065, 0, Math.PI * 2);
+        ctx.arc(s * 0.25, sy * s * 1.82, s * 0.065, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.restore();
+      });
+
+      // ==========================================
+      // 4. CORPO ANATÔMICO (Cabeça, Tórax e Abdômen)
+      // ==========================================
+      // Tórax
+      ctx.fillStyle = bodyColor;
+      ctx.beginPath();
+      ctx.ellipse(s * 0.1, 0, s * 0.32, s * 0.16, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Cabeça com olhos compostos
+      ctx.beginPath();
+      ctx.arc(s * 0.46, 0, s * 0.15, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#080C09';
+      ctx.beginPath();
+      ctx.arc(s * 0.48, -s * 0.1, s * 0.07, 0, Math.PI * 2);
+      ctx.arc(s * 0.48, s * 0.1, s * 0.07, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Abdômen segmentado e afilado
+      ctx.fillStyle = bodyColor;
+      ctx.beginPath();
+      ctx.ellipse(-s * 0.48, 0, s * 0.52, s * 0.13, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Linhas finas de segmentação
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+      ctx.lineWidth = 0.5;
+      for (let seg = -s * 0.25; seg > -s * 0.8; seg -= s * 0.14) {
+        ctx.beginPath();
+        ctx.moveTo(seg, -s * 0.11);
+        ctx.lineTo(seg, s * 0.11);
+        ctx.stroke();
+      }
+
+      ctx.globalAlpha = 1.0;
     }
   }
 
-  // População rica em 3 camadas de profundidade
-  const butterflyCount = width > 1024 ? 150 : (width > 600 ? 100 : 65);
+  // População harmoniosa e desimpedida (SEM superlotação)
+  const butterflyCount = width > 1024 ? 32 : (width > 600 ? 22 : 14);
   for (let i = 0; i < butterflyCount; i++) {
     butterflies.push(new Butterfly(true));
   }
@@ -644,16 +743,16 @@ function initButterflyCanvas() {
     ctx.resetTransform();
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Ondas de choque da água/ar (shockwaves)
+    // 1. Ondas sutis de choque
     for (let i = shockwaves.length - 1; i >= 0; i--) {
       const sw = shockwaves[i];
       sw.radius += sw.speed;
-      sw.alpha *= 0.93;
+      sw.alpha *= 0.94;
 
       ctx.beginPath();
       ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(28, 89, 51, ${sw.alpha * 0.55})`;
-      ctx.lineWidth = 1.4;
+      ctx.strokeStyle = `rgba(28, 89, 51, ${sw.alpha * 0.45})`;
+      ctx.lineWidth = 1.2;
       ctx.stroke();
 
       if (sw.radius >= sw.maxRadius || sw.alpha <= 0.02) {
@@ -661,7 +760,7 @@ function initButterflyCanvas() {
       }
     }
 
-    // 2. Partículas de pólen e pétalas flutuantes
+    // 2. Névoa de pólen floral
     for (let i = pollens.length - 1; i >= 0; i--) {
       pollens[i].update();
       pollens[i].draw();
@@ -670,9 +769,9 @@ function initButterflyCanvas() {
       }
     }
 
-    // 3. Borboletas em voo livre no fundo
+    // 3. Borboletas em voo biológico real no fundo
     for (let i = 0; i < butterflies.length; i++) {
-      butterflies[i].update();
+      butterflies[i].update(butterflies);
       butterflies[i].draw();
     }
 
