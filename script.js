@@ -1,10 +1,10 @@
 /**
- * MICHELI MAC INTIR // PORTFÓLIO & BIOKURI AMBIENTAL
+ * BIOKURI // MICHELI MAC INTIR (SUPERVISÃO AMBIENTAL & CIÊNCIA)
+ * Identidade Oficial da Empresa BioKuri
  * Scripts de Interatividade Científica, Bio-Canvas, Áudio Orgânico & Animações
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  initThemeSystem();
   initAudioSystem();
   initBioCanvas();
   initConsoleTyping();
@@ -15,39 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ==========================================================================
-   1. TEMA CLARO / ESCURO (DARK / LIGHT MODE COM STORAGE)
-   ========================================================================== */
-function initThemeSystem() {
-  const themeToggle = document.getElementById('themeToggle');
-  const html = document.documentElement;
-  if (!themeToggle) return;
-
-  const savedTheme = localStorage.getItem('micheli_theme') || 'dark';
-  applyTheme(savedTheme);
-
-  themeToggle.addEventListener('click', () => {
-    const current = html.getAttribute('data-theme') || 'dark';
-    const next = current === 'dark' ? 'light' : 'dark';
-    applyTheme(next);
-    playAcousticChirp(next === 'dark' ? 380 : 560);
-  });
-
-  function applyTheme(theme) {
-    html.setAttribute('data-theme', theme);
-    localStorage.setItem('micheli_theme', theme);
-    const icon = themeToggle.querySelector('i');
-    if (icon) {
-      if (theme === 'dark') {
-        icon.className = 'fa-solid fa-moon';
-      } else {
-        icon.className = 'fa-solid fa-sun';
-      }
-    }
-  }
-}
-
-/* ==========================================================================
-   2. SISTEMA DE ÁUDIO ORGÂNICO (SINTETIZADOR WEB AUDIO API)
+   1. SISTEMA DE ÁUDIO ORGÂNICO (SINTETIZADOR WEB AUDIO API)
    Vocalizações suaves de aves da mata & bipes acústicos de campo
    ========================================================================== */
 let audioCtx = null;
@@ -141,12 +109,8 @@ function playDewDrop(freq = 1200) {
   } catch (e) {}
 }
 
-function playAcousticChirp(freq = 440) {
-  playDewDrop(freq);
-}
-
 /* ==========================================================================
-   3. BIO-CANVAS INTERATIVO: VAGA-LUMES & ESPOROS DO DOSSEL DA FLORESTA
+   2. BIO-CANVAS INTERATIVO: VAGA-LUMES & ESPOROS DO DOSSEL DA FLORESTA
    Partículas bioluminescentes esmeralda/douradas com ondulação natural
    Reage com dispersão orgânica ao cursor do mouse e ao toque
    ========================================================================== */
@@ -214,7 +178,7 @@ function initBioCanvas() {
     }, { passive: true });
   }
 
-  // Interação sutil no body inteiro (cursor como atrator de luz suave)
+  // Interação no body inteiro (cursor como atrator de luz suave)
   window.addEventListener('pointermove', (e) => {
     if (!mouseInZone) {
       mouseX = e.clientX;
@@ -238,7 +202,7 @@ function initBioCanvas() {
       this.speed = Math.random() * 0.7 + 0.4;
       this.radius = Math.random() * 2.2 + 1.2;
 
-      // Cores: 70% verde esmeralda floresta, 30% âmbar dourado / botânico
+      // Cores BioKuri: 70% verde esmeralda floresta, 30% âmbar dourado / botânico
       this.isGold = Math.random() < 0.3;
       this.baseAlpha = Math.random() * 0.4 + 0.3;
       this.pulseSpeed = Math.random() * 0.04 + 0.02;
@@ -374,7 +338,7 @@ function initBioCanvas() {
 }
 
 /* ==========================================================================
-   4. CONSOLE DE CAMPO CIENTÍFICO (TYPING SEQUENCE)
+   3. CONSOLE DE CAMPO CIENTÍFICO (TYPING SEQUENCE)
    ========================================================================== */
 function initConsoleTyping() {
   const output = document.getElementById('terminal-output');
@@ -385,7 +349,7 @@ function initConsoleTyping() {
     '> OPERAÇÃO ATIVA: Rodovias Federais BR-153 & BR-369 · Caruso / BioKuri',
     '> FRENTES: Liderança de 9 Especialistas & 5 Viaturas · Supressão · Não Conformidades',
     '> LABORATÓRIO BIOKURI: Diagnósticos de Fauna, Ornitologia Costeira & Data Science USP',
-    '> STATUS: Resolução rápida de condicionantes e conservação na prática operacional.'
+    '> STATUS: Resolução rápida de condicionantes e conformidade na prática operacional.'
   ];
 
   let lineIdx = 0;
@@ -395,7 +359,6 @@ function initConsoleTyping() {
 
   function typeChar() {
     if (lineIdx >= messages.length) {
-      // Loop elegante ou encerra com cursor piscante
       const cursor = document.createElement('span');
       cursor.className = 'terminal-cursor';
       output.appendChild(cursor);
@@ -426,15 +389,15 @@ function initConsoleTyping() {
 }
 
 /* ==========================================================================
-   5. NOME INTERATIVO COM MICRO-ANIMAÇÃO & SOM SUTIL
+   4. NOME INTERATIVO COM MICRO-ANIMAÇÃO & SOM SUTIL
    ========================================================================== */
 function initInteractiveName() {
   const chars = document.querySelectorAll('.hop-char');
   chars.forEach((char, index) => {
     char.addEventListener('mouseenter', () => {
-      char.style.transform = 'translateY(-10px) scale(1.22)';
+      char.style.transform = 'translateY(-8px) scale(1.18)';
       char.style.color = 'var(--bio-gold)';
-      playDewDrop(900 + index * 80);
+      playDewDrop(900 + index * 75);
     });
 
     char.addEventListener('mouseleave', () => {
@@ -445,7 +408,7 @@ function initInteractiveName() {
 }
 
 /* ==========================================================================
-   6. CONTADORES DE IMPACTO MÉTRICO ANIMADOS
+   5. CONTADORES DE IMPACTO MÉTRICO ANIMADOS
    ========================================================================== */
 function initMetricsCounter() {
   const metricItems = document.querySelectorAll('.metric-number');
@@ -489,7 +452,7 @@ function initMetricsCounter() {
 }
 
 /* ==========================================================================
-   7. SCROLL REVEAL (FADE-IN ELEGANTE)
+   6. SCROLL REVEAL (FADE-IN ELEGANTE)
    ========================================================================== */
 function initScrollReveal() {
   const elements = document.querySelectorAll('.fade-in');
@@ -508,7 +471,7 @@ function initScrollReveal() {
 }
 
 /* ==========================================================================
-   8. LIGHTBOX MODAL PARA REGISTROS DE CAMPO
+   7. LIGHTBOX MODAL PARA REGISTROS DE CAMPO
    ========================================================================== */
 function initLightbox() {
   window.openLightbox = function(src, caption) {
@@ -538,4 +501,4 @@ function initLightbox() {
   });
 }
 
-console.log('🌿 Estação Micheli Mac Intir // BioKuri carregada com sucesso.');
+console.log('🌿 Estação BioKuri // Micheli Mac Intir carregada com sucesso.');
