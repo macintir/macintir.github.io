@@ -585,9 +585,10 @@ function initButterflyCanvas() {
       this.targetAngle = this.angle;
       this.turnRate = 0.02 + Math.random() * 0.02;
 
-      // Opacidades suaves para nunca atrapalhar a leitura de textos
+      // Opacidade viva para aparecerem nítidas no espaço livre e no santuário
+      // O desfoque dos cards (backdrop-filter: blur(16px)) cuidará de embaçá-las ao passarem por trás!
       this.isDeep = Math.random() > 0.6;
-      this.alpha = this.isDeep ? (0.10 + Math.random() * 0.08) : (0.16 + Math.random() * 0.12);
+      this.alpha = this.isDeep ? (0.45 + Math.random() * 0.15) : (0.75 + Math.random() * 0.20);
 
       this.wingPhase = Math.random() * Math.PI * 2;
       this.wingSpeed = 0.14 + Math.random() * 0.08;
@@ -818,7 +819,7 @@ function initButterflyCanvas() {
   }
 
   // População serena de borboletas (quantidade equilibrada)
-  const count = Math.max(14, Math.min(22, Math.floor(width / 75)));
+  const count = Math.max(18, Math.min(28, Math.floor(width / 60)));
   const butterflies = Array.from({ length: count }, () => new Butterfly());
 
   function animate() {

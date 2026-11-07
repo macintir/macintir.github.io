@@ -91,16 +91,22 @@ img {
   display: block;
 }
 
-/* Fundo Interativo em Canvas (Borboletas em Voo Livre Suave no Fundo, similar aos girinos do Lucas) */
+/* Fundo Interativo em Canvas (Borboletas em Voo Livre no Fundo, similar aos girinos do Lucas) */
 .bio-canvas {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
-  opacity: 0.50;
+  opacity: 1;
+}
+
+.page-content {
+  position: relative;
+  z-index: 1;
+  background: transparent;
 }
 
 /* Layout Container */
@@ -391,30 +397,115 @@ img {
    BUTTERFLY SANCTUARY OBSERVATION ZONE (Espaço Interativo no Fundo)
    Similar à Lagoa dos Girinos de Lucas Aøsf, adaptado para BioKuri Creme & Borboletas
    ========================================================================== */
+/* ==========================================================================
+   GLASSMORPHISM PANEL STANDARD (BioKuri Creme & Verde)
+   Efeito idêntico ao portfólio de Lucas Aøsf:
+   As borboletas aparecem nítidas no espaço livre e no santuário,
+   mas ao passarem em movimento por trás dos cards de informação,
+   ficam suavemente embaçadas (desfocadas a 16px) sem interferir na leitura!
+   ========================================================================== */
+.glass-panel,
+.hero-bio-col,
+.visual-card-frame,
+.metrics-card,
+.about-narrative,
+.road-dashboard-card,
+.biokuri-editorial-card,
+.paper-card,
+.exp-card,
+.competency-card,
+.gallery-card,
+.edu-card,
+.contact-card-box {
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(28, 89, 51, 0.16) !important;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 32px rgba(28, 89, 51, 0.05) !important;
+  position: relative;
+  z-index: 2;
+  transition: var(--transition);
+}
+
+.glass-panel::before,
+.hero-bio-col::before,
+.road-dashboard-card::before,
+.biokuri-editorial-card::before,
+.contact-card-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(28, 89, 51, 0.35), transparent);
+  pointer-events: none;
+}
+
+.glass-panel:hover,
+.hero-bio-col:hover,
+.paper-card:hover,
+.exp-card:hover,
+.competency-card:hover,
+.gallery-card:hover,
+.edu-card:hover {
+  border-color: rgba(28, 89, 51, 0.38) !important;
+  box-shadow: 0 14px 40px rgba(28, 89, 51, 0.09) !important;
+}
+
+/* Sub-cards aninhados (fundo creme acetinado translúcido com desfoque) */
+.glass-subcard,
+.feature-card,
+.road-pillar-card,
+.partnership-card,
+.channel-box {
+  background: rgba(245, 239, 230, 0.70) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(28, 89, 51, 0.12) !important;
+  border-radius: var(--radius-md);
+  transition: var(--transition);
+}
+
+.glass-subcard:hover,
+.feature-card:hover,
+.road-pillar-card:hover,
+.partnership-card:hover,
+.channel-box:hover {
+  background: rgba(245, 239, 230, 0.90) !important;
+  border-color: var(--primary) !important;
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   BUTTERFLY SANCTUARY OBSERVATION ZONE (Espaço Interativo no Fundo)
+   Similar à Lagoa dos Girinos de Lucas Aøsf: borboletas nítidas e livres na janela
+   ========================================================================== */
 .butterfly-sanctuary-zone {
   position: relative;
   width: 100%;
   max-width: 1200px;
-  margin: 28px auto;
-  min-height: 180px;
+  margin: 1.5rem auto 2rem;
+  min-height: 190px;
   padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(28, 89, 51, 0.03) 0%, rgba(28, 89, 51, 0.08) 50%, rgba(28, 89, 51, 0.03) 100%);
-  border: 1px dashed rgba(28, 89, 51, 0.3);
+  background: linear-gradient(180deg, rgba(28, 89, 51, 0.04) 0%, rgba(28, 89, 51, 0.09) 50%, rgba(28, 89, 51, 0.04) 100%);
+  border: 1px dashed rgba(28, 89, 51, 0.35);
   border-radius: var(--radius-lg);
   cursor: crosshair;
   overflow: hidden;
   transition: var(--transition);
   user-select: none;
-  backdrop-filter: blur(2px);
+  z-index: 2;
 }
 
 .butterfly-sanctuary-zone:hover {
   border-color: var(--primary);
-  background: linear-gradient(180deg, rgba(28, 89, 51, 0.06) 0%, rgba(28, 89, 51, 0.12) 50%, rgba(28, 89, 51, 0.06) 100%);
+  background: linear-gradient(180deg, rgba(28, 89, 51, 0.06) 0%, rgba(28, 89, 51, 0.14) 50%, rgba(28, 89, 51, 0.06) 100%);
   box-shadow: 0 8px 30px rgba(28, 89, 51, 0.08);
 }
 

@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
 
   <!-- Folha de Estilos Principal -->
-  <link rel="stylesheet" href="style.css?v=4.2">
+  <link rel="stylesheet" href="style.css?v=4.3">
 </head>
 <body class="theme-biokuri">
 
@@ -68,12 +68,29 @@
   <!-- Main Content Wrapper -->
   <main class="page-content" id="inicio">
 
+    <!-- Interactive Butterfly Observation Sanctuary (Janela de Observação e Interação no Topo) -->
+    <div class="container">
+      <div id="butterfly-sanctuary-zone" class="butterfly-sanctuary-zone" title="Borboletário da Biodiversidade">
+        <div class="sanctuary-line top"></div>
+        <div class="sanctuary-content">
+          <span class="sanctuary-badge">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="sanctuary_tag">Borboletário da Biodiversidade</span>
+          </span>
+          <p class="sanctuary-instructions">
+            <span class="desktop-only" data-i18n="sanctuary_inst_desktop"><i class="fa-solid fa-arrow-pointer"></i> Passe o mouse para atrair as borboletas &bull; <i class="fa-solid fa-hand-pointer"></i> Clique para dispersar em suave névoa floral</span>
+            <span class="mobile-only" data-i18n="sanctuary_inst_mobile"><i class="fa-solid fa-hand-pointer"></i> Toque para dispersar as borboletas em névoa floral</span>
+          </p>
+        </div>
+        <div class="sanctuary-line bottom"></div>
+      </div>
+    </div>
+
     <!-- Hero Section Editorial & Exclusivo -->
     <section class="hero-section">
       <div class="container hero-grid">
         
-        <!-- Hero Text & Identification com Card de Proteção de Contraste -->
-        <div class="hero-bio-col">
+        <!-- Hero Text & Identification (Painel Glassmórfico Fosco / Embaçado) -->
+        <div class="hero-bio-col glass-panel">
           <div class="hero-status-pill">
             <span class="status-pulse"></span>
             <span data-i18n="hero_status">Supervisora Ambiental @ Caruso &bull; Sócia Co-fundadora @ BioKuri</span>
@@ -136,7 +153,7 @@
 
         <!-- Hero Visual Card & Real Moments -->
         <div class="hero-visual-col">
-          <div class="visual-card-frame">
+          <div class="visual-card-frame glass-panel">
             <img src="assets/hero-field.jpg" alt="Micheli Mac Intir em monitoramento costeiro com câmera" class="visual-main-img">
             <div class="visual-img-caption">
               <span class="caption-tag"><i class="fa-solid fa-camera"></i> <span data-i18n="hero_caption_tag">Registros em Campo</span></span>
@@ -165,10 +182,10 @@
       </div>
     </section>
 
-    <!-- Metrics Impact Strip -->
+    <!-- Metrics Impact Strip (Painel Glassmórfico Fosco) -->
     <section class="metrics-section">
       <div class="container">
-        <div class="metrics-card">
+        <div class="metrics-card glass-panel">
           <div class="metric-block">
             <span class="metric-val" data-target="10">10+</span>
             <span class="metric-desc" data-i18n="metric_1_label">Anos dedicados à Biologia, Fauna &amp; Ecologia</span>
@@ -193,21 +210,6 @@
       </div>
     </section>
 
-    <!-- Interactive Butterfly Observation Sanctuary (Borboletário da Mata Atlântica) -->
-    <div id="butterfly-sanctuary-zone" class="butterfly-sanctuary-zone" title="Borboletário da Biodiversidade">
-      <div class="sanctuary-line top"></div>
-      <div class="sanctuary-content">
-        <span class="sanctuary-badge">
-          <i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="sanctuary_tag">Borboletário da Biodiversidade</span>
-        </span>
-        <p class="sanctuary-instructions">
-          <span class="desktop-only" data-i18n="sanctuary_inst_desktop"><i class="fa-solid fa-arrow-pointer"></i> Passe o mouse para atrair as borboletas &bull; <i class="fa-solid fa-hand-pointer"></i> Clique para dispersar em suave névoa floral</span>
-          <span class="mobile-only" data-i18n="sanctuary_inst_mobile"><i class="fa-solid fa-hand-pointer"></i> Toque para dispersar as borboletas em névoa floral</span>
-        </p>
-      </div>
-      <div class="sanctuary-line bottom"></div>
-    </div>
-
     <!-- Sobre Mim: Filosofia e Bagagem Prática -->
     <section class="section about-section" id="sobre">
       <div class="container">
@@ -229,7 +231,7 @@
             </div>
           </div>
 
-          <div class="about-narrative">
+          <div class="about-narrative glass-panel">
             <blockquote class="about-quote" data-i18n="about_quote">
               "Não acredito em biologia de gabinete. Conservação de verdade se faz entendendo o chão da obra, o comportamento dos animais e o coração das pessoas envolvidas."
             </blockquote>
@@ -247,7 +249,7 @@
             </p>
 
             <div class="about-cards-row">
-              <div class="feature-card">
+              <div class="feature-card glass-subcard">
                 <i class="fa-solid fa-helmet-safety"></i>
                 <div>
                   <h4 data-i18n="about_card1_title">Gestão &amp; Liderança Prática</h4>
@@ -255,7 +257,7 @@
                 </div>
               </div>
 
-              <div class="feature-card">
+              <div class="feature-card glass-subcard">
                 <i class="fa-solid fa-chart-pie"></i>
                 <div>
                   <h4 data-i18n="about_card2_title">Data Science Aplicada</h4>
@@ -280,7 +282,7 @@
           </p>
         </div>
 
-        <div class="road-dashboard-card">
+        <div class="road-dashboard-card glass-panel">
           <div class="dashboard-header">
             <div class="dash-status">
               <span class="pulse-indicator"></span>
@@ -290,25 +292,25 @@
           </div>
 
           <div class="road-grid-cards">
-            <div class="road-pillar-card">
+            <div class="road-pillar-card glass-subcard">
               <div class="pillar-icon"><i class="fa-solid fa-helmet-safety"></i></div>
               <h3 data-i18n="road_c1_title">Gestão de Frentes &amp; Engenharia</h3>
               <p data-i18n="road_c1_text">Coordenação técnica ambiental contínua nas frentes de obra, planejamento integrado com a engenharia de produção, vistorias operacionais diárias e mediação proativa para prevenção de paralisações e passivos socioambientais.</p>
             </div>
 
-            <div class="road-pillar-card">
+            <div class="road-pillar-card glass-subcard">
               <div class="pillar-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
               <h3 data-i18n="road_c2_title">Não Conformidades (NC)</h3>
               <p data-i18n="road_c2_text">Realização de inspeções ambientais sistemáticas para identificar, registrar e tratar inconformidades em sistema informatizado, garantindo plano de ação corretivo imediato até a baixa pelo órgão ambiental.</p>
             </div>
 
-            <div class="road-pillar-card">
+            <div class="road-pillar-card glass-subcard">
               <div class="pillar-icon"><i class="fa-solid fa-file-shield"></i></div>
               <h3 data-i18n="road_c3_title">Licenças, Outorgas &amp; Terceiros</h3>
               <p data-i18n="road_c3_text">Controle estrito de condicionantes (LP, LI, LO), outorgas de captação/lançamento de recursos hídricos e auditoria de terceiros: banheiros químicos, bota-fora autorizado e controle de poeira (umectação com pipa).</p>
             </div>
 
-            <div class="road-pillar-card">
+            <div class="road-pillar-card glass-subcard">
               <div class="pillar-icon"><i class="fa-solid fa-paw"></i></div>
               <h3 data-i18n="road_c4_title">Fauna Silvestre &amp; Germoplasma</h3>
               <p data-i18n="road_c4_text">Acompanhamento de supressão vegetal autorizada, coordenação de resgate e afugentamento de animais silvestres e coleta de sementes, epífitas e propágulos de flora nativa para mitigação de impactos.</p>
@@ -325,7 +327,7 @@
     <!-- BioKuri Company Spotlight -->
     <section class="section biokuri-section" id="biokuri">
       <div class="container">
-        <div class="biokuri-editorial-card">
+        <div class="biokuri-editorial-card glass-panel">
           <div class="biokuri-brand-header">
             <div class="brand-badge-box">
               <img src="assets/logo-verde.png" alt="BioKuri Logotipo" class="biokuri-logo-large">
@@ -365,7 +367,7 @@
             </div>
 
             <div class="biokuri-right-partners">
-              <div class="partnership-card">
+              <div class="partnership-card glass-subcard">
                 <div class="partnership-top">
                   <i class="fa-solid fa-handshake"></i>
                   <div>
@@ -408,7 +410,7 @@
         <div class="science-grid">
           
           <!-- Card de Destaque: Artigo Internacional do Melanophryniscus moreirae com a FOTO CORRETA DA ESPÉCIE (Vistas Dorsal e Ventral) -->
-          <article class="paper-card featured-paper">
+          <article class="paper-card featured-paper glass-panel">
             <div class="paper-badges-bar">
               <span class="paper-badge intl"><i class="fa-solid fa-star"></i> <span data-i18n="paper1_badge_intl">Periódico Internacional (2026)</span></span>
               <span class="paper-badge accepted" data-i18n="paper1_badge_status">Aceito para Publicação</span>
@@ -437,7 +439,7 @@
           </article>
 
           <!-- Card 2: COP 30 -->
-          <article class="paper-card">
+          <article class="paper-card glass-panel">
             <div class="paper-badges-bar">
               <span class="paper-badge cop"><i class="fa-solid fa-earth-americas"></i> <span data-i18n="paper2_badge_cop">COP 30 (2025)</span></span>
               <span class="paper-badge accepted" data-i18n="paper2_badge_status">Conferência ONU</span>
@@ -453,7 +455,7 @@
           </article>
 
           <!-- Card 3: Fomento BASF -->
-          <article class="paper-card">
+          <article class="paper-card glass-panel">
             <div class="paper-badges-bar">
               <span class="paper-badge basf"><i class="fa-solid fa-dove"></i> <span data-i18n="paper3_badge_basf">Fomento BASF</span></span>
               <span class="paper-badge accepted" data-i18n="paper3_badge_status">2023 — 2025</span>
@@ -469,7 +471,7 @@
           </article>
 
           <!-- Card 4: Serra da Bocaina -->
-          <article class="paper-card">
+          <article class="paper-card glass-panel">
             <div class="paper-badges-bar">
               <span class="paper-badge bocaina"><i class="fa-solid fa-mountain"></i> <span data-i18n="paper4_badge_bocaina">Em Andamento</span></span>
               <span class="paper-badge accepted" data-i18n="paper4_badge_status">2025 — Atual</span>
@@ -503,7 +505,7 @@
           <!-- Caruso BR-153 / BR-369 -->
           <div class="exp-timeline-item current">
             <div class="exp-dot"><i class="fa-solid fa-hard-hat"></i></div>
-            <div class="exp-card">
+            <div class="exp-card glass-panel">
               <div class="exp-meta">
                 <span class="period-pill active" data-i18n="exp1_status">2026 — Atual &bull; Em Andamento</span>
                 <span class="loc-pill"><i class="fa-solid fa-location-dot"></i> Jacarezinho / PR</span>
@@ -525,7 +527,7 @@
           <!-- BioKuri -->
           <div class="exp-timeline-item current">
             <div class="exp-dot"><i class="fa-solid fa-seedling"></i></div>
-            <div class="exp-card">
+            <div class="exp-card glass-panel">
               <div class="exp-meta">
                 <span class="period-pill active" data-i18n="exp2_status">2024 — Atual</span>
                 <span class="loc-pill"><i class="fa-solid fa-globe"></i> Atuação Multirregional</span>
@@ -546,7 +548,7 @@
           <!-- Consultoria Especialista -->
           <div class="exp-timeline-item">
             <div class="exp-dot"><i class="fa-solid fa-tree"></i></div>
-            <div class="exp-card">
+            <div class="exp-card glass-panel">
               <div class="exp-meta">
                 <span class="period-pill" data-i18n="exp3_status">2023 — 2026</span>
                 <span class="loc-pill"><i class="fa-solid fa-map"></i> MS, SP, PB, GO, SC</span>
@@ -567,7 +569,7 @@
           <!-- IMBio & Instrução Militar -->
           <div class="exp-timeline-item">
             <div class="exp-dot"><i class="fa-solid fa-shield-virus"></i></div>
-            <div class="exp-card">
+            <div class="exp-card glass-panel">
               <div class="exp-meta">
                 <span class="period-pill" data-i18n="exp4_status">2016 — Atual</span>
                 <span class="loc-pill"><i class="fa-solid fa-mountain"></i> Vale do Paraíba &amp; Serra da Bocaina</span>
@@ -598,7 +600,7 @@
         </div>
 
         <div class="competencies-grid">
-          <div class="competency-card">
+          <div class="competency-card glass-panel">
             <div class="comp-icon"><i class="fa-solid fa-helmet-safety"></i></div>
             <h3 data-i18n="comp1_title">Supervisão &amp; Gestão de Obras</h3>
             <ul class="comp-list">
@@ -610,7 +612,7 @@
             </ul>
           </div>
 
-          <div class="competency-card">
+          <div class="competency-card glass-panel">
             <div class="comp-icon"><i class="fa-solid fa-dove"></i></div>
             <h3 data-i18n="comp2_title">Fauna, Flora &amp; Biodiversidade</h3>
             <ul class="comp-list">
@@ -622,7 +624,7 @@
             </ul>
           </div>
 
-          <div class="competency-card">
+          <div class="competency-card glass-panel">
             <div class="comp-icon"><i class="fa-brands fa-python"></i></div>
             <h3 data-i18n="comp3_title">Data Science &amp; Análise Ecológica</h3>
             <ul class="comp-list">
@@ -634,7 +636,7 @@
             </ul>
           </div>
 
-          <div class="competency-card">
+          <div class="competency-card glass-panel">
             <div class="comp-icon"><i class="fa-solid fa-shield-halved"></i></div>
             <h3 data-i18n="comp4_title">Liderança, Treinamentos &amp; DDS</h3>
             <ul class="comp-list">
@@ -662,7 +664,7 @@
         </div>
 
         <div class="gallery-grid">
-          <div class="gallery-card" onclick="openLightbox('assets/hero-field.jpg', 'Monitoramento costeiro com teleobjetiva Canon e tripé em água rasa (Porto de São Sebastião/SP)')">
+          <div class="gallery-card glass-panel" onclick="openLightbox('assets/hero-field.jpg', 'Monitoramento costeiro com teleobjetiva Canon e tripé em água rasa (Porto de São Sebastião/SP)')">
             <div class="gallery-thumb-box">
               <img src="assets/hero-field.jpg" alt="Micheli em monitoramento costeiro com câmera" loading="lazy">
               <div class="gallery-overlay">
@@ -676,7 +678,7 @@
             </div>
           </div>
 
-          <div class="gallery-card" onclick="openLightbox('assets/caiaque-ilhabela.jpg', 'Expedição com caiaque oceânico em Ilhabela / São Sebastião para pontos amostrais em ilhas costeiras')">
+          <div class="gallery-card glass-panel" onclick="openLightbox('assets/caiaque-ilhabela.jpg', 'Expedição com caiaque oceânico em Ilhabela / São Sebastião para pontos amostrais em ilhas costeiras')">
             <div class="gallery-thumb-box">
               <img src="assets/caiaque-ilhabela.jpg" alt="Micheli com caiaque oceânico em Ilhabela" loading="lazy">
               <div class="gallery-overlay">
@@ -690,7 +692,7 @@
             </div>
           </div>
 
-          <div class="gallery-card" onclick="openLightbox('assets/trilha-mata.jpg', 'Trilha de campo e amostragem de fauna na Mata Atlântica com equipe e equipamentos')">
+          <div class="gallery-card glass-panel" onclick="openLightbox('assets/trilha-mata.jpg', 'Trilha de campo e amostragem de fauna na Mata Atlântica com equipe e equipamentos')">
             <div class="gallery-thumb-box">
               <img src="assets/trilha-mata.jpg" alt="Micheli em expedição na mata fechada" loading="lazy">
               <div class="gallery-overlay">
@@ -704,7 +706,7 @@
             </div>
           </div>
 
-          <div class="gallery-card" onclick="openLightbox('assets/melanophryniscus-moreirae.jpg', 'Fotografia científica de Melanophryniscus moreirae (sapinho-flamenguinho de altitude) para o artigo internacional aceito')">
+          <div class="gallery-card glass-panel" onclick="openLightbox('assets/melanophryniscus-moreirae.jpg', 'Fotografia científica de Melanophryniscus moreirae (sapinho-flamenguinho de altitude) para o artigo internacional aceito')">
             <div class="gallery-thumb-box">
               <img src="assets/melanophryniscus-moreirae.jpg" alt="Fotografia de Melanophryniscus moreirae estudado" loading="lazy">
               <div class="gallery-overlay">
@@ -718,7 +720,7 @@
             </div>
           </div>
 
-          <div class="gallery-card" onclick="openLightbox('assets/campo-inspecao-bocaina.jpg', 'Expedição de campo e amostragem de fauna na Serra da Bocaina (Pico do Tira-Chapéu)')">
+          <div class="gallery-card glass-panel" onclick="openLightbox('assets/campo-inspecao-bocaina.jpg', 'Expedição de campo e amostragem de fauna na Serra da Bocaina (Pico do Tira-Chapéu)')">
             <div class="gallery-thumb-box">
               <img src="assets/campo-inspecao-bocaina.jpg" alt="Micheli em expedição de campo no Pico do Tira-Chapéu" loading="lazy">
               <div class="gallery-overlay">
@@ -734,7 +736,7 @@
         </div>
 
         <!-- Instagram Strip -->
-        <div class="instagram-banner">
+        <div class="instagram-banner glass-panel">
           <div class="insta-info-side">
             <div class="insta-icon-circle"><i class="fa-brands fa-instagram"></i></div>
             <div>
@@ -759,21 +761,21 @@
         </div>
 
         <div class="education-grid">
-          <div class="edu-card featured-edu">
+          <div class="edu-card featured-edu glass-panel">
             <div class="edu-year-tag"><i class="fa-solid fa-brain"></i> <span data-i18n="edu1_year">2024 — Presente</span></div>
             <h3 data-i18n="edu1_title">MBA em Data Science e Analytics</h3>
             <h4 data-i18n="edu1_school">Universidade de São Paulo (USP / ESALQ)</h4>
             <p data-i18n="edu1_desc">Especialização focada em modelagem preditiva, algoritmos aplicados a ciências biológicas, visualização de dados e governança ESG.</p>
           </div>
 
-          <div class="edu-card">
+          <div class="edu-card glass-panel">
             <div class="edu-year-tag"><i class="fa-solid fa-book"></i> <span data-i18n="edu2_year">2016 — 2019</span></div>
             <h3 data-i18n="edu2_title">Licenciatura em Ciências Biológicas</h3>
             <h4 data-i18n="edu2_school">Centro Universitário Teresa D'Ávila (UNIFATEA)</h4>
             <p data-i18n="edu2_desc"><strong>Bolsista CAPES.</strong> TCC voltado a <em>"Levantamento Ornitológico no Parque Ecológico do Taboão, Lorena/SP"</em> sob orientação do prof. Ricardo Mendonça.</p>
           </div>
 
-          <div class="edu-card">
+          <div class="edu-card glass-panel">
             <div class="edu-year-tag"><i class="fa-solid fa-language"></i> <span data-i18n="edu3_year">Idiomas</span></div>
             <h3 data-i18n="edu3_title">Comunicação Técnica &amp; Científica</h3>
             <ul class="edu-langs-list">
@@ -788,7 +790,7 @@
     <!-- Contato Direto & Chamada para Ação -->
     <section class="section contact-section" id="contato">
       <div class="container">
-        <div class="contact-card-box">
+        <div class="contact-card-box glass-panel">
           <div class="section-heading text-center">
             <span class="heading-tag"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="contact_tag">Vamos Conversar?</span></span>
             <h2 class="heading-title" data-i18n="contact_title">Entre em Contato</h2>
@@ -799,7 +801,7 @@
           </div>
 
           <div class="contact-channels-grid">
-            <a href="https://wa.me/5512981311815" class="channel-box" target="_blank" rel="noopener">
+            <a href="https://wa.me/5512981311815" class="channel-box glass-subcard" target="_blank" rel="noopener">
               <div class="ch-icon"><i class="fa-brands fa-whatsapp"></i></div>
               <div class="ch-text">
                 <span class="ch-label">WhatsApp Direto</span>
@@ -808,7 +810,7 @@
               <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
             </a>
 
-            <a href="mailto:michelidinizmacintir@gmail.com" class="channel-box">
+            <a href="mailto:michelidinizmacintir@gmail.com" class="channel-box glass-subcard">
               <div class="ch-icon"><i class="fa-solid fa-envelope"></i></div>
               <div class="ch-text">
                 <span class="ch-label">E-mail Profissional</span>
@@ -817,7 +819,7 @@
               <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
             </a>
 
-            <a href="https://www.linkedin.com/in/micheli-diniz-mac-intir-190160278/" class="channel-box" target="_blank" rel="noopener">
+            <a href="https://www.linkedin.com/in/micheli-diniz-mac-intir-190160278/" class="channel-box glass-subcard" target="_blank" rel="noopener">
               <div class="ch-icon"><i class="fa-brands fa-linkedin-in"></i></div>
               <div class="ch-text">
                 <span class="ch-label">LinkedIn</span>
@@ -826,7 +828,7 @@
               <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
             </a>
 
-            <a href="https://instagram.com/macintir" class="channel-box" target="_blank" rel="noopener">
+            <a href="https://instagram.com/macintir" class="channel-box glass-subcard" target="_blank" rel="noopener">
               <div class="ch-icon"><i class="fa-brands fa-instagram"></i></div>
               <div class="ch-text">
                 <span class="ch-label">Instagram</span>
@@ -835,7 +837,7 @@
               <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
             </a>
 
-            <a href="http://lattes.cnpq.br/8079558009399619" class="channel-box" target="_blank" rel="noopener">
+            <a href="http://lattes.cnpq.br/8079558009399619" class="channel-box glass-subcard" target="_blank" rel="noopener">
               <div class="ch-icon"><i class="fa-solid fa-graduation-cap"></i></div>
               <div class="ch-text">
                 <span class="ch-label">Currículo Lattes CNPq</span>
@@ -844,7 +846,7 @@
               <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
             </a>
 
-            <a href="https://orcid.org/0009-0008-4054-6952" class="channel-box" target="_blank" rel="noopener">
+            <a href="https://orcid.org/0009-0008-4054-6952" class="channel-box glass-subcard" target="_blank" rel="noopener">
               <div class="ch-icon"><i class="fa-brands fa-orcid"></i></div>
               <div class="ch-text">
                 <span class="ch-label">ORCID ID</span>
@@ -853,7 +855,7 @@
               <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
             </a>
 
-            <a href="https://github.com/macintir" class="channel-box" target="_blank" rel="noopener">
+            <a href="https://github.com/macintir" class="channel-box glass-subcard" target="_blank" rel="noopener">
               <div class="ch-icon"><i class="fa-brands fa-github"></i></div>
               <div class="ch-text">
                 <span class="ch-label">GitHub</span>
@@ -910,6 +912,6 @@
     <div class="lightbox-caption" id="lightboxCaption"></div>
   </div>
 
-  <script src="script.js?v=4.2"></script>
+  <script src="script.js?v=4.3"></script>
 </body>
 </html>
