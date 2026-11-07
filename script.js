@@ -1,22 +1,20 @@
 /**
- * BIOKURI // MICHELI MAC INTIR (SUPERVISÃO AMBIENTAL & CIÊNCIA)
- * Identidade Oficial da Empresa BioKuri
- * Scripts de Interatividade Científica, Bio-Canvas, Áudio Orgânico & Animações
+ * BIOKURI // MICHELI MAC INTIR
+ * Portfólio Profissional no Padrão Visual Creme & Verde Pinheiro da BioKuri
+ * Scripts de Interatividade Botânica, Bio-Canvas, Áudio Orgânico & Métricas
  */
 
 document.addEventListener('DOMContentLoaded', () => {
   initAudioSystem();
-  initBioCanvas();
-  initConsoleTyping();
-  initInteractiveName();
+  initBotanicalCanvas();
   initMetricsCounter();
-  initScrollReveal();
   initLightbox();
+  initSmoothScroll();
 });
 
 /* ==========================================================================
    1. SISTEMA DE ÁUDIO ORGÂNICO (SINTETIZADOR WEB AUDIO API)
-   Vocalizações suaves de aves da mata & bipes acústicos de campo
+   Vocalizações de aves da mata sintetizadas em tempo real via código
    ========================================================================== */
 let audioCtx = null;
 let soundEnabled = true;
@@ -31,9 +29,9 @@ function initAudioSystem() {
     if (icon) {
       icon.className = soundEnabled ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
     }
-    soundToggle.style.color = soundEnabled ? 'var(--bio-emerald)' : 'var(--text-dim)';
+    soundToggle.style.color = soundEnabled ? 'var(--primary)' : 'var(--text-muted)';
     if (soundEnabled) {
-      playBirdCall();
+      playBirdVocalization();
     }
   });
 }
@@ -46,8 +44,7 @@ function getAudioContext() {
   return audioCtx;
 }
 
-// Canto suave sintetizado de ave florestal (Sabiá / Pássaro da Mata Atlântica)
-function playBirdCall() {
+function playBirdVocalization() {
   if (!soundEnabled) return;
   try {
     const ctx = getAudioContext();
@@ -55,36 +52,33 @@ function playBirdCall() {
 
     const now = ctx.currentTime;
     const notes = [
-      { freq1: 1760, freq2: 2350, start: 0, dur: 0.12 },
-      { freq1: 2200, freq2: 2790, start: 0.14, dur: 0.14 },
-      { freq1: 2600, freq2: 1980, start: 0.30, dur: 0.18 }
+      { freq1: 1760, freq2: 2400, start: 0, dur: 0.12 },
+      { freq1: 2200, freq2: 2850, start: 0.14, dur: 0.13 },
+      { freq1: 2650, freq2: 1950, start: 0.29, dur: 0.16 }
     ];
 
-    notes.forEach(note => {
+    notes.forEach(n => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
 
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(note.freq1, now + note.start);
-      osc.frequency.exponentialRampToValueAtTime(note.freq2, now + note.start + note.dur);
+      osc.frequency.setValueAtTime(n.freq1, now + n.start);
+      osc.frequency.exponentialRampToValueAtTime(n.freq2, now + n.start + n.dur);
 
-      gain.gain.setValueAtTime(0.001, now + note.start);
-      gain.gain.linearRampToValueAtTime(0.035, now + note.start + 0.03);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + note.start + note.dur);
+      gain.gain.setValueAtTime(0.001, now + n.start);
+      gain.gain.linearRampToValueAtTime(0.035, now + n.start + 0.025);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + n.start + n.dur);
 
       osc.connect(gain);
       gain.connect(ctx.destination);
 
-      osc.start(now + note.start);
-      osc.stop(now + note.start + note.dur);
+      osc.start(now + n.start);
+      osc.stop(now + n.start + n.dur);
     });
-  } catch (e) {
-    // Autoplay restrictions
-  }
+  } catch (e) {}
 }
 
-// Gota d'água / orvalho para micro-interações
-function playDewDrop(freq = 1200) {
+function playSoftChirp(freq = 1100) {
   if (!soundEnabled) return;
   try {
     const ctx = getAudioContext();
@@ -96,9 +90,9 @@ function playDewDrop(freq = 1200) {
 
     osc.type = 'sine';
     osc.frequency.setValueAtTime(freq, now);
-    osc.frequency.exponentialRampToValueAtTime(freq * 1.6, now + 0.08);
+    osc.frequency.exponentialRampToValueAtTime(freq * 1.5, now + 0.08);
 
-    gain.gain.setValueAtTime(0.03, now);
+    gain.gain.setValueAtTime(0.025, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
 
     osc.connect(gain);
@@ -110,11 +104,10 @@ function playDewDrop(freq = 1200) {
 }
 
 /* ==========================================================================
-   2. BIO-CANVAS INTERATIVO: VAGA-LUMES & ESPOROS DO DOSSEL DA FLORESTA
-   Partículas bioluminescentes esmeralda/douradas com ondulação natural
-   Reage com dispersão orgânica ao cursor do mouse e ao toque
+   2. BOTANICAL CANVAS (ESPOROS, PÓLEN & LUZES BOTÂNICAS EM MOVIMENTO)
+   Ajustado para o fundo Creme da BioKuri com partículas translúcidas
    ========================================================================== */
-function initBioCanvas() {
+function initBotanicalCanvas() {
   const canvas = document.getElementById('bio-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -128,291 +121,115 @@ function initBioCanvas() {
   }
   window.addEventListener('resize', resizeCanvas);
 
-  const observationZone = document.getElementById('canopy-observation-zone');
-  let mouseInZone = false;
   let mouseX = -1000;
   let mouseY = -1000;
-  const shockwaves = [];
 
-  function triggerBurst(x, y) {
-    shockwaves.push({
-      x: x,
-      y: y,
-      radius: 4,
-      maxRadius: 85,
-      speed: 3.5,
-      alpha: 0.9
-    });
-    playDewDrop(900 + Math.random() * 400);
-  }
-
-  // Interação na zona dedicada
-  if (observationZone) {
-    observationZone.addEventListener('mousemove', (e) => {
-      mouseInZone = true;
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    observationZone.addEventListener('mouseenter', (e) => {
-      mouseInZone = true;
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
-
-    observationZone.addEventListener('mouseleave', () => {
-      mouseInZone = false;
-      mouseX = -1000;
-      mouseY = -1000;
-    });
-
-    observationZone.addEventListener('click', (e) => {
-      triggerBurst(e.clientX, e.clientY);
-    });
-
-    observationZone.addEventListener('touchstart', (e) => {
-      if (e.touches && e.touches.length > 0) {
-        const touch = e.touches[0];
-        triggerBurst(touch.clientX, touch.clientY);
-      }
-    }, { passive: true });
-  }
-
-  // Interação no body inteiro (cursor como atrator de luz suave)
   window.addEventListener('pointermove', (e) => {
-    if (!mouseInZone) {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    }
+    mouseX = e.clientX;
+    mouseY = e.clientY;
   }, { passive: true });
 
-  // Criação dos Vaga-Lumes e Esporos de Dossel
-  const particleCount = width > 1024 ? 120 : (width > 600 ? 80 : 50);
-  const fireflies = [];
+  const count = width > 1024 ? 65 : (width > 600 ? 45 : 30);
+  const particles = [];
 
-  class Firefly {
+  class Spore {
     constructor() {
       this.reset(true);
     }
 
     reset(initial = false) {
       this.x = Math.random() * width;
-      this.y = Math.random() * height;
+      this.y = initial ? Math.random() * height : height + 20;
       this.angle = Math.random() * Math.PI * 2;
-      this.speed = Math.random() * 0.7 + 0.4;
+      this.speed = Math.random() * 0.45 + 0.25;
       this.radius = Math.random() * 2.2 + 1.2;
 
-      // Cores BioKuri: 70% verde esmeralda floresta, 30% âmbar dourado / botânico
-      this.isGold = Math.random() < 0.3;
-      this.baseAlpha = Math.random() * 0.4 + 0.3;
-      this.pulseSpeed = Math.random() * 0.04 + 0.02;
+      // Cores: tons translúcidos de Verde Pinheiro BioKuri e Âmbar
+      this.isGold = Math.random() < 0.35;
+      this.alpha = Math.random() * 0.22 + 0.12;
+      this.pulseSpeed = Math.random() * 0.03 + 0.015;
       this.pulsePhase = Math.random() * Math.PI * 2;
-      this.turnTimer = Math.floor(Math.random() * 80) + 40;
+      this.drift = (Math.random() - 0.5) * 0.4;
     }
 
     update() {
-      // 1. Reação a shockwaves
-      for (let i = 0; i < shockwaves.length; i++) {
-        const sw = shockwaves[i];
-        const dx = this.x - sw.x;
-        const dy = this.y - sw.y;
-        const dist = Math.hypot(dx, dy);
+      // Movimento suave de subida / brisa
+      this.y -= this.speed;
+      this.x += Math.sin(this.angle) * 0.5 + this.drift;
+      this.angle += 0.02;
 
-        if (dist < sw.radius + 20 && dist > sw.radius - 15) {
-          const repel = Math.atan2(dy, dx);
-          this.angle = repel + (Math.random() - 0.5) * 0.8;
-          this.speed = Math.max(this.speed, 3.2);
-          break;
-        }
+      // Dispersão suave ao aproximar o cursor
+      const dx = this.x - mouseX;
+      const dy = this.y - mouseY;
+      const dist = Math.hypot(dx, dy);
+
+      if (dist < 120 && dist > 10) {
+        const repelAngle = Math.atan2(dy, dx);
+        this.x += Math.cos(repelAngle) * 1.5;
+        this.y += Math.sin(repelAngle) * 1.5;
       }
 
-      // 2. Condução suave em direção ao cursor quando dentro da zona de dossel
-      if (mouseInZone) {
-        const dx = mouseX - this.x;
-        const dy = mouseY - this.y;
-        const dist = Math.hypot(dx, dy);
-
-        if (dist < 320 && dist > 40) {
-          const steerAngle = Math.atan2(dy, dx);
-          let diff = steerAngle - this.angle;
-          while (diff < -Math.PI) diff += Math.PI * 2;
-          while (diff > Math.PI) diff -= Math.PI * 2;
-          this.angle += diff * 0.06;
-          this.speed = Math.min(this.speed + 0.05, 2.2);
-        }
-      } else {
-        // Navegação suave e aleatória pela mata
-        this.turnTimer--;
-        if (this.turnTimer <= 0) {
-          this.angle += (Math.random() - 0.5) * 1.2;
-          this.turnTimer = Math.floor(Math.random() * 90) + 40;
-          this.speed = Math.random() * 0.7 + 0.4;
-        }
-      }
-
-      // Propulsão
-      this.x += Math.cos(this.angle) * this.speed;
-      this.y += Math.sin(this.angle) * this.speed;
-
-      // Desaceleração pós-impulso
-      if (this.speed > 1.2) {
-        this.speed *= 0.96;
-      }
-
-      // Pulsar da luz (bioluminescência)
       this.pulsePhase += this.pulseSpeed;
 
-      // Loop pelas bordas
-      if (this.x < -40) this.x = width + 40;
-      if (this.x > width + 40) this.x = -40;
-      if (this.y < -40) this.y = height + 40;
-      if (this.y > height + 40) this.y = -40;
+      // Reposição pelas bordas
+      if (this.y < -30) {
+        this.reset(false);
+      }
+      if (this.x < -30) this.x = width + 20;
+      if (this.x > width + 30) this.x = -20;
     }
 
     draw() {
-      const glow = Math.sin(this.pulsePhase) * 0.3 + 0.7;
-      const alpha = this.baseAlpha * glow;
+      const glow = Math.sin(this.pulsePhase) * 0.35 + 0.65;
+      const a = this.alpha * glow;
 
-      const r = this.isGold ? 197 : 78;
-      const g = this.isGold ? 160 : 204;
-      const b = this.isGold ? 89 : 163;
+      const r = this.isGold ? 196 : 28;
+      const g = this.isGold ? 125 : 89;
+      const b = this.isGold ? 59 : 51;
 
-      // Glow suave externo
+      // Halo sutil
       const grad = ctx.createRadialGradient(
         this.x, this.y, 0,
-        this.x, this.y, this.radius * 4.5
+        this.x, this.y, this.radius * 3.5
       );
-      grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${alpha * 0.85})`);
-      grad.addColorStop(0.4, `rgba(${r}, ${g}, ${b}, ${alpha * 0.35})`);
+      grad.addColorStop(0, `rgba(${r}, ${g}, ${b}, ${a * 0.7})`);
       grad.addColorStop(1, `rgba(${r}, ${g}, ${b}, 0)`);
 
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius * 4.5, 0, Math.PI * 2);
+      ctx.arc(this.x, this.y, this.radius * 3.5, 0, Math.PI * 2);
       ctx.fillStyle = grad;
       ctx.fill();
 
-      // Ponto de luz central
+      // Ponto de luz
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.radius * 0.8, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.95})`;
+      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a * 0.9})`;
       ctx.fill();
     }
   }
 
-  for (let i = 0; i < particleCount; i++) {
-    fireflies.push(new Firefly());
+  for (let i = 0; i < count; i++) {
+    particles.push(new Spore());
   }
 
-  // Loop de renderização 60 FPS
-  function animate() {
+  function render() {
     ctx.clearRect(0, 0, width, height);
-
-    // Atualiza e desenha shockwaves
-    for (let i = shockwaves.length - 1; i >= 0; i--) {
-      const sw = shockwaves[i];
-      sw.radius += sw.speed;
-      sw.alpha -= 0.022;
-
-      if (sw.alpha <= 0 || sw.radius >= sw.maxRadius) {
-        shockwaves.splice(i, 1);
-        continue;
-      }
-
-      ctx.beginPath();
-      ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(78, 204, 163, ${sw.alpha})`;
-      ctx.lineWidth = 1.8;
-      ctx.stroke();
+    for (let i = 0; i < particles.length; i++) {
+      particles[i].update();
+      particles[i].draw();
     }
-
-    // Atualiza e desenha vaga-lumes
-    for (let i = 0; i < fireflies.length; i++) {
-      fireflies[i].update();
-      fireflies[i].draw();
-    }
-
-    requestAnimationFrame(animate);
+    requestAnimationFrame(render);
   }
 
-  animate();
+  render();
 }
 
 /* ==========================================================================
-   3. CONSOLE DE CAMPO CIENTÍFICO (TYPING SEQUENCE)
-   ========================================================================== */
-function initConsoleTyping() {
-  const output = document.getElementById('terminal-output');
-  if (!output) return;
-
-  const messages = [
-    '> ESTAÇÃO DE SUPERVISÃO AMBIENTAL // MICHELI MAC INTIR (CRBio 135793/01-D)',
-    '> OPERAÇÃO ATIVA: Rodovias Federais BR-153 & BR-369 · Caruso / BioKuri',
-    '> FRENTES: Liderança de 9 Especialistas & 5 Viaturas · Supressão · Não Conformidades',
-    '> LABORATÓRIO BIOKURI: Diagnósticos de Fauna, Ornitologia Costeira & Data Science USP',
-    '> STATUS: Resolução rápida de condicionantes e conformidade na prática operacional.'
-  ];
-
-  let lineIdx = 0;
-  let charIdx = 0;
-  let currentP = document.createElement('p');
-  output.appendChild(currentP);
-
-  function typeChar() {
-    if (lineIdx >= messages.length) {
-      const cursor = document.createElement('span');
-      cursor.className = 'terminal-cursor';
-      output.appendChild(cursor);
-      return;
-    }
-
-    const currentMsg = messages[lineIdx];
-    if (charIdx < currentMsg.length) {
-      currentP.textContent += currentMsg.charAt(charIdx);
-      charIdx++;
-      setTimeout(typeChar, 14);
-    } else {
-      lineIdx++;
-      charIdx = 0;
-      if (lineIdx < messages.length) {
-        currentP = document.createElement('p');
-        output.appendChild(currentP);
-        setTimeout(typeChar, 120);
-      } else {
-        const cursor = document.createElement('span');
-        cursor.className = 'terminal-cursor';
-        output.appendChild(cursor);
-      }
-    }
-  }
-
-  setTimeout(typeChar, 350);
-}
-
-/* ==========================================================================
-   4. NOME INTERATIVO COM MICRO-ANIMAÇÃO & SOM SUTIL
-   ========================================================================== */
-function initInteractiveName() {
-  const chars = document.querySelectorAll('.hop-char');
-  chars.forEach((char, index) => {
-    char.addEventListener('mouseenter', () => {
-      char.style.transform = 'translateY(-8px) scale(1.18)';
-      char.style.color = 'var(--bio-gold)';
-      playDewDrop(900 + index * 75);
-    });
-
-    char.addEventListener('mouseleave', () => {
-      char.style.transform = '';
-      char.style.color = '';
-    });
-  });
-}
-
-/* ==========================================================================
-   5. CONTADORES DE IMPACTO MÉTRICO ANIMADOS
+   3. CONTADORES DE IMPACTO MÉTRICO
    ========================================================================== */
 function initMetricsCounter() {
-  const metricItems = document.querySelectorAll('.metric-number');
-  if (!metricItems.length) return;
+  const metricValues = document.querySelectorAll('.metric-val');
+  if (!metricValues.length) return;
 
   let animated = false;
 
@@ -420,7 +237,7 @@ function initMetricsCounter() {
     entries.forEach(entry => {
       if (entry.isIntersecting && !animated) {
         animated = true;
-        metricItems.forEach(item => {
+        metricValues.forEach(item => {
           const targetStr = item.getAttribute('data-target') || '0';
           const isPlus = item.textContent.includes('+');
           const isPercent = item.textContent.includes('%');
@@ -448,30 +265,11 @@ function initMetricsCounter() {
     });
   }, { threshold: 0.3 });
 
-  metricItems.forEach(item => observer.observe(item));
+  metricValues.forEach(item => observer.observe(item));
 }
 
 /* ==========================================================================
-   6. SCROLL REVEAL (FADE-IN ELEGANTE)
-   ========================================================================== */
-function initScrollReveal() {
-  const elements = document.querySelectorAll('.fade-in');
-  if (!elements.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-
-  elements.forEach(el => observer.observe(el));
-}
-
-/* ==========================================================================
-   7. LIGHTBOX MODAL PARA REGISTROS DE CAMPO
+   4. LIGHTBOX MODAL
    ========================================================================== */
 function initLightbox() {
   window.openLightbox = function(src, caption) {
@@ -484,7 +282,7 @@ function initLightbox() {
     lightboxCaption.textContent = caption || '';
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
-    playDewDrop(800);
+    playSoftChirp(780);
   };
 
   window.closeLightbox = function() {
@@ -501,4 +299,27 @@ function initLightbox() {
   });
 }
 
-console.log('🌿 Estação BioKuri // Micheli Mac Intir carregada com sucesso.');
+/* ==========================================================================
+   5. SMOOTH SCROLL COM OFFSET DE NAVBAR
+   ========================================================================== */
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (!targetId || targetId === '#') return;
+
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        const navHeight = 70;
+        const targetPos = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight;
+        window.scrollTo({
+          top: targetPos,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+}
+
+console.log('🌿 BioKuri // Portfólio Micheli Mac Intir carregado com sucesso.');

@@ -11,351 +11,363 @@
   <meta name="keywords" content="Micheli Mac Intir, BioKuri, Supervisão Ambiental, Licenciamento Ambiental, BR-153, BR-369, Caruso Soluções Ambientais, Data Science USP, Ornitologia, Herpetologia, Gestão de Fauna">
   <meta name="author" content="Micheli Diniz Mac Intir (Micheli Mac Intir)">
   <meta property="og:title" content="Micheli Mac Intir | Bióloga, Supervisora Ambiental & Co-fundadora BioKuri">
-  <meta property="og:description" content="Conservação da biodiversidade, gestão de obras rodoviárias de infraestrutura e inteligência de dados aplicada ao meio ambiente.">
+  <meta property="og:description" content="Conservação da biodiversidade, supervisão de obras rodoviárias de infraestrutura e inteligência de dados aplicada ao meio ambiente.">
   <meta property="og:image" content="assets/avatar.jpg">
   <meta property="og:type" content="website">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="assets/logo-emblem-creme.png">
+  <!-- Favicon Oficial BioKuri -->
+  <link rel="icon" type="image/png" href="assets/logo-icon.png">
 
-  <!-- Google Fonts Oficiais BioKuri: Cormorant Garamond (Elegância científica) + Jost (UI moderna) + Roboto Mono (Bio-dados & Código) -->
+  <!-- Tipografia Oficial BioKuri: Cormorant Garamond (Elegância/Títulos) + Jost (Interface) + Roboto Mono (Indicadores Técnicos) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Jost:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Jost:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   
-  <link rel="stylesheet" href="style.css?v=3.0">
+  <link rel="stylesheet" href="style.css?v=4.0">
 </head>
 
 <body>
 
-  <!-- Top Utility Bar Padrão BioKuri -->
+  <!-- Interactive Botanical Canvas (Esporos, Luzes e Folhas em Movimento) -->
+  <canvas id="bio-canvas" class="bio-canvas"></canvas>
+
+  <!-- Top Navigation Bar Oficial BioKuri -->
   <header class="top-nav-bar">
-    <div class="brand-mini">
-      <img src="assets/logo-emblem-creme.png" alt="Biokuri Emblem" class="nav-emblem">
-      <span class="nav-brand-text">BIOKURI <span class="nav-brand-sub">// AMBIENTAL</span></span>
-    </div>
-    <div class="nav-actions">
-      <button id="sound-toggle" class="nav-btn" title="Efeitos Sonoros (Vocalizações & Sons Naturais)">
-        <i class="fa-solid fa-volume-high"></i>
-      </button>
-      <a href="curriculo-micheli-mac-intir.pdf" class="btn btn-outline btn-sm cv-btn" download target="_blank">
-        <i class="fa-solid fa-file-arrow-down"></i> Baixar CV
+    <div class="nav-container">
+      <a href="#inicio" class="brand-link">
+        <img src="assets/logo-verde.png" alt="BioKuri Soluções Ambientais" class="nav-logo">
       </a>
+      
+      <nav class="nav-menu">
+        <a href="#sobre" class="nav-item">Sobre Mim</a>
+        <a href="#supervisao" class="nav-item">Supervisão BR-153/369</a>
+        <a href="#biokuri" class="nav-item">BioKuri</a>
+        <a href="#experiencia" class="nav-item">Trajetória</a>
+        <a href="#ciencia" class="nav-item">Ciência & Artigos</a>
+        <a href="#competencias" class="nav-item">Competências</a>
+        <a href="#galeria" class="nav-item">Bastidores</a>
+        <a href="#contato" class="nav-item">Contato</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="sound-toggle" class="btn-sound" title="Vocalizações de Aves & Sons Naturais" aria-label="Efeitos Sonoros">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <a href="curriculo-micheli-mac-intir.pdf" class="btn btn-outline btn-sm" download target="_blank">
+          <i class="fa-solid fa-file-arrow-down"></i> Baixar CV
+        </a>
+      </div>
     </div>
   </header>
 
-  <!-- Interactive Canvas Background (BioKuri Bio-Canvas & Spores Field) -->
-  <canvas id="bio-canvas" class="bio-canvas"></canvas>
-  <div class="canopy-vignette"></div>
-  <div class="bio-scanline"></div>
+  <!-- Main Content Wrapper -->
+  <main class="page-content" id="inicio">
 
-  <main class="container">
-
-    <!-- Interactive Station Header (Terminal Console Científico BioKuri) -->
-    <header class="terminal-window glass-panel">
-      <div class="terminal-header">
-        <div class="terminal-dots">
-          <span class="btn close" title="Fechar"></span>
-          <span class="btn minimize" title="Minimizar"></span>
-          <span class="btn maximize" title="Maximizar"></span>
-        </div>
-        <span class="title">
-          <i class="fa-solid fa-leaf neon-green-icon"></i> Micheli Mac Intir // Estação de Campo & Supervisão
-        </span>
-        <span class="terminal-status">
-          <i class="fa-solid fa-circle-check"></i> Sistema Operacional Ativo
-        </span>
-      </div>
-      
-      <div class="terminal-body" id="terminal-output">
-        <!-- Injetado via JavaScript typing sequence -->
-      </div>
-
-      <!-- Quick Station Navigation Pills -->
-      <div class="station-nav-pills">
-        <a href="#about" class="station-pill"><i class="fa-solid fa-id-card"></i> Identidade & Liderança</a>
-        <a href="#focus-section" class="station-pill"><i class="fa-solid fa-compass-drafting"></i> Atuação & Obras BR-153/369</a>
-        <a href="#biokuri-section" class="station-pill"><i class="fa-solid fa-tree"></i> BioKuri Soluções</a>
-        <a href="#experience-section" class="station-pill"><i class="fa-solid fa-briefcase"></i> Vivência Profissional</a>
-        <a href="#publications-section" class="station-pill"><i class="fa-solid fa-microscope"></i> Ciência, COP30 & Artigos</a>
-        <a href="#stack-section" class="station-pill"><i class="fa-solid fa-laptop-code"></i> Competências & Dados</a>
-        <a href="#gallery-section" class="station-pill"><i class="fa-solid fa-camera-retro"></i> Bastidores Reais</a>
-        <a href="#contact-section" class="station-pill"><i class="fa-solid fa-envelope"></i> Contato Direto</a>
-      </div>
-    </header>
-
-    <!-- Interactive Canopy Observation Zone (Zona dos Vaga-lumes & Dossel BioKuri) -->
-    <div id="canopy-observation-zone" class="canopy-zone" title="Área de Observação Ecológica de Dossel">
-      <div class="canopy-zone-waterline top"></div>
-      <div class="canopy-zone-content">
-        <span class="canopy-zone-badge">
-          <i class="fa-solid fa-compass"></i> Observação Sensorial de Dossel
-        </span>
-        <p class="canopy-zone-instructions">
-          <span class="desktop-only"><i class="fa-solid fa-arrow-pointer"></i> Passe o mouse para conduzir a bioluminescência da mata &bull; <i class="fa-solid fa-hand-pointer"></i> Clique para dispersar em ondas orgânicas</span>
-          <span class="mobile-only"><i class="fa-solid fa-hand-pointer"></i> Toque na tela para dispersar a luz dos vaga-lumes</span>
-        </p>
-      </div>
-      <div class="canopy-zone-waterline bottom"></div>
-    </div>
-
-    <!-- Top Profile & Focus Grid -->
-    <div class="grid-layout">
-
-      <!-- Profile Card -->
-      <section class="about-section glass-panel fade-in" id="about">
-        <div class="section-tag">
-          <i class="fa-solid fa-leaf"></i> Identidade & Liderança Ambiental
-        </div>
-
-        <div class="profile-info">
-          <div class="profile-img-container">
-            <div class="profile-avatar-wrap">
-              <img id="main-profile-img" src="assets/avatar.jpg" alt="Micheli Mac Intir - Perfil Bióloga & Supervisora Ambiental" class="profile-img">
-              <div class="profile-badge-crbio" title="Registro Profissional">CRBio 135793/01-D</div>
-            </div>
-
-            <!-- Mini Card Divertido de Autenticidade -->
-            <div class="fun-quote-card">
-              <i class="fa-solid fa-heart"></i>
-              <span>"Menos gabinete estéril, mais bota na lama, olho no bicho e dados no código."</span>
-            </div>
+    <!-- Hero Section Editorial & Exclusivo -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        
+        <!-- Hero Text & Identification -->
+        <div class="hero-bio-col">
+          <div class="hero-status-pill">
+            <span class="status-pulse"></span>
+            <span>Supervisora Ambiental @ Caruso &bull; Sócia Co-fundadora @ BioKuri</span>
           </div>
 
-          <div class="bio">
-            <div class="company-badge">
-              <img src="assets/logo-creme.png" alt="BioKuri - Soluções Ambientais" class="biokuri-logo-inline">
-            </div>
+          <h1 class="hero-headline">
+            Micheli <span class="highlight-serif">Mac Intir</span>
+          </h1>
 
-            <!-- Name with Interactive Letter Hover Animation -->
-            <div class="name-frog-wrapper">
-              <h3 class="interactive-name" id="interactive-name">
-                <span class="hop-char" data-idx="0">M</span><span class="hop-char" data-idx="1">i</span><span class="hop-char" data-idx="2">c</span><span class="hop-char" data-idx="3">h</span><span class="hop-char" data-idx="4">e</span><span class="hop-char" data-idx="5">l</span><span class="hop-char" data-idx="6">i</span>
-                <span class="hop-space">&nbsp;</span>
-                <span class="hop-char" data-idx="7">M</span><span class="hop-char" data-idx="8">a</span><span class="hop-char" data-idx="9">c</span>
-                <span class="hop-space">&nbsp;</span>
-                <span class="hop-char" data-idx="10">I</span><span class="hop-char" data-idx="11">n</span><span class="hop-char" data-idx="12">t</span><span class="hop-char" data-idx="13">i</span><span class="hop-char" data-idx="14">r</span>
-              </h3>
-            </div>
+          <p class="hero-credentials-tag">
+            Bióloga <span class="bullet">&bull;</span> Supervisora Ambiental <span class="bullet">&bull;</span> Pesquisadora <span class="bullet">&bull;</span> Data Science (USP)
+          </p>
 
-            <p class="subtitle">&lt;Bióloga · Supervisora Ambiental · Co-fundadora BioKuri · Data Science (USP)&gt;</p>
+          <p class="hero-description">
+            Da lama e águas costeiras ao comando da supervisão ambiental em obras rodoviárias de grande porte (BR-153 e BR-369) e modelagem de dados na USP: unindo a paixão genuína pela vida silvestre com o rigor técnico e o pragmatismo que o setor de infraestrutura exige.
+          </p>
 
-            <p class="description">
-              Bióloga licenciada (UNIFATEA / bolsista CAPES) e pós-graduanda em <strong>Data Science & Analytics pela USP/ESALQ</strong>. Atuo na liderança técnica da supervisão ambiental em obras de grande porte rodoviário (federais <strong>BR-153 e BR-369</strong> pela Caruso, coordenando 9 profissionais e 5 viaturas), sou co-fundadora da <strong>BioKuri — Pesquisa e Soluções Ambientais</strong> ao lado do biólogo Lucas Aøsf e pesquisadora associada ao <strong>IMBio</strong>.
-            </p>
+          <div class="pills-wrapper">
+            <span class="badge-pill crbio"><i class="fa-solid fa-id-card"></i> CRBio 135793/01-D</span>
+            <span class="badge-pill road"><i class="fa-solid fa-road"></i> Supervisão BR-153 / BR-369</span>
+            <span class="badge-pill biokuri"><i class="fa-solid fa-seedling"></i> BioKuri Soluções</span>
+            <span class="badge-pill usp"><i class="fa-solid fa-chart-line"></i> MBA USP / ESALQ</span>
+            <span class="badge-pill army"><i class="fa-solid fa-shield-halved"></i> Instrutora 5º BIL</span>
+            <span class="badge-pill cop"><i class="fa-solid fa-earth-americas"></i> Apresentação COP 30</span>
+          </div>
 
-            <div class="credential-pills">
-              <span class="pill highlight-pill"><i class="fa-solid fa-road"></i> Supervisão BR-153 / BR-369</span>
-              <span class="pill"><i class="fa-solid fa-seedling"></i> Co-fundadora BioKuri</span>
-              <span class="pill"><i class="fa-solid fa-chart-line"></i> MBA Data Science USP/ESALQ</span>
-              <span class="pill"><i class="fa-solid fa-dove"></i> Ornitologia Marinha & Terrestre</span>
-              <span class="pill"><i class="fa-solid fa-shield-virus"></i> Instrutora 5º BIL (Exército Brasileiro)</span>
-              <span class="pill"><i class="fa-solid fa-earth-americas"></i> Apresentação COP 30 (ONU)</span>
-              <span class="pill"><i class="fa-solid fa-location-dot"></i> Ourinhos/SP & Curitiba/PR</span>
-            </div>
+          <div class="hero-cta-row">
+            <a href="https://wa.me/5512981311815" class="btn btn-primary" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp"></i> Conversar no WhatsApp
+            </a>
+            <a href="#supervisao" class="btn btn-secondary">
+              <i class="fa-solid fa-compass"></i> Ver Frentes de Obra
+            </a>
+            <a href="curriculo-micheli-mac-intir.pdf" class="btn btn-outline" download target="_blank">
+              <i class="fa-solid fa-download"></i> Currículo Completo
+            </a>
+          </div>
 
-            <!-- Social & Academic Badges -->
-            <div class="socials">
-              <a href="https://wa.me/5512981311815" target="_blank" class="social-btn whatsapp" title="WhatsApp Direto">
-                <i class="fa-brands fa-whatsapp"></i> (12) 98131-1815
-              </a>
-              <a href="https://www.linkedin.com/in/micheli-diniz-mac-intir-190160278/" target="_blank" class="social-btn linkedin" title="LinkedIn">
-                <i class="fa-brands fa-linkedin"></i> LinkedIn
-              </a>
-              <a href="https://instagram.com/macintir" target="_blank" class="social-btn instagram" title="Instagram">
-                <i class="fa-brands fa-instagram"></i> @macintir
-              </a>
-              <a href="http://lattes.cnpq.br/8079558009399619" target="_blank" class="social-btn lattes" title="Currículo Lattes CNPq">
-                <i class="fa-solid fa-graduation-cap"></i> Lattes
-              </a>
-              <a href="https://orcid.org/0009-0008-4054-6952" target="_blank" class="social-btn orcid" title="ORCID ID">
-                <i class="fa-brands fa-orcid"></i> ORCID
-              </a>
-              <a href="https://github.com/macintir" target="_blank" class="social-btn github" title="GitHub">
-                <i class="fa-brands fa-github"></i> GitHub
-              </a>
-              <a href="mailto:michelidinizmacintir@gmail.com" class="social-btn email" title="Enviar E-mail">
-                <i class="fa-solid fa-envelope"></i> E-mail
-              </a>
-            </div>
+          <div class="hero-social-links">
+            <a href="https://www.linkedin.com/in/micheli-diniz-mac-intir-190160278/" target="_blank" rel="noopener" title="LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://instagram.com/macintir" target="_blank" rel="noopener" title="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="http://lattes.cnpq.br/8079558009399619" target="_blank" rel="noopener" title="Currículo Lattes">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </a>
+            <a href="https://orcid.org/0009-0008-4054-6952" target="_blank" rel="noopener" title="ORCID ID">
+              <i class="fa-brands fa-orcid"></i>
+            </a>
+            <a href="https://github.com/macintir" target="_blank" rel="noopener" title="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+            <a href="mailto:michelidinizmacintir@gmail.com" title="E-mail">
+              <i class="fa-solid fa-envelope"></i>
+            </a>
           </div>
         </div>
-      </section>
 
-      <!-- Focus & Pillars Section -->
-      <section class="focus-section glass-panel fade-in" id="focus-section">
-        <h2><i class="fa-solid fa-compass-drafting neon-green-icon"></i> Atuação & Foco Central</h2>
-        <p class="section-intro">
-          Integração pioneira entre a liderança prática no canteiro de obras, o rigor da taxonomia biológica e a inteligência analítica com Ciência de Dados.
-        </p>
-
-        <div class="focus-grid">
-          <div class="focus-item highlight-box">
-            <div class="focus-icon"><i class="fa-solid fa-hard-hat"></i></div>
-            <div class="focus-content">
-              <h4>Supervisão Ambiental de Obras Rodoviárias (Foco Operacional)</h4>
-              <p>Liderança direta em campo de equipe com 9 profissionais e 5 viaturas nas BR-153 e BR-369. Gestão em tempo real de Não Conformidades (NC), atendimento rigoroso a condicionantes e notificações do órgão ambiental, supressão vegetal autorizada e auditoria de terceiros.</p>
+        <!-- Hero Visual Card & Real Moments -->
+        <div class="hero-visual-col">
+          <div class="visual-card-frame">
+            <img src="assets/hero-field.jpg" alt="Micheli Mac Intir em monitoramento costeiro com câmera" class="visual-main-img">
+            <div class="visual-img-caption">
+              <span class="caption-tag"><i class="fa-solid fa-camera"></i> Registros em Campo</span>
+              <p>Ornitologia costeira com tripé e teleobjetiva em água rasa (Porto de São Sebastião/SP).</p>
             </div>
-          </div>
 
-          <div class="focus-item">
-            <div class="focus-icon"><i class="fa-solid fa-dove"></i></div>
-            <div class="focus-content">
-              <h4>Ornitologia de Campo, Monitoramento Costeiro & Fauna</h4>
-              <p>Inventariamento e monitoramento contínuo em ecossistemas de alta sensibilidade: ornitofauna costeira e marinha no Porto de São Sebastião, complexos de celulose (Arauco e Cargill) e PCHs, com transectos, anilhamento e avaliação ecológica.</p>
+            <!-- Floating Badges -->
+            <div class="floating-badge top-right">
+              <i class="fa-solid fa-hard-hat"></i>
+              <div>
+                <strong>Supervisão Rodoviária</strong>
+                <span>BR-153 &amp; BR-369</span>
+              </div>
             </div>
-          </div>
 
-          <div class="focus-item">
-            <div class="focus-icon"><i class="fa-brands fa-python"></i></div>
-            <div class="focus-content">
-              <h4>Data Science & Analytics Aplicada (USP/ESALQ)</h4>
-              <p>Estruturação de indicadores ESG e métricas ambientais com Python e visualização analítica. Transformação de dados brutos de campo em dashboards auditáveis com suporte estatístico para tomada de decisão.</p>
-            </div>
-          </div>
-
-          <div class="focus-item">
-            <div class="focus-icon"><i class="fa-solid fa-shield-halved"></i></div>
-            <div class="focus-content">
-              <h4>Manejo de Peçonhentos & Treinamento de Tropas (5º BIL)</h4>
-              <p>Protocolos seguros de prevenção de acidentes e captura de serpentes peçonhentas e ofídios, ministrando instrução técnica para militares do 5º Batalhão de Infantaria Leve (Exército Brasileiro) e DDS em canteiros de alta exigência.</p>
+            <div class="floating-badge bottom-left">
+              <i class="fa-solid fa-seedling"></i>
+              <div>
+                <strong>BioKuri Ambiental</strong>
+                <span>Sócia Co-fundadora</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- Telemetria Operacional da Supervisão -->
-        <div class="radar-box">
-          <div class="radar-header">
-            <span class="radar-tag"><i class="fa-solid fa-satellite-dish"></i> Status em Tempo Real</span>
-            <span class="radar-loc"><i class="fa-solid fa-location-dot"></i> BR-153 / BR-369 · Caruso / BioKuri</span>
-          </div>
-          <div class="radar-metrics">
-            <div class="rm-item">
-              <span class="rm-val">100%</span>
-              <span class="rm-lbl">Conformidade Legal</span>
-            </div>
-            <div class="rm-item">
-              <span class="rm-val">Zero</span>
-              <span class="rm-lbl">Acidentes com Peçonhentos</span>
-            </div>
-            <div class="rm-item">
-              <span class="rm-val">9</span>
-              <span class="rm-lbl">Especialistas em Campo</span>
-            </div>
-            <div class="rm-item">
-              <span class="rm-val">5</span>
-              <span class="rm-lbl">Viaturas em Operação</span>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- Metrics & Field Impact Counter (Padrão BioKuri) -->
-    <section class="metrics-strip glass-panel fade-in">
-      <div class="metric-item">
-        <span class="metric-number" data-target="10">10+</span>
-        <span class="metric-label">Anos Dedicados à Biologia & Fauna</span>
-      </div>
-      <div class="metric-item">
-        <span class="metric-number" data-target="15">15+</span>
-        <span class="metric-label">Grandes Empreendimentos Atendidos</span>
-      </div>
-      <div class="metric-item">
-        <span class="metric-number" data-target="9">9</span>
-        <span class="metric-label">Especialistas Liderados em Rodovias</span>
-      </div>
-      <div class="metric-item">
-        <span class="metric-number" data-target="2026">2026</span>
-        <span class="metric-label">Artigo Internacional em Periódico</span>
-      </div>
-      <div class="metric-item">
-        <span class="metric-number" data-target="100">100%</span>
-        <span class="metric-label">Rigor Metodológico & Prática de Campo</span>
       </div>
     </section>
 
-    <!-- BioKuri Company Spotlight Section -->
-    <section class="biokuri-spotlight glass-panel fade-in" id="biokuri-section">
-      <div class="biokuri-inner-card">
-        <div class="biokuri-header-flex">
-          <div class="biokuri-identity">
-            <img src="assets/logo-creme.png" alt="BioKuri Pesquisa e Soluções Ambientais" class="biokuri-logo-showcase">
-            <span class="biokuri-badge-pill"><i class="fa-solid fa-tree"></i> Empresa Fundada & Liderada</span>
+    <!-- Metrics Impact Strip -->
+    <section class="metrics-section">
+      <div class="container">
+        <div class="metrics-card">
+          <div class="metric-block">
+            <span class="metric-val" data-target="10">10+</span>
+            <span class="metric-desc">Anos dedicados à Biologia, Fauna &amp; Ecologia</span>
           </div>
-          <p class="biokuri-motto">
-            <em>Kuri</em> — do tupi-guarani para a nobre <strong>Araucária</strong> (pinheiro-do-paraná). Raízes profundas, visão de longo alcance e respeito inegociável à vida.
+          <div class="metric-block">
+            <span class="metric-val" data-target="9">9</span>
+            <span class="metric-desc">Profissionais liderados sob frota de 5 viaturas</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-val" data-target="15">15+</span>
+            <span class="metric-desc">Grandes empreendimentos e obras atendidos</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-val" data-target="2026">2026</span>
+            <span class="metric-desc">Artigo internacional aceito para publicação</span>
+          </div>
+          <div class="metric-block">
+            <span class="metric-val" data-target="100">100%</span>
+            <span class="metric-desc">Foco em conformidade real e conservação no chão</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sobre Mim: Filosofia e Bagagem Prática -->
+    <section class="section about-section" id="sobre">
+      <div class="container">
+        <div class="section-heading text-center">
+          <span class="heading-tag"><i class="fa-solid fa-feather-pointed"></i> Quem Sou Eu</span>
+          <h2 class="heading-title">Bióloga por vocação, gestora por atitude, cientista por inquietude</h2>
+          <div class="heading-divider"></div>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-gallery-mosaic">
+            <div class="mosaic-main">
+              <img src="assets/caiaque-ilhabela.jpg" alt="Micheli em expedição de caiaque" class="mosaic-img">
+              <span class="mosaic-badge">Expedição Ilhabela</span>
+            </div>
+            <div class="mosaic-sub">
+              <img src="assets/campo-vaca.jpg" alt="Micheli com animais no campo" class="mosaic-img">
+              <span class="mosaic-badge fun"><i class="fa-solid fa-heart"></i> Consultora de Bem-Estar 🐮</span>
+            </div>
+          </div>
+
+          <div class="about-narrative">
+            <blockquote class="about-quote">
+              "Não acredito em biologia de gabinete. Conservação de verdade se faz entendendo o chão da obra, o comportamento dos animais e o coração das pessoas envolvidas."
+            </blockquote>
+
+            <p class="lead-paragraph">
+              Sou <strong>Micheli Mac Intir</strong>, bióloga licenciada pelo UNIFATEA (com bolsa CAPES), supervisora ambiental e atualmente pós-graduanda em <strong>Data Science &amp; Analytics pela USP/ESALQ</strong>.
+            </p>
+
+            <p>
+              Minha trajetória une o rigor técnico à capacidade de liderança e diálogo direto. Ao longo dos anos, atuei desde o resgate e reabilitação de fauna silvestre junto à <strong>Polícia Militar Ambiental</strong> no Vale do Paraíba, até o comando de operações de supervisão ambiental em obras rodoviárias de grande porte (BR-153 e BR-369) e frentes industriais de celulose (Arauco), portuárias (São Sebastião) e hidrelétricas (PCH Verde).
+            </p>
+
+            <p>
+              Com a missão de criar uma consultoria dinâmica, próxima e moderna, fundei a <strong>BioKuri — Pesquisa e Soluções Ambientais</strong> ao lado do biólogo e taxonomista Lucas Aøsf. Na BioKuri, combinamos taxonomia apurada, agilidade operacional e inteligência de dados para desatar nós ambientais com velocidade e conformidade inquestionável.
+            </p>
+
+            <div class="about-cards-row">
+              <div class="feature-card">
+                <i class="fa-solid fa-helmet-safety"></i>
+                <div>
+                  <h4>Gestão &amp; Liderança Prática</h4>
+                  <p>Tratamento ágil de NCs, interface firme com órgãos e engenharia civil.</p>
+                </div>
+              </div>
+
+              <div class="feature-card">
+                <i class="fa-solid fa-chart-pie"></i>
+                <div>
+                  <h4>Data Science Aplicada</h4>
+                  <p>Indicadores estruturados em Python, visualização preditiva e métricas ESG.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Supervisão Ambiental Rodoviária (BR-153 & BR-369 na Caruso) -->
+    <section class="section road-supervision-section" id="supervisao">
+      <div class="container">
+        <div class="section-heading text-center">
+          <span class="heading-tag"><i class="fa-solid fa-road"></i> Liderança Operacional</span>
+          <h2 class="heading-title">Supervisão Ambiental de Obras Rodoviárias (BR-153 &amp; BR-369)</h2>
+          <div class="heading-divider"></div>
+          <p class="heading-sub">
+            Atuação direta na Caruso Soluções Ambientais &amp; Tecnológicas nas frentes das rodovias federais BR-153 e BR-369 (Jacarezinho/PR).
           </p>
         </div>
 
-        <div class="biokuri-grid-content">
-          <div class="biokuri-desc-col">
-            <h3>Soluções Ambientais Inteligentes, Ágeis e Humanas</h3>
-            <p>
-              A <strong>BioKuri</strong> nasceu da sinergia entre a paixão pela biodiversidade e a urgência do mercado por consultorias que compreendam o cronograma rígido da engenharia, traduzindo as exigências dos órgãos ambientais (IBAMA, IAT, CETESB, IMASUL) em ações exatas e documentadas.
-            </p>
-            <p>
-              Como sócia-fundadora ao lado do biólogo e taxonomista <strong>Lucas Aøsf</strong>, lidero a gestão estratégica de contratos, coordenação de equipes de resgate de fauna e flora, supervisão contínua e desenho de indicadores orientados a dados.
-            </p>
+        <div class="road-dashboard-card">
+          <div class="dashboard-header">
+            <div class="dash-status">
+              <span class="pulse-indicator"></span>
+              <strong>OPERAÇÃO EM ANDAMENTO (2026 – ATUAL)</strong>
+            </div>
+            <span class="dash-company"><i class="fa-solid fa-building"></i> Caruso Soluções Ambientais &bull; PR</span>
+          </div>
 
-            <div class="biokuri-services-chips">
-              <span class="chip"><i class="fa-solid fa-check"></i> Supervisão Ambiental de Obras</span>
-              <span class="chip"><i class="fa-solid fa-check"></i> Estudos de Fauna (EIA/RIMA, PCA, RCA)</span>
-              <span class="chip"><i class="fa-solid fa-check"></i> Resgate de Fauna & Germoplasma</span>
-              <span class="chip"><i class="fa-solid fa-check"></i> Treinamentos com Peçonhentos (DDS)</span>
-              <span class="chip"><i class="fa-solid fa-check"></i> Data Science & Relatórios Executivos</span>
+          <div class="road-grid-cards">
+            <div class="road-pillar-card">
+              <div class="pillar-icon"><i class="fa-solid fa-users-gear"></i></div>
+              <h3>Comando de Campo &amp; Frota</h3>
+              <p>Liderança direta de equipe multidisciplinar com <strong>9 profissionais especializados</strong> e coordenação de <strong>frota com 5 viaturas operacionais</strong>, com planejamento diário, distribuição de frentes e alinhamento com a engenharia de obras.</p>
             </div>
 
-            <div class="biokuri-action-row">
-              <a href="https://wa.me/5512981311815?text=Olá%20Micheli,%20gostaria%20de%20conversar%20sobre%20os%20serviços%20da%20BioKuri!" class="cyber-button bio-button" target="_blank" rel="noopener">
-                <i class="fa-brands fa-whatsapp"></i> Falar com a BioKuri
-              </a>
-              <a href="mailto:michelidinizmacintir@gmail.com?subject=Proposta%20Técnica%20BioKuri" class="cyber-button bio-button outline">
-                <i class="fa-solid fa-file-signature"></i> Solicitar Proposta Técnica
-              </a>
+            <div class="road-pillar-card">
+              <div class="pillar-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <h3>Não Conformidades (NC)</h3>
+              <p>Realização de inspeções ambientais sistemáticas para identificar, registrar e tratar inconformidades em sistema informatizado, garantindo plano de ação corretivo imediato até a baixa pelo órgão ambiental.</p>
+            </div>
+
+            <div class="road-pillar-card">
+              <div class="pillar-icon"><i class="fa-solid fa-file-shield"></i></div>
+              <h3>Licenças, Outorgas &amp; Terceiros</h3>
+              <p>Controle estrito de condicionantes (LP, LI, LO), outorgas de captação/lançamento de recursos hídricos e auditoria de terceiros: banheiros químicos, bota-fora autorizado e controle de poeira (umectação com pipa).</p>
+            </div>
+
+            <div class="road-pillar-card">
+              <div class="pillar-icon"><i class="fa-solid fa-paw"></i></div>
+              <h3>Fauna Silvestre &amp; Germoplasma</h3>
+              <p>Acompanhamento de supressão vegetal autorizada, coordenação de resgate e afugentamento de animais silvestres e coleta de sementes, epífitas e propágulos de flora nativa para mitigação de impactos.</p>
             </div>
           </div>
 
-          <div class="biokuri-society-col">
-            <div class="society-card">
-              <div class="society-top">
-                <i class="fa-solid fa-handshake-simple"></i>
-                <div>
-                  <h4>Sociedade & Liderança Complementar</h4>
-                  <span>Ciência de Ponta + Execução em Campo</span>
-                </div>
-              </div>
-              <p class="society-quote">
-                "Na BioKuri, o conhecimento taxonômico e zoológico profundo encontra o dinamismo e o pulso firme da supervisão de obras. Resolvemos gargalos ambientais com base científica inatacável."
+          <div class="road-footer-bar">
+            <span><i class="fa-solid fa-clipboard-check"></i> Elaboração de pareceres técnicos e relatórios de atendimento em resposta a ofícios e notificações oficiais dos órgãos ambientais licenciadores.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BioKuri Company Spotlight -->
+    <section class="section biokuri-section" id="biokuri">
+      <div class="container">
+        <div class="biokuri-editorial-card">
+          <div class="biokuri-brand-header">
+            <div class="brand-badge-box">
+              <img src="assets/logo-verde.png" alt="BioKuri Logotipo" class="biokuri-logo-large">
+              <span class="biokuri-pill-tag">Empresa Fundada &amp; Liderada</span>
+            </div>
+            <p class="biokuri-quote-header">
+              <em>Kuri</em> — do tupi-guarani para a nobre <strong>Araucária</strong> (pinheiro-do-paraná). Raízes profundas, visão de longo alcance e respeito inegociável à vida silvestre.
+            </p>
+          </div>
+
+          <div class="biokuri-content-layout">
+            <div class="biokuri-left-text">
+              <h3>Soluções Ambientais Inteligentes, Ágeis e Humanas</h3>
+              <p>
+                A <strong>BioKuri</strong> nasceu da sinergia entre o rigor taxonômico de museu e a urgência do mercado corporativo por consultorias que realmente entendam o cronograma rígido da engenharia, traduzindo as exigências de órgãos ambientais (IBAMA, IAT, CETESB, IMASUL) em conformidade técnica e documentada.
               </p>
-              <div class="founders-pills">
-                <div class="f-pill">
-                  <strong>Micheli Mac Intir</strong>
-                  <span>Sócia-Fundadora · Supervisão & Gestão</span>
-                </div>
-                <div class="f-pill">
-                  <strong>Lucas Aøsf</strong>
-                  <span>Sócio-Fundador · Taxonomia & R/Python</span>
-                </div>
+              <p>
+                Como sócia-fundadora ao lado do biólogo e taxonomista <strong>Lucas Aøsf</strong>, lidero a gestão estratégica de contratos, coordenação de equipes de campo, diagnósticos de fauna e modelagem de indicadores ecológicos orientados a dados.
+              </p>
+
+              <div class="biokuri-services-grid">
+                <div class="service-pill"><i class="fa-solid fa-circle-check"></i> Supervisão Ambiental de Obras</div>
+                <div class="service-pill"><i class="fa-solid fa-circle-check"></i> Estudos de Fauna (EIA/RIMA, PCA, RCA)</div>
+                <div class="service-pill"><i class="fa-solid fa-circle-check"></i> Resgate de Fauna &amp; Germoplasma</div>
+                <div class="service-pill"><i class="fa-solid fa-circle-check"></i> Treinamentos com Peçonhentos (DDS)</div>
+                <div class="service-pill"><i class="fa-solid fa-circle-check"></i> Ciência de Dados &amp; Relatórios ESG</div>
+              </div>
+
+              <div class="biokuri-buttons-row">
+                <a href="https://wa.me/5512981311815?text=Olá%20Micheli,%20gostaria%20de%20conversar%20sobre%20os%20serviços%20da%20BioKuri!" class="btn btn-primary" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-whatsapp"></i> Falar com a BioKuri
+                </a>
+                <a href="mailto:michelidinizmacintir@gmail.com?subject=Proposta%20Técnica%20BioKuri" class="btn btn-outline">
+                  <i class="fa-solid fa-file-signature"></i> Solicitar Proposta Técnica
+                </a>
               </div>
             </div>
 
-            <div class="diff-box">
-              <div class="diff-line">
-                <i class="fa-solid fa-bolt"></i>
-                <div>
-                  <strong>Agilidade em Notificações</strong>
-                  <span>Elaboração fundamentada de defesas técnicas e respostas a ofícios de órgãos licenciadores.</span>
+            <div class="biokuri-right-partners">
+              <div class="partnership-card">
+                <div class="partnership-top">
+                  <i class="fa-solid fa-handshake"></i>
+                  <div>
+                    <h4>Sociedade &amp; Visão Complementar</h4>
+                    <span>Taxonomia de Ponta &bull; Execução Operacional</span>
+                  </div>
                 </div>
-              </div>
-              <div class="diff-line">
-                <i class="fa-solid fa-shield-heart"></i>
-                <div>
-                  <strong>Segurança Máxima em Campo</strong>
-                  <span>Protocolos de prevenção de acidentes com fauna peçonhenta testados com tropas do Exército.</span>
+                <p>
+                  "Na BioKuri, o conhecimento taxonômico e ecológico profundo encontra o pulso firme da supervisão de obras. Desatamos gargalos ambientais com embasamento inatacável."
+                </p>
+                <div class="founders-pair">
+                  <div class="pair-card">
+                    <strong>Micheli Mac Intir</strong>
+                    <span>Sócia-Fundadora &bull; Supervisão &amp; Gestão</span>
+                  </div>
+                  <div class="pair-card">
+                    <strong>Lucas Aøsf</strong>
+                    <span>Sócio-Fundador &bull; Taxonomia &amp; R/Python</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -364,548 +376,523 @@
       </div>
     </section>
 
-    <!-- Professional Experience Timeline -->
-    <section class="experience-section glass-panel fade-in" id="experience-section">
-      <div class="section-title-wrap text-center">
-        <span class="sub-badge"><i class="fa-solid fa-route"></i> Trajetória Consolidada</span>
-        <h2>Experiência Profissional & Liderança em Campo</h2>
-        <div class="bar-accent"></div>
-        <p class="lead-desc">
-          Da coordenação direta sob sol e chuva em rodovias federais aos maiores polos de celulose, portos e hidrelétricas do país.
-        </p>
-      </div>
+    <!-- Produção Científica & Pesquisas de Ponta -->
+    <section class="section science-section" id="ciencia">
+      <div class="container">
+        <div class="section-heading text-center">
+          <span class="heading-tag"><i class="fa-solid fa-microscope"></i> Rigor Científico</span>
+          <h2 class="heading-title">Produção Científica &amp; Projetos de Pesquisa</h2>
+          <div class="heading-divider"></div>
+          <p class="heading-sub">
+            Artigos internacionais com dados de Ciência Cidadã, fomento industrial corporativo e presença climática global.
+          </p>
+        </div>
 
-      <div class="timeline-container">
-        <!-- Item 1: Caruso BR-153 / BR-369 -->
-        <div class="timeline-entry current-entry">
-          <div class="timeline-icon-box">
-            <i class="fa-solid fa-hard-hat"></i>
-          </div>
-          <div class="timeline-content-card">
-            <div class="card-top-info">
-              <span class="period-pill current-pill">2026 – Atual • Em Andamento</span>
-              <span class="region-pill"><i class="fa-solid fa-location-dot"></i> Jacarezinho / PR</span>
-            </div>
-            <h3>Supervisora Ambiental</h3>
-            <h4 class="company-title">Caruso Soluções Ambientais & Tecnológicas</h4>
-            <div class="sub-tagline">
-              <i class="fa-solid fa-road"></i> Obras Rodoviárias das Rodovias Federais BR-153 e BR-369
+        <div class="science-grid">
+          
+          <!-- Card de Destaque: Artigo Internacional do Melanophryniscus moreirae com a FOTO CORRETA DA ESPÉCIE -->
+          <article class="paper-card featured-paper">
+            <div class="paper-badges-bar">
+              <span class="paper-badge intl"><i class="fa-solid fa-star"></i> Periódico Internacional (2026)</span>
+              <span class="paper-badge accepted">Aceito para Publicação</span>
             </div>
 
-            <p class="summary-text">
-              Coordenação técnica e operacional integral da supervisão ambiental em toda a malha rodoviária das frentes das federais BR-153 e BR-369:
+            <h3 class="paper-title">
+              Update and Expansion of the Distribution of the Maldonado Redbelly Toad, <em>Melanophryniscus moreirae</em> Gallardo 1966, in Southeast Brazil, Using Citizen Science Data
+            </h3>
+
+            <p class="paper-meta-info">
+              <strong>Revista:</strong> Reptiles &amp; Amphibians (2026) &bull; 
+              <strong>Autores:</strong> Aøsf, L.; <strong>Mac Intir, M. D.</strong>; Azevedo, T. M.; Menezes, L. B.; Moroti, M. T.
             </p>
 
-            <ul class="duties-list">
-              <li><strong>Comando de Equipe & Frota:</strong> Liderança direta de equipe multidisciplinar com 9 profissionais de campo e gerenciamento de 5 viaturas operacionais, com planejamento diário e alinhamento com a engenharia civil.</li>
-              <li><strong>Tratamento de Não Conformidades (NC):</strong> Inspeções ambientais sistemáticas, detecção precoce de inconformidades, lançamento em sistema informatizado e acompanhamento do plano corretivo até a baixa definitiva.</li>
-              <li><strong>Licenças & Condicionantes:</strong> Controle rigoroso de licenças de instalação e operação, outorgas d'água e cumprimento estrito das condicionantes do órgão licenciador.</li>
-              <li><strong>Auditoria de Prestadores:</strong> Fiscalização contínua de banheiros químicos, controle de poeira (umectação de pistas com caminhão pipa), áreas de bota-fora e frentes de supressão vegetal autorizada.</li>
-              <li><strong>Fauna & Germoplasma:</strong> Coordenação de resgate e afugentamento de animais silvestres e coleta de sementes, epífitas e propágulos para conservação.</li>
+            <p class="paper-abstract-text">
+              Estudo inovador demonstrando a expansão da área de ocorrência do sapinho-flamenguinho de altitude (<em>Melanophryniscus moreirae</em>, anuro bioindicador de áreas montanhosas da Mata Atlântica) no Sudeste brasileiro através da integração de dados de ciência cidadã com validação morfológica e bioacústica em campo.
+            </p>
+
+            <!-- Foto Oficial Autêntica de Melanophryniscus moreirae -->
+            <div class="paper-photo-wrap">
+              <img src="assets/melanophryniscus-moreirae.jpg" alt="Melanophryniscus moreirae (sapinho-flamenguinho de altitude) em registro científico oficial" class="paper-photo-img" loading="lazy">
+              <div class="photo-species-tag">
+                <i class="fa-solid fa-frog"></i> <em>Melanophryniscus moreirae</em> (Gallardo, 1966) &bull; Fotografia Científica Oficial
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: COP 30 -->
+          <article class="paper-card">
+            <div class="paper-badges-bar">
+              <span class="paper-badge cop"><i class="fa-solid fa-earth-americas"></i> COP 30 (2025)</span>
+              <span class="paper-badge accepted">Conferência ONU</span>
+            </div>
+            <h3 class="paper-title">O Papel do Reflorestamento na Restauração Microclimática e Atração da Avifauna no Parque das Nascentes</h3>
+            <p class="paper-meta-info">
+              <strong>Evento:</strong> Conferência das Nações Unidas sobre Mudanças Climáticas (COP 30), 2025 &bull; 
+              <strong>Autores:</strong> Aøsf, L.; Oliveira, H. J.; Moreira, R. G.; <strong>Intir, M. M.</strong>
+            </p>
+            <p class="paper-abstract-text">
+              Avaliação empírica demonstrando como o adensamento florestal com espécies nativas amenizou a temperatura superficial do solo e atuou como refúgio térmico, multiplicando a riqueza da avifauna na bacia do Paraíba do Sul.
+            </p>
+          </article>
+
+          <!-- Card 3: Fomento BASF -->
+          <article class="paper-card">
+            <div class="paper-badges-bar">
+              <span class="paper-badge basf"><i class="fa-solid fa-dove"></i> Fomento BASF</span>
+              <span class="paper-badge accepted">2023 – 2025</span>
+            </div>
+            <h3 class="paper-title">Projeto Ornitofauna de Guaratinguetá</h3>
+            <p class="paper-meta-info">
+              <strong>Financiador:</strong> BASF (Matriz São Paulo) &bull; 
+              <strong>Integrantes:</strong> <strong>Micheli Mac Intir</strong>; Lucas Aøsf; Matheus Moroti; Henry Alexandre
+            </p>
+            <p class="paper-abstract-text">
+              Levantamento sazonal sistemático e anilhamento de ornitofauna, mapeando gradientes de pressão antrópica e áreas prioritárias de restauração florestal em matriz agropecuária e industrial.
+            </p>
+          </article>
+
+          <!-- Card 4: Serra da Bocaina -->
+          <article class="paper-card">
+            <div class="paper-badges-bar">
+              <span class="paper-badge bocaina"><i class="fa-solid fa-mountain"></i> Em Andamento</span>
+              <span class="paper-badge accepted">2025 – Atual</span>
+            </div>
+            <h3 class="paper-title">Herpetofauna da Serra da Bocaina</h3>
+            <p class="paper-meta-info">
+              <strong>Responsável:</strong> <strong>Micheli Mac Intir</strong> &bull; <strong>Integrante:</strong> Lucas Aøsf
+            </p>
+            <p class="paper-abstract-text">
+              Expedições sistemáticas de campo na parte alta da Serra da Bocaina (São José do Barreiro/SP) para preencher lacunas de distribuição biogeográfica de anfíbios anuros e répteis de mata nebular.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Vivência Profissional & Histórico em Obras de Grande Porte -->
+    <section class="section experience-section" id="experiencia">
+      <div class="container">
+        <div class="section-heading text-center">
+          <span class="heading-tag"><i class="fa-solid fa-briefcase"></i> Trajetória Consolidada</span>
+          <h2 class="heading-title">Experiência Profissional em Destaque</h2>
+          <div class="heading-divider"></div>
+          <p class="heading-sub">
+            Da linha de frente rodoviária aos maiores complexos industriais de celulose, portos e hidrelétricas do Brasil.
+          </p>
+        </div>
+
+        <div class="experience-timeline">
+          <!-- Caruso BR-153 / BR-369 -->
+          <div class="exp-timeline-item current">
+            <div class="exp-dot"><i class="fa-solid fa-hard-hat"></i></div>
+            <div class="exp-card">
+              <div class="exp-meta">
+                <span class="period-pill active">2026 – Atual &bull; Em Andamento</span>
+                <span class="loc-pill"><i class="fa-solid fa-location-dot"></i> Jacarezinho / PR</span>
+              </div>
+              <h3 class="exp-role">Supervisora Ambiental</h3>
+              <h4 class="exp-company">Caruso Soluções Ambientais &amp; Tecnológicas</h4>
+              <div class="exp-project-name"><i class="fa-solid fa-road"></i> Obras Rodoviárias das Rodovias Federais BR-153 e BR-369</div>
+              <p>Coordenação técnica e operacional integral da supervisão ambiental nas frentes das rodovias federais BR-153 e BR-369. Liderança diária de 9 profissionais, 5 viaturas operacionais, tratamento de Não Conformidades (NC), auditoria de terceiros, resgate de fauna e germoplasma e atendimento a notificações oficiais dos órgãos ambientais.</p>
+              <div class="tags-row">
+                <span>Supervisão Rodoviária</span>
+                <span>Liderança de Equipes</span>
+                <span>Gestão de Frota</span>
+                <span>Resgate de Fauna</span>
+                <span>Não Conformidades (NC)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BioKuri -->
+          <div class="exp-timeline-item current">
+            <div class="exp-dot"><i class="fa-solid fa-seedling"></i></div>
+            <div class="exp-card">
+              <div class="exp-meta">
+                <span class="period-pill active">2024 – Atual</span>
+                <span class="loc-pill"><i class="fa-solid fa-globe"></i> Atuação Multirregional</span>
+              </div>
+              <h3 class="exp-role">Sócia Co-Fundadora &amp; Consultora Sênior</h3>
+              <h4 class="exp-company">BioKuri — Pesquisa e Soluções Ambientais</h4>
+              <p>Direção executiva e operacional da consultoria. Gestão de contratos, elaboração de programas ambientais (PBA), diagnósticos de fauna (EIA/RIMA, PCA, RCA), licenciamento estratégico e aplicação de Ciência de Dados a indicadores ecológicos corporativos.</p>
+              <div class="tags-row">
+                <span>Direção Executiva</span>
+                <span>Consultoria Ambiental</span>
+                <span>Data Science</span>
+                <span>Licenciamento</span>
+                <span>ESG</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consultoria Especialista -->
+          <div class="exp-timeline-item">
+            <div class="exp-dot"><i class="fa-solid fa-tree"></i></div>
+            <div class="exp-card">
+              <div class="exp-meta">
+                <span class="period-pill">2023 – 2026</span>
+                <span class="loc-pill"><i class="fa-solid fa-map"></i> MS, SP, PB, GO, SC</span>
+              </div>
+              <h3 class="exp-role">Bióloga Consultora Especialista em Fauna</h3>
+              <h4 class="exp-company">EcosBrasil &bull; Elementus &bull; Cayman &bull; Engpacto</h4>
+              <p>Execução de estudos de impacto, diagnósticos e monitoramento contínuo de fauna para grandes players do setor de celulose (<strong>megafábrica da Arauco</strong> em Inocência/MS e <strong>Cargill</strong> em Três Lagoas/MS), setor portuário (<strong>Porto de São Sebastião/SP</strong>, com ornitologia marinha em ilhas costeiras), hidrelétrico (<strong>PCH Verde</strong> em GO) e rodoviário (<strong>anel da BR-230/361</strong> em Patos/PB).</p>
+              <div class="tags-row">
+                <span>Arauco Celulose</span>
+                <span>Porto de São Sebastião</span>
+                <span>PCH Verde</span>
+                <span>EIA/RIMA &amp; PCA</span>
+                <span>Ornitologia Marinha</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- IMBio & Instrução Militar -->
+          <div class="exp-timeline-item">
+            <div class="exp-dot"><i class="fa-solid fa-shield-virus"></i></div>
+            <div class="exp-card">
+              <div class="exp-meta">
+                <span class="period-pill">2016 – Atual</span>
+                <span class="loc-pill"><i class="fa-solid fa-mountain"></i> Vale do Paraíba &amp; Serra da Bocaina</span>
+              </div>
+              <h3 class="exp-role">Bióloga Pesquisadora &amp; Educadora Ambiental</h3>
+              <h4 class="exp-company">Instituto de Manejo da Biodiversidade (IMBio)</h4>
+              <p>Pesquisa e manejo de fauna silvestre na Serra da Bocaina subsidiando a soltura e reintrodução de animais pela <strong>Polícia Militar Ambiental</strong>. Instrução especializada de prevenção de acidentes com animais peçonhentos e ofídios para o Estágio Básico do Combatente Aeromóvel (EBCA) do <strong>5º Batalhão de Infantaria Leve (Exército Brasileiro)</strong>. Apresentação científica na <strong>COP 30 (ONU 2025)</strong>.</p>
+              <div class="tags-row">
+                <span>IMBio</span>
+                <span>Polícia Militar Ambiental</span>
+                <span>5º BIL Exército</span>
+                <span>COP 30 ONU</span>
+                <span>Educação Ambiental</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Matriz de Competências & Data Science -->
+    <section class="section competencies-section" id="competencias">
+      <div class="container">
+        <div class="section-heading text-center">
+          <span class="heading-tag"><i class="fa-solid fa-layer-group"></i> O Que Entrego</span>
+          <h2 class="heading-title">Competências Técnicas &amp; Operacionais</h2>
+          <div class="heading-divider"></div>
+        </div>
+
+        <div class="competencies-grid">
+          <div class="competency-card">
+            <div class="comp-icon"><i class="fa-solid fa-helmet-safety"></i></div>
+            <h3>Supervisão &amp; Gestão de Obras</h3>
+            <ul class="comp-list">
+              <li><i class="fa-solid fa-check"></i> Inspeções diárias em rodovias federais e canteiros industriais</li>
+              <li><i class="fa-solid fa-check"></i> Gestão de Não Conformidades (NC) e planos corretivos</li>
+              <li><i class="fa-solid fa-check"></i> Controle de licenças (LP, LI, LO), outorgas e condicionantes</li>
+              <li><i class="fa-solid fa-check"></i> Auditoria de terceiros: banheiros químicos, bota-fora, poeira</li>
+              <li><i class="fa-solid fa-check"></i> Elaboração de relatórios técnicos e respostas a ofícios oficiais</li>
             </ul>
-
-            <div class="tag-cloud">
-              <span>Supervisão Rodoviária</span>
-              <span>Liderança de 9 Profissionais</span>
-              <span>5 Viaturas sob Comando</span>
-              <span>Resgate de Fauna</span>
-              <span>Não Conformidades (NC)</span>
-              <span>Auditoria de Canteiros</span>
-            </div>
           </div>
-        </div>
 
-        <!-- Item 2: BioKuri -->
-        <div class="timeline-entry current-entry">
-          <div class="timeline-icon-box">
-            <i class="fa-solid fa-seedling"></i>
-          </div>
-          <div class="timeline-content-card">
-            <div class="card-top-info">
-              <span class="period-pill current-pill">2024 – Atual</span>
-              <span class="region-pill"><i class="fa-solid fa-globe"></i> Brasil · Atuação Multirregional</span>
-            </div>
-            <h3>Sócia Co-Fundadora & Consultora Sênior</h3>
-            <h4 class="company-title">BioKuri — Pesquisa e Soluções Ambientais</h4>
-
-            <p class="summary-text">
-              Direção executiva e operacional da consultoria. Gestão de contratos de licenciamento, elaboração de programas ambientais (PBA), diagnósticos de mastofauna e avifauna e integração de Ciência de Dados a relatórios para grandes empresas.
-            </p>
-
-            <div class="tag-cloud">
-              <span>Direção Executiva</span>
-              <span>Consultoria Estratégica</span>
-              <span>Ciência de Dados</span>
-              <span>Bioestatística</span>
-              <span>ESG Corporativo</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 3: Grandes Empreendimentos -->
-        <div class="timeline-entry">
-          <div class="timeline-icon-box">
-            <i class="fa-solid fa-tree"></i>
-          </div>
-          <div class="timeline-content-card">
-            <div class="card-top-info">
-              <span class="period-pill">2023 – 2026</span>
-              <span class="region-pill"><i class="fa-solid fa-map"></i> MS, SP, PB, GO, SC</span>
-            </div>
-            <h3>Bióloga Consultora Especialista em Fauna Silvestre</h3>
-            <h4 class="company-title">EcosBrasil · Elementus · Cayman · Engpacto</h4>
-
-            <p class="summary-text">
-              Realização de levantamentos de fauna, monitoramentos intensivos e diagnósticos ambientais em megaempreendimentos nacionais:
-            </p>
-
-            <div class="sub-projects-compact">
-              <div class="proj-box">
-                <strong><i class="fa-solid fa-industry"></i> Arauco Celulose & Cargill (MS)</strong>
-                <span>Monitoramento de ornitofauna na implantação da megafábrica em Inocência/MS e mastofauna em Três Lagoas/MS.</span>
-              </div>
-              <div class="proj-box">
-                <strong><i class="fa-solid fa-ship"></i> Porto de São Sebastião / SP (2023–2025)</strong>
-                <span>Monitoramento contínuo da ornitofauna marinha e costeira com amostragem em ilhas oceânicas e caiaque.</span>
-              </div>
-              <div class="proj-box">
-                <strong><i class="fa-solid fa-water"></i> PCH Verde (Rio Verde / GO)</strong>
-                <span>Monitoramento de mastofauna terrestre, morcegos (quirópteros) e avifauna para usina hidrelétrica.</span>
-              </div>
-              <div class="proj-box">
-                <strong><i class="fa-solid fa-route"></i> Rodovia BR-230 / BR-361 (Patos / PB)</strong>
-                <span>Diagnóstico de fauna terrestre para o Plano de Controle Ambiental (PCA) do anel rodoviário de Patos.</span>
-              </div>
-            </div>
-
-            <div class="tag-cloud">
-              <span>Arauco Celulose</span>
-              <span>Porto de São Sebastião</span>
-              <span>PCH Verde</span>
-              <span>EIA/RIMA & PCA</span>
-              <span>Ornitologia Marinha</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item 4: IMBio & Instrução Militar -->
-        <div class="timeline-entry">
-          <div class="timeline-icon-box">
-            <i class="fa-solid fa-shield-virus"></i>
-          </div>
-          <div class="timeline-content-card">
-            <div class="card-top-info">
-              <span class="period-pill">2016 – Atual</span>
-              <span class="region-pill"><i class="fa-solid fa-mountain"></i> Vale do Paraíba & Serra da Bocaina</span>
-            </div>
-            <h3>Bióloga Pesquisadora & Educadora Ambiental</h3>
-            <h4 class="company-title">Instituto de Manejo da Biodiversidade (IMBio)</h4>
-
-            <ul class="duties-list">
-              <li><strong>Polícia Militar Ambiental:</strong> Pesquisa e subsídio técnico em soltura e reintrodução de animais silvestres resgatados na Mata Atlântica.</li>
-              <li><strong>Exército Brasileiro (5º BIL):</strong> Instrução de prevenção de acidentes com animais peçonhentos e manejo de serpentes para combatentes aeromóveis (EBCA).</li>
-              <li><strong>COP 30 (ONU 2025):</strong> Apresentação de estudo sobre restauração microclimática e avifauna em áreas de nascentes.</li>
+          <div class="competency-card">
+            <div class="comp-icon"><i class="fa-solid fa-dove"></i></div>
+            <h3>Fauna, Flora &amp; Biodiversidade</h3>
+            <ul class="comp-list">
+              <li><i class="fa-solid fa-check"></i> Ornitologia: levantamento e monitoramento costeiro/marinho</li>
+              <li><i class="fa-solid fa-check"></i> Herpetofauna: transectos, busca ativa e diagnose morfológica</li>
+              <li><i class="fa-solid fa-check"></i> Mastofauna terrestre e alada (quirópteros/morcegos)</li>
+              <li><i class="fa-solid fa-check"></i> Resgate e afugentamento de fauna em supressão vegetal</li>
+              <li><i class="fa-solid fa-check"></i> Resgate de germoplasma (sementes, orquídeas, bromélias)</li>
             </ul>
+          </div>
 
-            <div class="tag-cloud">
-              <span>IMBio</span>
-              <span>Polícia Militar Ambiental</span>
-              <span>5º BIL Exército</span>
-              <span>COP 30 ONU</span>
-              <span>Educação Ambiental</span>
-            </div>
+          <div class="competency-card">
+            <div class="comp-icon"><i class="fa-brands fa-python"></i></div>
+            <h3>Data Science &amp; Análise Ecológica</h3>
+            <ul class="comp-list">
+              <li><i class="fa-solid fa-check"></i> MBA Data Science &amp; Analytics (USP / ESALQ em andamento)</li>
+              <li><i class="fa-solid fa-check"></i> Análise estatística de dados ecológicos e riqueza de espécies</li>
+              <li><i class="fa-solid fa-check"></i> Pipelines com Python e R aplicados a indicadores ambientais</li>
+              <li><i class="fa-solid fa-check"></i> Visualização analítica e dashboards para auditorias ESG</li>
+              <li><i class="fa-solid fa-check"></i> Mineração de bases abertas de biodiversidade (GBIF)</li>
+            </ul>
+          </div>
+
+          <div class="competency-card">
+            <div class="comp-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Liderança, Treinamentos &amp; DDS</h3>
+            <ul class="comp-list">
+              <li><i class="fa-solid fa-check"></i> Comando diário de equipes de 9 profissionais e frotas</li>
+              <li><i class="fa-solid fa-check"></i> Condução de Diálogos Diários de Segurança e Meio Ambiente</li>
+              <li><i class="fa-solid fa-check"></i> Treinamentos para tropas do Exército Brasileiro (5º BIL)</li>
+              <li><i class="fa-solid fa-check"></i> Protocolo de zero acidentes com animais peçonhentos</li>
+              <li><i class="fa-solid fa-check"></i> Mediação técnica com engenharia, terceiros e comunidade</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Scientific Production & Research -->
-    <section class="science-section glass-panel fade-in" id="publications-section">
-      <div class="section-title-wrap text-center">
-        <span class="sub-badge"><i class="fa-solid fa-microscope"></i> Rigor Científico</span>
-        <h2>Produção Científica & Pesquisas de Ponta</h2>
-        <div class="bar-accent"></div>
-        <p class="lead-desc">
-          Artigos internacionais com dados de Ciência Cidadã, fomento industrial e defesa climática global.
-        </p>
-      </div>
-
-      <div class="science-grid">
-        <!-- Paper 1: Reptiles & Amphibians 2026 -->
-        <div class="paper-card highlight-paper">
-          <div class="paper-badge-row">
-            <span class="paper-badge intl-badge"><i class="fa-solid fa-star"></i> Periódico Internacional (2026)</span>
-            <span class="paper-badge status-badge">Aceito para Publicação</span>
-          </div>
-          <h3>Update and Expansion of the Distribution of the Maldonado Redbelly Toad, <em>Melanophryniscus moreirae</em> Gallardo 1966, in Southeast Brazil, Using Citizen Science Data</h3>
-          <div class="paper-meta">
-            <strong>Revista:</strong> Reptiles & Amphibians (2026) &bull; 
-            <strong>Autores:</strong> Aøsf, L.; <strong>Mac Intir, M. D.</strong>; Azevedo, T. M.; Menezes, L. B.; Moroti, M. T.
-          </div>
-          <p class="paper-summary">
-            Demonstração científica da expansão da área de ocorrência do sapinho-flamenguinho de altitude (espécie bioindicadora vulnerável) no Sudeste brasileiro através da fusão de registros de ciência cidadã com validação morfológica e bioacústica rigorosa em campo.
-          </p>
-          <div class="paper-image-wrap">
-            <img src="assets/anfibio-estudo.jpg" alt="Melanophryniscus moreirae em estudo de campo" class="paper-img" loading="lazy">
-          </div>
-        </div>
-
-        <!-- Paper 2: COP 30 -->
-        <div class="paper-card">
-          <div class="paper-badge-row">
-            <span class="paper-badge cop-badge"><i class="fa-solid fa-earth-americas"></i> COP 30 (2025)</span>
-            <span class="paper-badge status-badge">Apresentado na ONU</span>
-          </div>
-          <h3>O Papel do Reflorestamento na Restauração Microclimática e Atração da Avifauna no Parque das Nascentes</h3>
-          <div class="paper-meta">
-            <strong>Evento:</strong> Conferência das Nações Unidas sobre Mudanças Climáticas (COP 30), 2025 &bull; 
-            <strong>Autores:</strong> Aøsf, L.; Oliveira, H. J.; Moreira, R. G.; <strong>Intir, M. M.</strong>
-          </div>
-          <p class="paper-summary">
-            Estudo quantitativo comprovando que o adensamento florestal com espécies nativas em áreas degradadas reduziu a temperatura superficial do solo e atuou como refúgio térmico, multiplicando a riqueza da avifauna local.
+    <!-- Bastidores de Campo & Galeria com Lightbox -->
+    <section class="section gallery-section" id="galeria">
+      <div class="container">
+        <div class="section-heading text-center">
+          <span class="heading-tag"><i class="fa-solid fa-camera"></i> Registros Reais</span>
+          <h2 class="heading-title">Bastidores de Campo: Rigor Científico, Afeto e Bom Humor</h2>
+          <div class="heading-divider"></div>
+          <p class="heading-sub">
+            A conservação se faz com bota na lama, água no peito, respeito à terra e amor autêntico pelos animais.
           </p>
         </div>
 
-        <!-- Paper 3: Projeto BASF -->
-        <div class="paper-card">
-          <div class="paper-badge-row">
-            <span class="paper-badge basf-badge"><i class="fa-solid fa-feather"></i> Fomento BASF</span>
-            <span class="paper-badge status-badge">2023 – 2025</span>
-          </div>
-          <h3>Projeto Ornitofauna de Guaratinguetá</h3>
-          <div class="paper-meta">
-            <strong>Financiador:</strong> BASF (Matriz São Paulo) &bull; 
-            <strong>Integrantes:</strong> <strong>Micheli Mac Intir</strong>; Lucas Aøsf; Matheus Moroti; Henry Alexandre
-          </div>
-          <p class="paper-summary">
-            Levantamento sazonal sistemático e anilhamento de aves no Vale do Paraíba, mapeando gradientes de pressão antrópica e áreas prioritárias de restauração florestal em matriz agropecuária e industrial.
-          </p>
-        </div>
-
-        <!-- Paper 4: Serra da Bocaina -->
-        <div class="paper-card">
-          <div class="paper-badge-row">
-            <span class="paper-badge"><i class="fa-solid fa-mountain"></i> Em Andamento</span>
-            <span class="paper-badge status-badge">2025 – Atual</span>
-          </div>
-          <h3>Herpetofauna da Serra da Bocaina</h3>
-          <div class="paper-meta">
-            <strong>Responsável:</strong> <strong>Micheli Mac Intir</strong> | <strong>Integrante:</strong> Lucas Aøsf
-          </div>
-          <p class="paper-summary">
-            Expedições sistemáticas de campo na parte alta da Serra da Bocaina (São José do Barreiro/SP) para preencher lacunas de distribuição biogeográfica de anfíbios anuros e répteis de mata nebular.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Technical & Operational Stack (Padrão BioKuri) -->
-    <section class="tech-section glass-panel fade-in" id="stack-section">
-      <div class="section-title-wrap text-center">
-        <span class="sub-badge"><i class="fa-solid fa-layer-group"></i> Bio-Tech & Scientific Stack</span>
-        <h2>Matriz de Competências Técnicas & Dados</h2>
-        <div class="bar-accent"></div>
-        <p class="lead-desc">
-          Ferramentas de computação, protocolos de supervisão ambiental e frameworks analíticos aplicados rotineiramente.
-        </p>
-      </div>
-
-      <div class="badges-categorized">
-        <div class="stack-group">
-          <span class="group-title"><i class="fa-solid fa-helmet-safety"></i> Supervisão & Gestão de Obras</span>
-          <div class="badges-grid">
-            <span class="badge"><i class="fa-solid fa-road"></i> SUPERVISÃO BR-153 / BR-369</span>
-            <span class="badge"><i class="fa-solid fa-triangle-exclamation"></i> GESTÃO DE NÃO CONFORMIDADES (NC)</span>
-            <span class="badge"><i class="fa-solid fa-file-shield"></i> LICENÇAS (LP, LI, LO) & OUTORGAS</span>
-            <span class="badge"><i class="fa-solid fa-truck-droplet"></i> CONTROLE DE POEIRA & BOTA-FORA</span>
-            <span class="badge"><i class="fa-solid fa-users"></i> LIDERANÇA DE 9 PROFISSIONAIS</span>
-          </div>
-        </div>
-
-        <div class="stack-group">
-          <span class="group-title"><i class="fa-solid fa-paw"></i> Fauna, Flora & Resgate de Campo</span>
-          <div class="badges-grid">
-            <span class="badge"><i class="fa-solid fa-dove"></i> ORNITOLOGIA COSTEIRA & TERRESTRE</span>
-            <span class="badge"><i class="fa-solid fa-frog"></i> HERPETOFAUNA & TRANSECTOS</span>
-            <span class="badge"><i class="fa-solid fa-shield-virus"></i> MANEJO SEGURO DE PEÇONHENTOS</span>
-            <span class="badge"><i class="fa-solid fa-seedling"></i> RESGATE DE GERMOPLASMA & PROPÁGULOS</span>
-            <span class="badge"><i class="fa-solid fa-person-military-pointing"></i> INSTRUÇÃO MILITAR (5º BIL)</span>
-          </div>
-        </div>
-
-        <div class="stack-group">
-          <span class="group-title"><i class="fa-solid fa-chart-line"></i> Ciência de Dados & Ecologia</span>
-          <div class="badges-grid">
-            <span class="badge python"><i class="fa-brands fa-python"></i> PYTHON & PANDAS (DADOS AMBIENTAIS)</span>
-            <span class="badge"><i class="fa-solid fa-chart-pie"></i> MBA DATA SCIENCE USP / ESALQ</span>
-            <span class="badge stats"><i class="fa-solid fa-chart-area"></i> BIOESTATÍSTICA MULTIVARIADA</span>
-            <span class="badge gbif"><i class="fa-solid fa-database"></i> MINERAÇÃO DE BASES ABERTAS (GBIF)</span>
-            <span class="badge excel"><i class="fa-solid fa-file-excel"></i> RELATÓRIOS AUDITÁVEIS & ESG</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Field Gallery & Real Moments -->
-    <section class="gallery-section glass-panel fade-in" id="gallery-section">
-      <div class="section-title-wrap text-center">
-        <span class="sub-badge"><i class="fa-solid fa-camera"></i> Registros Autênticos</span>
-        <h2>Bastidores de Campo: Da Água à Mata, com Rigor e Bom Humor</h2>
-        <div class="bar-accent"></div>
-        <p class="lead-desc">
-          A conservação se faz com bota na lama, água no peito, respeito à terra e amor autêntico pelos animais.
-        </p>
-      </div>
-
-      <div class="gallery-grid">
-        <div class="gallery-card" onclick="openLightbox('assets/hero-field.jpg', 'Monitoramento costeiro com teleobjetiva Canon e tripé em água rasa (Porto de São Sebastião/SP)')">
-          <div class="gallery-thumb-wrap">
-            <img src="assets/hero-field.jpg" alt="Micheli em monitoramento costeiro com câmera" loading="lazy">
-            <div class="gallery-overlay">
-              <i class="fa-solid fa-magnifying-glass-plus"></i>
-              <span>Ornitologia Costeira</span>
+        <div class="gallery-grid">
+          <div class="gallery-card" onclick="openLightbox('assets/hero-field.jpg', 'Monitoramento costeiro com teleobjetiva Canon e tripé em água rasa (Porto de São Sebastião/SP)')">
+            <div class="gallery-thumb-box">
+              <img src="assets/hero-field.jpg" alt="Micheli em monitoramento costeiro com câmera" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Ornitologia Costeira</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Porto de São Sebastião</strong>
+              <p>Monitoramento costeiro com câmera e tripé na água.</p>
             </div>
           </div>
-          <div class="gallery-caption">
-            <strong>Porto de São Sebastião</strong>
-            <p>Monitoramento costeiro com câmera e tripé na água.</p>
-          </div>
-        </div>
 
-        <div class="gallery-card" onclick="openLightbox('assets/caiaque-ilhabela.jpg', 'Expedição com caiaque oceânico em Ilhabela / São Sebastião para pontos amostrais em ilhas costeiras')">
-          <div class="gallery-thumb-wrap">
-            <img src="assets/caiaque-ilhabela.jpg" alt="Micheli com caiaque oceânico em Ilhabela" loading="lazy">
-            <div class="gallery-overlay">
-              <i class="fa-solid fa-magnifying-glass-plus"></i>
-              <span>Expedição Ilhabela</span>
+          <div class="gallery-card" onclick="openLightbox('assets/caiaque-ilhabela.jpg', 'Expedição com caiaque oceânico em Ilhabela / São Sebastião para pontos amostrais em ilhas costeiras')">
+            <div class="gallery-thumb-box">
+              <img src="assets/caiaque-ilhabela.jpg" alt="Micheli com caiaque oceânico em Ilhabela" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Expedição Ilhabela</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Ilhabela &amp; Litoral Norte</strong>
+              <p>Amostragem em ilhas com caiaque oceânico.</p>
             </div>
           </div>
-          <div class="gallery-caption">
-            <strong>Ilhabela & Litoral Norte</strong>
-            <p>Amostragem em ilhas com caiaque oceânico.</p>
-          </div>
-        </div>
 
-        <div class="gallery-card" onclick="openLightbox('assets/trilha-mata.jpg', 'Trilha de campo e amostragem de fauna na Mata Atlântica com equipe e equipamentos')">
-          <div class="gallery-thumb-wrap">
-            <img src="assets/trilha-mata.jpg" alt="Micheli em expedição na mata fechada" loading="lazy">
-            <div class="gallery-overlay">
-              <i class="fa-solid fa-magnifying-glass-plus"></i>
-              <span>Trilha & Mata Atlântica</span>
+          <div class="gallery-card" onclick="openLightbox('assets/trilha-mata.jpg', 'Trilha de campo e amostragem de fauna na Mata Atlântica com equipe e equipamentos')">
+            <div class="gallery-thumb-box">
+              <img src="assets/trilha-mata.jpg" alt="Micheli em expedição na mata fechada" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Trilha &amp; Mata Atlântica</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Serra da Bocaina</strong>
+              <p>Trilhas de fauna e amostragem em áreas remotas.</p>
             </div>
           </div>
-          <div class="gallery-caption">
-            <strong>Serra da Bocaina / Mata Atlântica</strong>
-            <p>Trilhas de fauna e amostragem em áreas remotas.</p>
-          </div>
-        </div>
 
-        <div class="gallery-card" onclick="openLightbox('assets/anfibio-estudo.jpg', 'Fotografia científica de herpetofauna de altitude (Melanophryniscus moreirae) para o artigo internacional aceito')">
-          <div class="gallery-thumb-wrap">
-            <img src="assets/anfibio-estudo.jpg" alt="Fotografia de anfíbio estudado" loading="lazy">
-            <div class="gallery-overlay">
-              <i class="fa-solid fa-magnifying-glass-plus"></i>
-              <span>Pesquisa Herpetológica</span>
+          <div class="gallery-card" onclick="openLightbox('assets/melanophryniscus-moreirae.jpg', 'Fotografia científica de Melanophryniscus moreirae (sapinho-flamenguinho de altitude) para o artigo internacional aceito')">
+            <div class="gallery-thumb-box">
+              <img src="assets/melanophryniscus-moreirae.jpg" alt="Fotografia de Melanophryniscus moreirae estudado" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Pesquisa Herpetológica</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Melanophryniscus moreirae</strong>
+              <p>Artigo internacional aceito para publicação (2026).</p>
             </div>
           </div>
-          <div class="gallery-caption">
-            <strong>Melanophryniscus moreirae</strong>
-            <p>Artigo internacional aceito para publicação (2026).</p>
-          </div>
-        </div>
 
-        <div class="gallery-card highlight-fun" onclick="openLightbox('assets/campo-vaca.jpg', 'Momento espontâneo no campo: afeto genuíno e bom humor na rotina com animais')">
-          <div class="gallery-thumb-wrap">
-            <img src="assets/campo-vaca.jpg" alt="Micheli abraçada com vaca no campo" loading="lazy">
-            <div class="gallery-overlay">
-              <i class="fa-solid fa-heart"></i>
-              <span>Afeto & Rotina Rural</span>
+          <div class="gallery-card fun-highlight" onclick="openLightbox('assets/campo-vaca.jpg', 'Momento espontâneo no campo: afeto genuíno e bom humor na rotina com animais')">
+            <div class="gallery-thumb-box">
+              <img src="assets/campo-vaca.jpg" alt="Micheli abraçada com vaca no campo" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-heart"></i>
+                <span>Afeto &amp; Rotina Rural</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Consultora de Bem-Estar 🐮</strong>
+              <p>Porque amar os animais é o combustível de tudo isso.</p>
             </div>
           </div>
-          <div class="gallery-caption">
-            <strong>Consultora Honorária de Bem-Estar 🐮</strong>
-            <p>Porque amar os animais é o combustível de tudo isso.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Instagram Showcase Banner -->
-      <div class="insta-strip">
-        <div class="insta-left">
-          <div class="insta-icon-box"><i class="fa-brands fa-instagram"></i></div>
-          <div class="insta-text">
-            <h4>Acompanhe o dia a dia no Instagram <span class="insta-handle">@macintir</span></h4>
-            <p>Resgates de fauna, caiaque, bastidores das obras da BR-153/369, viagens e novidades da <strong>BioKuri</strong>.</p>
-          </div>
-        </div>
-        <a href="https://instagram.com/macintir" class="cyber-button bio-button insta-btn" target="_blank" rel="noopener">
-          <i class="fa-brands fa-instagram"></i> Seguir @macintir
-        </a>
-      </div>
-    </section>
-
-    <!-- Education & Languages -->
-    <section class="education-section glass-panel fade-in">
-      <div class="section-title-wrap text-center">
-        <span class="sub-badge"><i class="fa-solid fa-graduation-cap"></i> Base Científica</span>
-        <h2>Formação Acadêmica & Idiomas</h2>
-        <div class="bar-accent"></div>
-      </div>
-
-      <div class="edu-grid">
-        <div class="edu-box highlight-edu">
-          <div class="edu-badge"><i class="fa-solid fa-brain"></i> 2024 – Presente</div>
-          <h3>MBA em Data Science e Analytics</h3>
-          <h4>Universidade de São Paulo (USP / ESALQ)</h4>
-          <p>Modelagem preditiva, machine learning aplicado a ciências biológicas, dashboards analíticos e governança de dados ESG.</p>
         </div>
 
-        <div class="edu-box">
-          <div class="edu-badge"><i class="fa-solid fa-book"></i> 2016 – 2019</div>
-          <h3>Licenciatura em Ciências Biológicas</h3>
-          <h4>Centro Universitário Teresa D’Ávila (UNIFATEA)</h4>
-          <p><strong>Bolsista CAPES.</strong> Trabalho de Conclusão voltado a <em>"Levantamento Ornitológico no Parque Ecológico do Taboão, Lorena/SP"</em> sob orientação do prof. Ricardo Mendonça.</p>
-        </div>
-
-        <div class="edu-box">
-          <div class="edu-badge"><i class="fa-solid fa-language"></i> Idiomas</div>
-          <h3>Comunicação Técnica & Artigos</h3>
-          <ul class="lang-checks">
-            <li><strong>Português:</strong> Nativo</li>
-            <li><strong>Inglês:</strong> Fluência para leitura crítica de artigos internacionais, redação de papers científicos e diálogos técnicos.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact & Direct Call to Action -->
-    <section class="contact-section glass-panel fade-in" id="contact-section">
-      <div class="section-title-wrap text-center">
-        <span class="sub-badge"><i class="fa-solid fa-envelope-open-text"></i> Canais Diretos</span>
-        <h2>Vamos Conversar?</h2>
-        <div class="bar-accent"></div>
-        <p class="lead-desc">
-          Disponível para demandas de supervisão de obras, diagnósticos de fauna, soluções pela BioKuri e parcerias acadêmicas.
-        </p>
-      </div>
-
-      <div class="contact-channels-grid">
-        <a href="https://wa.me/5512981311815" class="channel-card whatsapp-channel" target="_blank" rel="noopener">
-          <div class="channel-icon"><i class="fa-brands fa-whatsapp"></i></div>
-          <div class="channel-info">
-            <span class="channel-name">WhatsApp Direto</span>
-            <span class="channel-val">(12) 98131-1815</span>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square channel-arrow"></i>
-        </a>
-
-        <a href="mailto:michelidinizmacintir@gmail.com" class="channel-card email-channel">
-          <div class="channel-icon"><i class="fa-solid fa-envelope"></i></div>
-          <div class="channel-info">
-            <span class="channel-name">E-mail Profissional</span>
-            <span class="channel-val">michelidinizmacintir@gmail.com</span>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square channel-arrow"></i>
-        </a>
-
-        <a href="https://www.linkedin.com/in/micheli-diniz-mac-intir-190160278/" class="channel-card linkedin-channel" target="_blank" rel="noopener">
-          <div class="channel-icon"><i class="fa-brands fa-linkedin-in"></i></div>
-          <div class="channel-info">
-            <span class="channel-name">LinkedIn</span>
-            <span class="channel-val">micheli-diniz-mac-intir</span>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square channel-arrow"></i>
-        </a>
-
-        <a href="https://instagram.com/macintir" class="channel-card instagram-channel" target="_blank" rel="noopener">
-          <div class="channel-icon"><i class="fa-brands fa-instagram"></i></div>
-          <div class="channel-info">
-            <span class="channel-name">Instagram</span>
-            <span class="channel-val">@macintir</span>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square channel-arrow"></i>
-        </a>
-
-        <a href="http://lattes.cnpq.br/8079558009399619" class="channel-card lattes-channel" target="_blank" rel="noopener">
-          <div class="channel-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-          <div class="channel-info">
-            <span class="channel-name">Currículo Lattes CNPq</span>
-            <span class="channel-val">8079558009399619</span>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square channel-arrow"></i>
-        </a>
-
-        <a href="https://orcid.org/0009-0008-4054-6952" class="channel-card orcid-channel" target="_blank" rel="noopener">
-          <div class="channel-icon"><i class="fa-brands fa-orcid"></i></div>
-          <div class="channel-info">
-            <span class="channel-name">ORCID ID</span>
-            <span class="channel-val">0009-0008-4054-6952</span>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square channel-arrow"></i>
-        </a>
-
-        <a href="https://github.com/macintir" class="channel-card github-channel" target="_blank" rel="noopener">
-          <div class="channel-icon"><i class="fa-brands fa-github"></i></div>
-          <div class="channel-info">
-            <span class="channel-name">GitHub</span>
-            <span class="channel-val">@macintir</span>
-          </div>
-          <i class="fa-solid fa-arrow-up-right-from-square channel-arrow"></i>
-        </a>
-      </div>
-
-      <!-- CV Download Box -->
-      <div class="cv-download-banner">
-        <div class="cv-banner-text">
-          <h3>Precisa do currículo completo para qualificação técnica de concorrência ou contratação?</h3>
-          <p>Faça o download do documento detalhado com histórico de ARTs, cursos e projetos.</p>
-        </div>
-        <a href="curriculo-micheli-mac-intir.pdf" class="cyber-button bio-button" download target="_blank">
-          <i class="fa-solid fa-file-pdf"></i> Baixar Currículo em PDF
-        </a>
-      </div>
-    </section>
-
-    <!-- Footer Padrão BioKuri -->
-    <footer class="main-footer">
-      <div class="footer-grid">
-        <div class="footer-brand-col">
-          <div class="footer-logo-row">
-            <img src="assets/logo-emblem-creme.png" alt="BioKuri" class="footer-logo">
+        <!-- Instagram Strip -->
+        <div class="instagram-banner">
+          <div class="insta-info-side">
+            <div class="insta-icon-circle"><i class="fa-brands fa-instagram"></i></div>
             <div>
-              <strong>Micheli Mac Intir</strong>
-              <span class="footer-sub">BioKuri — Pesquisa e Soluções Ambientais 🌿</span>
+              <h4>Acompanhe o dia a dia no Instagram <span class="insta-user">@macintir</span></h4>
+              <p>Resgates de fauna, expedições de caiaque, bastidores das obras da BR-153/369 e novidades da <strong>BioKuri</strong>.</p>
             </div>
           </div>
-          <p class="footer-txt">Bióloga · CRBio 135793/01-D · Supervisora Ambiental · Data Science (USP)</p>
-        </div>
-
-        <div class="footer-links-col">
-          <a href="#about">Início</a>
-          <a href="#focus-section">Supervisão BR-153/369</a>
-          <a href="#biokuri-section">BioKuri</a>
-          <a href="#experience-section">Experiência</a>
-          <a href="#publications-section">Ciência</a>
-          <a href="#gallery-section">Bastidores</a>
-          <a href="#contact-section">Contato</a>
+          <a href="https://instagram.com/macintir" class="btn btn-insta" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram"></i> Seguir @macintir
+          </a>
         </div>
       </div>
+    </section>
 
-      <div class="footer-bottom-line">
-        <p>&copy; 2026 Micheli Mac Intir · Todos os direitos reservados.</p>
-        <p class="signature-tag">Construído com amor à ciência, bota na lama e rigor analítico de dados 🌿</p>
+    <!-- Formação Acadêmica & Idiomas -->
+    <section class="section education-section">
+      <div class="container">
+        <div class="section-heading text-center">
+          <span class="heading-tag"><i class="fa-solid fa-graduation-cap"></i> Base Científica</span>
+          <h2 class="heading-title">Formação Acadêmica &amp; Idiomas</h2>
+          <div class="heading-divider"></div>
+        </div>
+
+        <div class="education-grid">
+          <div class="edu-card featured-edu">
+            <div class="edu-year-tag"><i class="fa-solid fa-brain"></i> 2024 – Presente</div>
+            <h3>MBA em Data Science e Analytics</h3>
+            <h4>Universidade de São Paulo (USP / ESALQ)</h4>
+            <p>Especialização focada em modelagem preditiva, algoritmos aplicados a ciências biológicas, visualização de dados e governança ESG.</p>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-year-tag"><i class="fa-solid fa-book"></i> 2016 – 2019</div>
+            <h3>Licenciatura em Ciências Biológicas</h3>
+            <h4>Centro Universitário Teresa D’Ávila (UNIFATEA)</h4>
+            <p><strong>Bolsista CAPES.</strong> TCC voltado a <em>"Levantamento Ornitológico no Parque Ecológico do Taboão, Lorena/SP"</em> sob orientação do prof. Ricardo Mendonça.</p>
+          </div>
+
+          <div class="edu-card">
+            <div class="edu-year-tag"><i class="fa-solid fa-language"></i> Idiomas</div>
+            <h3>Comunicação Técnica &amp; Científica</h3>
+            <ul class="edu-langs-list">
+              <li><strong>Português:</strong> Nativo</li>
+              <li><strong>Inglês:</strong> Fluência para leitura crítica de artigos internacionais, redação técnica de papers e diálogo profissional.</li>
+            </ul>
+          </div>
+        </div>
       </div>
-    </footer>
+    </section>
+
+    <!-- Contato Direto & Chamada para Ação -->
+    <section class="section contact-section" id="contato">
+      <div class="container">
+        <div class="contact-card-box">
+          <div class="section-heading text-center">
+            <span class="heading-tag"><i class="fa-solid fa-paper-plane"></i> Vamos Conversar?</span>
+            <h2 class="heading-title">Entre em Contato</h2>
+            <div class="heading-divider"></div>
+            <p class="heading-sub">
+              Disponível para demandas de supervisão ambiental de obras, diagnósticos de fauna, soluções pela BioKuri e parcerias acadêmicas.
+            </p>
+          </div>
+
+          <div class="contact-channels-grid">
+            <a href="https://wa.me/5512981311815" class="channel-box" target="_blank" rel="noopener">
+              <div class="ch-icon"><i class="fa-brands fa-whatsapp"></i></div>
+              <div class="ch-text">
+                <span class="ch-label">WhatsApp Direto</span>
+                <span class="ch-val">(12) 98131-1815</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
+            </a>
+
+            <a href="mailto:michelidinizmacintir@gmail.com" class="channel-box">
+              <div class="ch-icon"><i class="fa-solid fa-envelope"></i></div>
+              <div class="ch-text">
+                <span class="ch-label">E-mail Profissional</span>
+                <span class="ch-val">michelidinizmacintir@gmail.com</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
+            </a>
+
+            <a href="https://www.linkedin.com/in/micheli-diniz-mac-intir-190160278/" class="channel-box" target="_blank" rel="noopener">
+              <div class="ch-icon"><i class="fa-brands fa-linkedin-in"></i></div>
+              <div class="ch-text">
+                <span class="ch-label">LinkedIn</span>
+                <span class="ch-val">micheli-diniz-mac-intir</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
+            </a>
+
+            <a href="https://instagram.com/macintir" class="channel-box" target="_blank" rel="noopener">
+              <div class="ch-icon"><i class="fa-brands fa-instagram"></i></div>
+              <div class="ch-text">
+                <span class="ch-label">Instagram</span>
+                <span class="ch-val">@macintir</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
+            </a>
+
+            <a href="http://lattes.cnpq.br/8079558009399619" class="channel-box" target="_blank" rel="noopener">
+              <div class="ch-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+              <div class="ch-text">
+                <span class="ch-label">Currículo Lattes CNPq</span>
+                <span class="ch-val">8079558009399619</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
+            </a>
+
+            <a href="https://orcid.org/0009-0008-4054-6952" class="channel-box" target="_blank" rel="noopener">
+              <div class="ch-icon"><i class="fa-brands fa-orcid"></i></div>
+              <div class="ch-text">
+                <span class="ch-label">ORCID ID</span>
+                <span class="ch-val">0009-0008-4054-6952</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
+            </a>
+
+            <a href="https://github.com/macintir" class="channel-box" target="_blank" rel="noopener">
+              <div class="ch-icon"><i class="fa-brands fa-github"></i></div>
+              <div class="ch-text">
+                <span class="ch-label">GitHub</span>
+                <span class="ch-val">@macintir</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square ch-arrow"></i>
+            </a>
+          </div>
+
+          <div class="cv-download-banner">
+            <div class="cv-banner-info">
+              <h3>Precisa do currículo completo em PDF para contratação ou concorrência?</h3>
+              <p>Baixe o documento detalhado com ARTs, frentes de obra e referências técnicas.</p>
+            </div>
+            <a href="curriculo-micheli-mac-intir.pdf" class="btn btn-primary btn-lg" download target="_blank">
+              <i class="fa-solid fa-file-pdf"></i> Baixar Currículo em PDF
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
+
+  <!-- Footer Oficial BioKuri -->
+  <footer class="page-footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <img src="assets/logo-verde.png" alt="BioKuri Soluções Ambientais" class="footer-logo">
+        <p>Bióloga &bull; CRBio 135793/01-D &bull; Supervisora Ambiental &bull; Co-fundadora BioKuri</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="#inicio">Início</a>
+        <a href="#sobre">Sobre Mim</a>
+        <a href="#supervisao">Supervisão BR-153/369</a>
+        <a href="#biokuri">BioKuri</a>
+        <a href="#ciencia">Ciência</a>
+        <a href="#galeria">Bastidores</a>
+        <a href="#contato">Contato</a>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Micheli Mac Intir &bull; Todos os direitos reservados.</p>
+        <p class="signature-line">BioKuri — Pesquisa e Soluções Ambientais 🌿</p>
+      </div>
+    </div>
+  </footer>
 
   <!-- Lightbox Modal -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
     <span class="lightbox-close">&times;</span>
-    <img class="lightbox-content" id="lightboxImg" alt="Imagem ampliada de campo">
+    <img class="lightbox-content" id="lightboxImg" alt="Registro fotográfico ampliado">
     <div class="lightbox-caption" id="lightboxCaption"></div>
   </div>
 
-  <script src="script.js?v=3.0"></script>
+  <script src="script.js?v=4.0"></script>
 </body>
 </html>
