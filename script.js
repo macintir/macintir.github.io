@@ -6,7 +6,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   initAudioSystem();
-  initAvianInteractiveCanvas();
+  initButterflyCanvas();
   initMetricsCounter();
   initLightbox();
   initSmoothScroll();
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* ==========================================================================
    1. SISTEMA DE ÁUDIO ORGÂNICO (SINTETIZADOR WEB AUDIO API)
-   Vocalizações de aves e efeitos táteis sintetizados em tempo real via código
+   Vocalizações e efeitos táteis sintetizados em tempo real via código
    ========================================================================== */
 let audioCtx = null;
 let soundEnabled = true;
@@ -104,67 +104,69 @@ function playSoftChirp(freq = 1100) {
 }
 
 /**
- * Efeito sonoro orgânico ao explodir uma ave em penas:
- * Ruído de asas/penas rascunhando o ar + chirp melódico suave
+ * Efeito sonoro orgânico ao interagir com as borboletas:
+ * Brisa suave de asas + chime cristalino floral
  */
-function playFeatherBurstSound() {
+function playPollenBurstSound() {
   if (!soundEnabled) return;
   try {
     const ctx = getAudioContext();
     if (!ctx) return;
     const now = ctx.currentTime;
 
-    // 1. Som de farfalhar de penas e asas (ruído filtrado suave)
-    const bufferSize = Math.floor(ctx.sampleRate * 0.15);
+    // 1. Som delicado de asas e ar floral (ruído filtrado suave)
+    const bufferSize = Math.floor(ctx.sampleRate * 0.14);
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
     for (let i = 0; i < bufferSize; i++) {
-      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
+      data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.35));
     }
     const noise = ctx.createBufferSource();
     noise.buffer = buffer;
 
     const filter = ctx.createBiquadFilter();
     filter.type = 'bandpass';
-    filter.frequency.setValueAtTime(1600, now);
-    filter.frequency.exponentialRampToValueAtTime(500, now + 0.15);
-    filter.Q.value = 2.5;
+    filter.frequency.setValueAtTime(1800, now);
+    filter.frequency.exponentialRampToValueAtTime(600, now + 0.14);
+    filter.Q.value = 3.0;
 
     const gain = ctx.createGain();
-    gain.gain.setValueAtTime(0.035, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+    gain.gain.setValueAtTime(0.025, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
 
     noise.connect(filter);
     filter.connect(gain);
     gain.connect(ctx.destination);
     noise.start(now);
 
-    // 2. Nota cantada curta e cristalina
+    // 2. Chime cristalino sutil
     const osc = ctx.createOscillator();
     const oscGain = ctx.createGain();
     osc.type = 'sine';
-    const baseFreq = 2100 + Math.random() * 500;
+    const baseFreq = 2400 + Math.random() * 600;
     osc.frequency.setValueAtTime(baseFreq, now);
-    osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.3, now + 0.05);
-    osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.9, now + 0.11);
+    osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.45, now + 0.04);
+    osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.95, now + 0.1);
 
-    oscGain.gain.setValueAtTime(0.02, now);
-    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+    oscGain.gain.setValueAtTime(0.018, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
 
     osc.connect(oscGain);
     oscGain.connect(ctx.destination);
     osc.start(now);
-    osc.stop(now + 0.11);
+    osc.stop(now + 0.1);
   } catch (e) {}
 }
 
 /* ==========================================================================
-   2. AVIAN INTERACTIVE CANVAS (PÁSSAROS EM VOO LIVRE & EXPLOSÃO DE PENAS)
-   - Bandos de aves voando suavemente pelo horizonte em tons BioKuri
-   - Ao clicar em qualquer ave, ela se dispersa em uma explosão realista de penas
-   - As penas flutuam e dançam no ar com física orgânica (gravidade, balanço e giro 3D)
+   2. BIO-CANVAS: BORBOLETÁRIO DA MATA ATLÂNTICA (BORBOLETAS NO FUNDO)
+   Similar à Lagoa dos Girinos de Lucas Aøsf:
+   - Borboletas nativas voando livremente pelo FUNDO do portfólio
+   - Nado/voo esvoaçante ondulante em 3 camadas de profundidade
+   - Janela de observação interativa (#butterfly-sanctuary-zone)
+   - Ao interagir ou clicar, dispersam ou explodem em névoa floral de pólen
    ========================================================================== */
-function initAvianInteractiveCanvas() {
+function initButterflyCanvas() {
   const canvas = document.getElementById('bio-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
@@ -172,77 +174,153 @@ function initAvianInteractiveCanvas() {
   let width = (canvas.width = window.innerWidth);
   let height = (canvas.height = window.innerHeight);
 
-  function resizeCanvas() {
+  function updateCanvasDimensions() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
   }
-  window.addEventListener('resize', resizeCanvas);
+  window.addEventListener('resize', updateCanvasDimensions);
+  window.addEventListener('orientationchange', () => {
+    setTimeout(updateCanvasDimensions, 150);
+  });
 
+  // Janela dedicada de observação: Borboletário da Mata Atlântica
+  const sanctuaryZone = document.getElementById('butterfly-sanctuary-zone');
+  let mouseInSanctuary = false;
   let mouseX = -1000;
   let mouseY = -1000;
-  let isHoveringBird = false;
+  let isTouchInteraction = false;
+  let touchResetTimer = null;
+  const shockwaves = [];
+  const pollens = [];
+  const butterflies = [];
 
-  window.addEventListener('pointermove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-  }, { passive: true });
+  function isInsideSanctuary(cx, cy) {
+    if (!sanctuaryZone) return false;
+    const rect = sanctuaryZone.getBoundingClientRect();
+    return cx >= rect.left && cx <= rect.right && cy >= rect.top && cy <= rect.bottom;
+  }
 
-  // Paleta BioKuri para as aves
-  const BIRD_PALETTE = [
-    { fill: '#1C5933', dark: '#144024', name: 'Pinheiro' },
-    { fill: '#C47D3B', dark: '#965C26', name: 'Âmbar' },
-    { fill: '#14291B', dark: '#0C1A11', name: 'Musgo Escuro' },
-    { fill: '#2A7244', dark: '#1F5633', name: 'Esmeralda' },
-    { fill: '#C5A059', dark: '#96783A', name: 'Ouro BioKuri' }
-  ];
+  function triggerSanctuaryRipple(x, y) {
+    shockwaves.push({
+      x: x,
+      y: y,
+      radius: 5,
+      maxRadius: 75,
+      speed: 3.5,
+      alpha: 0.85
+    });
 
-  // Penas e anéis de choque
-  const feathers = [];
-  const rings = [];
-  const spores = [];
-  const birds = [];
+    // Dispersão e explosão de pólen floral
+    for (let i = 0; i < 22; i++) {
+      pollens.push(new PollenParticle(x, y));
+    }
+
+    playPollenBurstSound();
+  }
+
+  if (sanctuaryZone) {
+    sanctuaryZone.addEventListener('mousemove', (e) => {
+      if (isTouchInteraction) return;
+      mouseInSanctuary = true;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    sanctuaryZone.addEventListener('mouseenter', (e) => {
+      if (isTouchInteraction) return;
+      mouseInSanctuary = true;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    sanctuaryZone.addEventListener('mouseleave', () => {
+      mouseInSanctuary = false;
+      mouseX = -1000;
+      mouseY = -1000;
+    });
+
+    sanctuaryZone.addEventListener('click', (e) => {
+      if (isTouchInteraction) return;
+      triggerSanctuaryRipple(e.clientX, e.clientY);
+    });
+
+    sanctuaryZone.addEventListener('touchstart', (e) => {
+      isTouchInteraction = true;
+      mouseInSanctuary = false;
+      mouseX = -1000;
+      mouseY = -1000;
+
+      clearTimeout(touchResetTimer);
+      touchResetTimer = setTimeout(() => {
+        isTouchInteraction = false;
+      }, 800);
+
+      if (e.touches && e.touches.length > 0) {
+        const touch = e.touches[0];
+        triggerSanctuaryRipple(touch.clientX, touch.clientY);
+      }
+    }, { passive: true });
+
+    sanctuaryZone.addEventListener('touchend', () => {
+      mouseInSanctuary = false;
+      mouseX = -1000;
+      mouseY = -1000;
+    }, { passive: true });
+  }
+
+  // Permite interação ao clicar no fundo geral
+  window.addEventListener('pointerdown', (e) => {
+    // Se o clique foi fora de botões/links interativos principais
+    const targetTag = e.target.tagName.toLowerCase();
+    if (['button', 'a', 'input', 'textarea'].includes(targetTag)) return;
+
+    // Verifica se acertou alguma borboleta próxima
+    let hitButterfly = false;
+    for (let i = butterflies.length - 1; i >= 0; i--) {
+      const b = butterflies[i];
+      if (!b.alive) continue;
+      const dist = Math.hypot(b.x - e.clientX, b.y - e.clientY);
+      if (dist < b.hitRadius) {
+        b.explode();
+        hitButterfly = true;
+        break;
+      }
+    }
+
+    if (!hitButterfly && !mouseInSanctuary) {
+      triggerSanctuaryRipple(e.clientX, e.clientY);
+    }
+  });
 
   // ==========================================
-  // CLASSE: PENA FLUTUANTE (FEATHER)
+  // CLASSE: PARTÍCULA DE PÓLEN FLORAL (POLLEN)
   // ==========================================
-  class Feather {
+  class PollenParticle {
     constructor(x, y, baseColor) {
       this.x = x;
       this.y = y;
 
-      // Dispersão explosiva em 360° com leve impulso para cima
       const angle = Math.random() * Math.PI * 2;
-      const speed = Math.random() * 5.5 + 1.8;
+      const speed = Math.random() * 4.2 + 1.2;
       this.vx = Math.cos(angle) * speed;
-      this.vy = Math.sin(angle) * speed - 1.6;
+      this.vy = Math.sin(angle) * speed - 1.2; // Leve impulso para cima
 
-      // Arrasto do ar e gravidade suave
       this.drag = Math.random() * 0.03 + 0.92;
-      this.gravity = Math.random() * 0.03 + 0.035;
+      this.gravity = Math.random() * 0.025 + 0.03;
 
-      // Oscilação pendular (sway da pena caindo)
       this.swayPhase = Math.random() * Math.PI * 2;
-      this.swaySpeed = Math.random() * 0.045 + 0.025;
-      this.swayAmp = Math.random() * 1.5 + 0.8;
+      this.swaySpeed = Math.random() * 0.04 + 0.02;
+      this.swayAmp = Math.random() * 1.4 + 0.6;
 
-      // Rotação 2D e giro 3D (flip no ar)
-      this.rot = Math.random() * Math.PI * 2;
-      this.rotSpeed = (Math.random() - 0.5) * 0.04;
-      this.flipPhase = Math.random() * Math.PI * 2;
-      this.flipSpeed = Math.random() * 0.05 + 0.02;
+      this.radius = Math.random() * 2.4 + 1.2;
+      this.isPetal = Math.random() < 0.35; // Algumas são pequenas pétalas/escamas
 
-      // Dimensões
-      this.length = Math.random() * 16 + 14;
-      this.width = Math.random() * 6.5 + 4.5;
-
-      // Cores naturais de plumagem
-      const PLUMAGE_COLORS = [
-        '#1C5933', '#287A46', '#C47D3B', '#D99B26', '#EAD8C3', '#FFFFFF', '#6C4A28'
+      const POLLEN_COLORS = [
+        '#C5A059', '#1C5933', '#C47D3B', '#D99B26', '#EAD8C3', '#2A7244'
       ];
-      this.color = baseColor || PLUMAGE_COLORS[Math.floor(Math.random() * PLUMAGE_COLORS.length)];
+      this.color = baseColor || POLLEN_COLORS[Math.floor(Math.random() * POLLEN_COLORS.length)];
 
-      // Tempo de vida longo para flutuarem suavemente pela tela
-      this.life = Math.random() * 320 + 380;
+      this.life = Math.random() * 220 + 260;
       this.maxLife = this.life;
     }
 
@@ -256,58 +334,28 @@ function initAvianInteractiveCanvas() {
       this.x += this.vx + swayX;
       this.y += this.vy;
 
-      this.rot += this.rotSpeed;
-      this.flipPhase += this.flipSpeed;
-
       this.life--;
     }
 
     draw() {
       if (this.life <= 0) return;
-
-      const alpha = this.life > this.maxLife * 0.3
-        ? 0.92
-        : (this.life / (this.maxLife * 0.3)) * 0.92;
-
-      const flip = Math.cos(this.flipPhase);
+      const alpha = this.life > this.maxLife * 0.35
+        ? 0.85
+        : (this.life / (this.maxLife * 0.35)) * 0.85;
 
       ctx.save();
       ctx.translate(this.x, this.y);
-      ctx.rotate(this.rot);
-      ctx.scale(flip, 1);
       ctx.globalAlpha = Math.max(0, alpha);
-
-      const l = this.length;
-      const w = this.width;
-
-      // Raque central (eixo da pena)
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-      ctx.lineWidth = 0.8;
-      ctx.beginPath();
-      ctx.moveTo(0, -l * 0.5);
-      ctx.quadraticCurveTo(1.5, 0, 0, l * 0.52);
-      ctx.stroke();
-
-      // Vexilo / Barbas da pena (formato clássico aerodinâmico)
       ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.moveTo(0, -l * 0.5);
-      ctx.bezierCurveTo(-w * 1.1, -l * 0.22, -w * 1.25, l * 0.15, -w * 0.3, l * 0.42);
-      ctx.lineTo(0, l * 0.48);
-      ctx.bezierCurveTo(w * 0.3, l * 0.42, w * 1.1, l * 0.15, w * 0.9, -l * 0.22);
-      ctx.closePath();
-      ctx.fill();
 
-      // Ranhuras delicadas das barbas
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
-      ctx.lineWidth = 0.5;
-      for (let o = -l * 0.3; o < l * 0.32; o += 3.8) {
+      if (this.isPetal) {
         ctx.beginPath();
-        ctx.moveTo(0, o);
-        ctx.lineTo(-w * 0.65, o - 2.2);
-        ctx.moveTo(0, o);
-        ctx.lineTo(w * 0.55, o - 2.2);
-        ctx.stroke();
+        ctx.ellipse(0, 0, this.radius * 2, this.radius, this.swayPhase, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, this.radius, 0, Math.PI * 2);
+        ctx.fill();
       }
 
       ctx.restore();
@@ -315,99 +363,98 @@ function initAvianInteractiveCanvas() {
   }
 
   // ==========================================
-  // CLASSE: ANEL DE ONDA / SHOCKWAVE (PUFF RING)
+  // CLASSE: BORBOLETA DA MATA ATLÂNTICA (BUTTERFLY)
   // ==========================================
-  class PuffRing {
-    constructor(x, y, color) {
-      this.x = x;
-      this.y = y;
-      this.radius = 6;
-      this.maxRadius = 60;
-      this.color = color || '#C5A059';
-      this.alpha = 0.85;
-    }
-
-    update() {
-      this.radius += 3.2;
-      this.alpha *= 0.88;
-    }
-
-    draw() {
-      if (this.alpha <= 0.02) return;
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.strokeStyle = this.color;
-      ctx.lineWidth = 2;
-      ctx.globalAlpha = this.alpha;
-      ctx.stroke();
-      ctx.restore();
-    }
-  }
-
-  // ==========================================
-  // CLASSE: PÁSSARO EM VOO (BIRD)
-  // ==========================================
-  class Bird {
+  class Butterfly {
     constructor(initial = false) {
       this.reset(initial);
     }
 
     reset(initial = false) {
-      const palette = BIRD_PALETTE[Math.floor(Math.random() * BIRD_PALETTE.length)];
-      this.color = palette.fill;
-      this.darkerColor = palette.dark;
+      this.x = Math.random() * width;
+      this.y = initial ? Math.random() * height : (Math.random() < 0.5 ? -40 : height + 40);
+      this.angle = Math.random() * Math.PI * 2;
+      this.targetAngle = this.angle;
+      this.speed = Math.random() * 1.1 + 0.8;
 
-      // Direção do voo (esquerda->direita ou direita->esquerda)
-      this.direction = Math.random() < 0.65 ? 1 : -1;
-      this.speed = Math.random() * 1.5 + 1.8;
-      this.scale = Math.random() * 0.5 + 0.65; // Variação de escala e profundidade
-      this.hitRadius = Math.max(48, 42 * this.scale);
-
-      if (initial) {
-        this.x = Math.random() * width;
-        this.y = Math.random() * (height * 0.75) + 40;
+      // Profundidade (Depth Layers): similar aos girinos do Lucas
+      const depth = Math.random();
+      this.isDeep = depth < 0.45; // 45% fundo suave para profundidade
+      if (this.isDeep) {
+        this.size = Math.random() * 2.2 + 4.2;
+        this.alpha = Math.random() * 0.15 + 0.18;
+      } else if (depth < 0.85) {
+        this.size = Math.random() * 3.2 + 7.2;
+        this.alpha = Math.random() * 0.22 + 0.38;
       } else {
-        this.x = this.direction > 0 ? -60 : width + 60;
-        this.y = Math.random() * (height * 0.75) + 40;
+        this.size = Math.random() * 4.2 + 11.2;
+        this.alpha = Math.random() * 0.25 + 0.65;
       }
 
-      this.vx = this.direction * this.speed;
-      this.vy = 0;
+      this.hitRadius = Math.max(38, this.size * 3.5);
 
-      // Ondulação suave de altitude
-      this.wavePhase = Math.random() * Math.PI * 2;
-      this.waveSpeed = Math.random() * 0.02 + 0.015;
-      this.waveAmp = Math.random() * 0.6 + 0.3;
+      // Paletas nativas da Mata Atlântica e BioKuri
+      const PALETTES = [
+        { wing: '#1C5933', accent: '#C5A059', body: '#14291B' }, // Parides Verde Pinheiro & Ouro
+        { wing: '#C47D3B', accent: '#FAF6F0', body: '#2A1808' }, // Heliconius Âmbar & Marfim
+        { wing: '#2A7244', accent: '#72C28D', body: '#0E2515' }, // Esmeralda da Mata
+        { wing: '#C5A059', accent: '#1C5933', body: '#261E0A' }, // Dourada BioKuri
+        { wing: '#D98236', accent: '#FFFFFF', body: '#331B05' }, // Monarca Laranja
+        { wing: '#8C6338', accent: '#C5A059', body: '#24190D' }  // Caligo Marrom Florestal
+      ];
+      this.palette = PALETTES[Math.floor(Math.random() * PALETTES.length)];
 
-      // Ciclo de bater de asas e planar (glide)
-      this.flapPhase = Math.random() * Math.PI * 2;
-      this.flapSpeed = Math.random() * 0.06 + 0.18;
-      this.isGliding = false;
-      this.flapTimer = Math.floor(Math.random() * 90 + 70);
-      this.glideTimer = 0;
+      // Cores pré-computadas para zero alocação de memória no loop a 60 FPS
+      const aStr = this.alpha.toFixed(2);
+      const aAccentStr = Math.min(1, this.alpha * 1.3).toFixed(2);
+      this.wingColor = this.hexToRgba(this.palette.wing, aStr);
+      this.accentColor = this.hexToRgba(this.palette.accent, aAccentStr);
+      this.bodyColor = this.hexToRgba(this.palette.body, aStr);
 
-      this.hovered = false;
+      // Bater de asas em 3D
+      this.wingPhase = Math.random() * Math.PI * 2;
+      this.wingSpeed = Math.random() * 0.16 + 0.24;
+
+      // Voo ondulante esvoaçante típico de borboletas
+      this.flutterPhase = Math.random() * Math.PI * 2;
+      this.flutterSpeed = Math.random() * 0.08 + 0.06;
+
+      this.turnTimer = Math.floor(Math.random() * 80) + 40;
+      this.scatterTimer = 0;
       this.alive = true;
       this.respawnTimer = 0;
+    }
+
+    hexToRgba(hex, alpha) {
+      let c = hex.replace('#', '');
+      if (c.length === 3) c = c.split('').map(x => x + x).join('');
+      const r = parseInt(c.substring(0, 2), 16);
+      const g = parseInt(c.substring(2, 4), 16);
+      const b = parseInt(c.substring(4, 6), 16);
+      return `rgba(${r}, ${g}, ${b}, ${alpha})`;
     }
 
     explode() {
       if (!this.alive) return;
       this.alive = false;
-      this.respawnTimer = Math.floor(Math.random() * 60 + 50); // Renasce após ~1.5s
+      this.respawnTimer = Math.floor(Math.random() * 60 + 50);
 
-      // Cria anel de dispersão
-      rings.push(new PuffRing(this.x, this.y, this.color));
-
-      // Dispersa entre 26 e 34 penas ricas no ar
-      const featherCount = Math.floor(Math.random() * 9 + 26);
-      for (let i = 0; i < featherCount; i++) {
-        feathers.push(new Feather(this.x, this.y, this.color));
+      // Explosão de pólen floral
+      const count = Math.floor(Math.random() * 8 + 22);
+      for (let i = 0; i < count; i++) {
+        pollens.push(new PollenParticle(this.x, this.y, this.palette.wing));
       }
 
-      // Efeito sonoro táteis orgânicos
-      playFeatherBurstSound();
+      shockwaves.push({
+        x: this.x,
+        y: this.y,
+        radius: 4,
+        maxRadius: 55,
+        speed: 3.2,
+        alpha: 0.85
+      });
+
+      playPollenBurstSound();
     }
 
     update() {
@@ -419,295 +466,220 @@ function initAvianInteractiveCanvas() {
         return;
       }
 
-      // Movimento de voo
-      this.x += this.vx;
-      this.wavePhase += this.waveSpeed;
-      this.y += Math.sin(this.wavePhase) * this.waveAmp;
+      // 1. Reação a ondas de choque (dispersão localizada)
+      for (let s = 0; s < shockwaves.length; s++) {
+        const sw = shockwaves[s];
+        const dx = this.x - sw.x;
+        const dy = this.y - sw.y;
+        const dist = Math.hypot(dx, dy);
 
-      // Alternância entre bater asas e planar
-      if (this.isGliding) {
-        this.glideTimer--;
-        if (this.glideTimer <= 0) {
-          this.isGliding = false;
-          this.flapTimer = Math.floor(Math.random() * 90 + 80);
+        if (dist < sw.radius + 20 && dist > sw.radius - 16) {
+          const awayAngle = Math.atan2(dy, dx);
+          this.angle = awayAngle + (Math.random() - 0.5) * 1.5;
+          this.targetAngle = this.angle + (Math.random() - 0.5) * 1.0;
+          this.speed = Math.max(this.speed, 2.6 + Math.random() * 0.8);
+          this.scatterTimer = Math.floor(Math.random() * 80) + 50;
+          break;
+        }
+      }
+
+      // 2. Comportamento durante dispersão ou atração no Borboletário
+      if (this.scatterTimer > 0) {
+        this.scatterTimer--;
+        this.angle += (Math.random() - 0.5) * 0.08;
+      } else if (mouseInSanctuary && !isTouchInteraction) {
+        // Atração suave e orgânica em direção ao cursor no Borboletário
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
+        const dist = Math.hypot(dx, dy);
+
+        if (dist < 400 && dist > 45) {
+          const toMouse = Math.atan2(dy, dx);
+          let diff = toMouse - this.angle;
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          while (diff > Math.PI) diff -= Math.PI * 2;
+
+          const steer = Math.max(0.035, 0.11 * (1 - dist / 400));
+          this.angle += diff * steer;
+          this.speed = Math.min(this.speed + 0.05, 2.2);
+        } else {
+          this.naturalSteer();
         }
       } else {
-        this.flapPhase += this.flapSpeed;
-        this.flapTimer--;
-        if (this.flapTimer <= 0) {
-          this.isGliding = true;
-          this.glideTimer = Math.floor(Math.random() * 70 + 60);
-        }
+        this.naturalSteer();
       }
 
-      // Proximidade do cursor (reação interativa sutil)
-      const dx = this.x - mouseX;
-      const dy = this.y - mouseY;
-      const dist = Math.hypot(dx, dy);
+      // 3. Voo esvoaçante de borboleta (ondulação suave + bater de asas)
+      this.flutterPhase += this.flutterSpeed;
+      const flutterWiggle = Math.sin(this.flutterPhase) * 0.28;
 
-      this.hovered = dist < this.hitRadius;
+      this.x += Math.cos(this.angle + flutterWiggle) * this.speed;
+      this.y += Math.sin(this.angle + flutterWiggle) * this.speed;
+      this.wingPhase += this.wingSpeed * (this.speed * 0.95);
 
-      if (dist < 80 && dist > 10) {
-        // Leve desvio natural de rota
-        const angle = Math.atan2(dy, dx);
-        this.y += Math.sin(angle) * 0.8;
+      // Desaceleração suave
+      if (this.speed > 1.5) {
+        this.speed *= 0.95;
       }
 
-      // Renasce pelas bordas
-      if (this.direction > 0 && this.x > width + 80) {
-        this.reset(false);
-      } else if (this.direction < 0 && this.x < -80) {
-        this.reset(false);
+      // Retorno infinito e contínuo pelas bordas
+      if (this.x < -60) this.x = width + 60;
+      if (this.x > width + 60) this.x = -60;
+      if (this.y < -60) this.y = height + 60;
+      if (this.y > height + 60) this.y = -60;
+    }
+
+    naturalSteer() {
+      this.turnTimer--;
+      if (this.turnTimer <= 0) {
+        this.targetAngle += (Math.random() - 0.5) * 1.5;
+        this.turnTimer = Math.floor(Math.random() * 100) + 40;
+        this.speed = Math.random() * 1.1 + 0.8;
       }
+
+      let diff = this.targetAngle - this.angle;
+      while (diff < -Math.PI) diff += Math.PI * 2;
+      while (diff > Math.PI) diff -= Math.PI * 2;
+      this.angle += diff * 0.045;
     }
 
     draw() {
       if (!this.alive) return;
 
-      ctx.save();
-      ctx.translate(this.x, this.y);
+      const cos = Math.cos(this.angle);
+      const sin = Math.sin(this.angle);
 
-      // Orientação conforme a direção do voo
-      ctx.scale(this.direction * this.scale, this.scale);
+      // Transformação de matriz ultrarrápida (sem criar objetos ou lixo para GC)
+      ctx.setTransform(cos, sin, -sin, cos, this.x, this.y);
 
-      // Inclinação suave conforme a subida/descida
-      const bank = Math.sin(this.wavePhase) * 0.12;
-      ctx.rotate(bank);
+      // Bater de asas em 3D: a largura aparente oscila com o cosseno
+      const flap = Math.cos(this.wingPhase);
+      const wingScaleX = Math.abs(flap) * 0.88 + 0.12;
+      const s = this.size;
 
-      // Bater de asas: oscila de -1 (asas para cima) a 1 (asas para baixo)
-      const flap = this.isGliding ? -0.22 : Math.sin(this.flapPhase);
+      if (this.isDeep) {
+        // Borboleta do plano profundo: renderização minimalista e translúcida
+        ctx.fillStyle = this.wingColor;
+        ctx.beginPath();
+        // Asa esquerda
+        ctx.ellipse(-s * 0.9 * wingScaleX, -s * 0.6, s * 1.1 * wingScaleX, s * 0.75, -0.4, 0, Math.PI * 2);
+        // Asa direita
+        ctx.ellipse(-s * 0.9 * wingScaleX, s * 0.6, s * 1.1 * wingScaleX, s * 0.75, 0.4, 0, Math.PI * 2);
+        ctx.fill();
 
-      const fill = this.color;
-      ctx.fillStyle = fill;
-      ctx.strokeStyle = fill;
-      ctx.lineWidth = 1;
+        // Corpo
+        ctx.fillStyle = this.bodyColor;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, s * 0.7, s * 0.25, 0, 0, Math.PI * 2);
+        ctx.fill();
+        return;
+      }
 
-      // 1. CAUDA (aberta e aerodinâmica)
-      ctx.beginPath();
-      ctx.moveTo(-8, 0);
-      ctx.lineTo(-24, -5 + flap * 2);
-      ctx.lineTo(-27, 0);
-      ctx.lineTo(-24, 5 - flap * 2);
-      ctx.closePath();
-      ctx.fill();
+      // Borboleta detalhada (meio-campo e primeiro plano)
+      // 1. ASAS ANTERIORES (Forewings)
+      ctx.fillStyle = this.wingColor;
 
-      // 2. ASA DISTANTE (ligeiramente mais escura para dar volume 3D)
-      ctx.save();
-      ctx.fillStyle = this.darkerColor;
-      ctx.beginPath();
-      ctx.moveTo(-2, -2);
-      const farJointY = -12 * flap - 3;
-      const farTipX = -8 + flap * 3;
-      const farTipY = -26 * flap - 6;
-      ctx.quadraticCurveTo(-4, farJointY, farTipX, farTipY);
-      ctx.quadraticCurveTo(4, farJointY + 5, 4, -1);
-      ctx.closePath();
-      ctx.fill();
-      ctx.restore();
-
-      // 3. CORPO & CABEÇA
-      ctx.beginPath();
-      ctx.moveTo(18, 0); // Ponta do bico
-      ctx.quadraticCurveTo(12, -4.5, 4, -4);
-      ctx.quadraticCurveTo(-6, -3, -11, 0);
-      ctx.quadraticCurveTo(-5, 4.5, 6, 4);
-      ctx.quadraticCurveTo(13, 2, 18, 0);
-      ctx.closePath();
-      ctx.fill();
-
-      // 4. BICO EM TOM ÂMBAR
-      ctx.fillStyle = '#D99B26';
-      ctx.beginPath();
-      ctx.moveTo(16, -1);
-      ctx.lineTo(21, 0.5);
-      ctx.lineTo(16, 1.8);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillStyle = fill;
-
-      // 5. ASA PRÓXIMA (asa principal em movimento amplo)
+      // Asa anterior esquerda
       ctx.beginPath();
       ctx.moveTo(0, 0);
-      const nearJointY = 14 * flap + 4;
-      const nearTipX = -10 + flap * 4;
-      const nearTipY = 30 * flap + 8;
-      ctx.quadraticCurveTo(-2, nearJointY, nearTipX, nearTipY);
-      ctx.quadraticCurveTo(6, nearJointY - 3, 7, 1);
-      ctx.closePath();
+      ctx.bezierCurveTo(-s * 0.6 * wingScaleX, -s * 1.4, -s * 1.8 * wingScaleX, -s * 1.8, -s * 2.2 * wingScaleX, -s * 1.0);
+      ctx.bezierCurveTo(-s * 2.4 * wingScaleX, -s * 0.4, -s * 1.2 * wingScaleX, -s * 0.2, 0, 0);
       ctx.fill();
 
-      // 6. DETALHE DO OLHO
-      ctx.fillStyle = '#FFFFFF';
+      // Asa anterior direita
       ctx.beginPath();
-      ctx.arc(12, -1, 1.1, 0, Math.PI * 2);
+      ctx.moveTo(0, 0);
+      ctx.bezierCurveTo(-s * 0.6 * wingScaleX, s * 1.4, -s * 1.8 * wingScaleX, s * 1.8, -s * 2.2 * wingScaleX, s * 1.0);
+      ctx.bezierCurveTo(-s * 2.4 * wingScaleX, s * 0.4, -s * 1.2 * wingScaleX, s * 0.2, 0, 0);
       ctx.fill();
 
-      // Auréola sutil ao aproximar o mouse (avisa que é clicável)
-      if (this.hovered) {
-        ctx.beginPath();
-        ctx.arc(0, 0, 24, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(197, 160, 89, 0.4)';
-        ctx.lineWidth = 1.2;
-        ctx.setLineDash([3, 3]);
-        ctx.stroke();
-        ctx.setLineDash([]);
-      }
-
-      ctx.restore();
-    }
-  }
-
-  // ==========================================
-  // CLASSE: ESPORO BOTÂNICO DE PROFUNDIDADE
-  // ==========================================
-  class AmbientSpore {
-    constructor() {
-      this.reset(true);
-    }
-
-    reset(initial = false) {
-      this.x = Math.random() * width;
-      this.y = initial ? Math.random() * height : height + 15;
-      this.speed = Math.random() * 0.35 + 0.15;
-      this.radius = Math.random() * 1.8 + 1.0;
-      this.alpha = Math.random() * 0.15 + 0.08;
-      this.isGold = Math.random() < 0.35;
-      this.drift = (Math.random() - 0.5) * 0.3;
-      this.angle = Math.random() * Math.PI * 2;
-    }
-
-    update() {
-      this.y -= this.speed;
-      this.x += Math.sin(this.angle) * 0.4 + this.drift;
-      this.angle += 0.015;
-
-      if (this.y < -20) this.reset(false);
-      if (this.x < -20) this.x = width + 20;
-      if (this.x > width + 20) this.x = -20;
-    }
-
-    draw() {
-      const r = this.isGold ? 196 : 28;
-      const g = this.isGold ? 125 : 89;
-      const b = this.isGold ? 59 : 51;
-
+      // 2. ASAS POSTERIORES (Hindwings)
       ctx.beginPath();
-      ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${this.alpha})`;
+      ctx.moveTo(-s * 0.3, 0);
+      ctx.bezierCurveTo(-s * 1.4 * wingScaleX, -s * 0.9, -s * 1.8 * wingScaleX, -s * 0.2, -s * 1.3 * wingScaleX, 0);
+      ctx.bezierCurveTo(-s * 1.8 * wingScaleX, s * 0.2, -s * 1.4 * wingScaleX, s * 0.9, -s * 0.3, 0);
+      ctx.fill();
+
+      // 3. DETALHES DE MANCHAS NAS ASAS (Accent Spots)
+      ctx.fillStyle = this.accentColor;
+      ctx.beginPath();
+      ctx.arc(-s * 1.3 * wingScaleX, -s * 0.9, s * 0.28, 0, Math.PI * 2);
+      ctx.arc(-s * 1.3 * wingScaleX, s * 0.9, s * 0.28, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 4. CORPO (Tórax e Abdômen)
+      ctx.fillStyle = this.bodyColor;
+      ctx.beginPath();
+      ctx.ellipse(0, 0, s * 0.85, s * 0.22, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // 5. ANTENAS DELICADAS
+      ctx.strokeStyle = this.bodyColor;
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.moveTo(s * 0.7, -s * 0.08);
+      ctx.quadraticCurveTo(s * 1.2, -s * 0.35, s * 1.4, -s * 0.45);
+      ctx.moveTo(s * 0.7, s * 0.08);
+      ctx.quadraticCurveTo(s * 1.2, s * 0.35, s * 1.4, s * 0.45);
+      ctx.stroke();
+
+      // Clava da antena
+      ctx.beginPath();
+      ctx.arc(s * 1.4, -s * 0.45, s * 0.1, 0, Math.PI * 2);
+      ctx.arc(s * 1.4, s * 0.45, s * 0.1, 0, Math.PI * 2);
       ctx.fill();
     }
   }
 
-  // Inicialização do Bando e do Ambiente
-  const birdCount = width > 1024 ? 14 : (width > 600 ? 9 : 7);
-  for (let i = 0; i < birdCount; i++) {
-    birds.push(new Bird(true));
-  }
-
-  const sporeCount = width > 1024 ? 30 : 18;
-  for (let i = 0; i < sporeCount; i++) {
-    spores.push(new AmbientSpore());
+  // População rica em 3 camadas de profundidade
+  const butterflyCount = width > 1024 ? 150 : (width > 600 ? 100 : 65);
+  for (let i = 0; i < butterflyCount; i++) {
+    butterflies.push(new Butterfly(true));
   }
 
   // ==========================================
-  // EVENTOS DE INTERAÇÃO (CLIQUE / TOQUE)
+  // LOOP DE ANIMAÇÃO A 60 FPS
   // ==========================================
-  function handleInteraction(clientX, clientY) {
-    let hitAny = false;
-
-    // Checa se acertou alguma ave
-    for (let i = birds.length - 1; i >= 0; i--) {
-      const b = birds[i];
-      if (!b.alive) continue;
-
-      const dist = Math.hypot(b.x - clientX, b.y - clientY);
-      if (dist < b.hitRadius) {
-        b.explode();
-        hitAny = true;
-        break; // Explode uma ave por clique
-      }
-    }
-
-    // Se clicou no fundo livre sem ave próxima:
-    // Solta uma rajada suave de 3 a 5 penas flutuantes pelo vento
-    if (!hitAny) {
-      rings.push(new PuffRing(clientX, clientY, '#C47D3B'));
-      const count = Math.floor(Math.random() * 3 + 3);
-      for (let i = 0; i < count; i++) {
-        feathers.push(new Feather(clientX, clientY));
-      }
-      playSoftChirp(1400);
-    }
-  }
-
-  window.addEventListener('pointerdown', (e) => {
-    // Permite que cliques em botões e links funcionem normalmente,
-    // mas também detecta a interação das aves em toda a janela
-    handleInteraction(e.clientX, e.clientY);
-  });
-
-  // Conexão do pill de dica interativa no Hero
-  const hintPill = document.getElementById('bird-hint-pill');
-  if (hintPill) {
-    hintPill.addEventListener('click', (e) => {
-      e.stopPropagation();
-      // Encontra a ave mais próxima do centro da tela e explode com festa
-      const target = birds.find(b => b.alive) || birds[0];
-      if (target) {
-        target.explode();
-      }
-    });
-  }
-
-  // ==========================================
-  // LOOP DE RENDERIZAÇÃO A 60 FPS
-  // ==========================================
-  function render() {
+  function animate() {
+    ctx.resetTransform();
     ctx.clearRect(0, 0, width, height);
 
-    // 1. Esporos sutis em segundo plano
-    for (let i = 0; i < spores.length; i++) {
-      spores[i].update();
-      spores[i].draw();
-    }
+    // 1. Ondas de choque da água/ar (shockwaves)
+    for (let i = shockwaves.length - 1; i >= 0; i--) {
+      const sw = shockwaves[i];
+      sw.radius += sw.speed;
+      sw.alpha *= 0.93;
 
-    // 2. Anéis de choque das explosões
-    for (let i = rings.length - 1; i >= 0; i--) {
-      rings[i].update();
-      rings[i].draw();
-      if (rings[i].alpha <= 0.02) {
-        rings.splice(i, 1);
+      ctx.beginPath();
+      ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(28, 89, 51, ${sw.alpha * 0.55})`;
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+
+      if (sw.radius >= sw.maxRadius || sw.alpha <= 0.02) {
+        shockwaves.splice(i, 1);
       }
     }
 
-    // 3. Pássaros voando pelo céu
-    isHoveringBird = false;
-    for (let i = 0; i < birds.length; i++) {
-      birds[i].update();
-      birds[i].draw();
-      if (birds[i].hovered) isHoveringBird = true;
-    }
-
-    // 4. Penas flutuantes e dançantes no ar
-    for (let i = feathers.length - 1; i >= 0; i--) {
-      feathers[i].update();
-      feathers[i].draw();
-      if (feathers[i].life <= 0 || feathers[i].y > height + 80) {
-        feathers.splice(i, 1);
+    // 2. Partículas de pólen e pétalas flutuantes
+    for (let i = pollens.length - 1; i >= 0; i--) {
+      pollens[i].update();
+      pollens[i].draw();
+      if (pollens[i].life <= 0 || pollens[i].y > height + 50) {
+        pollens.splice(i, 1);
       }
     }
 
-    // Feedback visual do cursor
-    if (isHoveringBird) {
-      document.body.style.cursor = 'crosshair';
-    } else if (document.body.style.cursor === 'crosshair') {
-      document.body.style.cursor = '';
+    // 3. Borboletas em voo livre no fundo
+    for (let i = 0; i < butterflies.length; i++) {
+      butterflies[i].update();
+      butterflies[i].draw();
     }
 
-    requestAnimationFrame(render);
+    requestAnimationFrame(animate);
   }
 
-  render();
+  animate();
 }
 
 /* ==========================================================================
