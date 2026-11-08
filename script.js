@@ -30,9 +30,9 @@ const translations = {
     nav_cv: "Baixar CV",
 
     // Sanctuary Zone
-    sanctuary_tag: "Borboletário da Biodiversidade",
-    sanctuary_inst_desktop: "<i class=\"fa-solid fa-arrow-pointer\"></i> Passe o mouse para atrair as borboletas &bull; <i class=\"fa-solid fa-hand-pointer\"></i> Clique para dispersar em suave névoa floral",
-    sanctuary_inst_mobile: "<i class=\"fa-solid fa-hand-pointer\"></i> Toque para dispersar as borboletas em névoa floral",
+    sanctuary_tag: "Jardim das Borboletas",
+    sanctuary_inst_desktop: "<i class=\"fa-solid fa-arrow-pointer\"></i> Passe o mouse para atrair em revoada &bull; <i class=\"fa-solid fa-hand-pointer\"></i> Clique para dispersar",
+    sanctuary_inst_mobile: "<i class=\"fa-solid fa-hand-pointer\"></i> Toque para dispersar as borboletas",
 
     // Hero Section
     hero_status: "Supervisora Ambiental &bull; Gestão &bull; Data Science (Python) &bull; BioKuri",
@@ -68,7 +68,7 @@ const translations = {
     // About Section
     about_tag: "Trajetória & Vocação",
     about_title: "Supervisora Ambiental, Cientista de Dados em Python e Especialista em Fauna",
-    about_badge_ilhabela: "Expedição Ilhabela",
+    about_badge_masto: "Mastofauna &bull; Tamanduá-bandeira",
     about_badge_bocaina: "Inspeção de Campo",
     about_quote: "\"Não acredito em biologia de gabinete. O rigor técnico em fauna e a modelagem de dados só têm valor real quando resolvem gargalos no chão da obra e garantem conformidade ambiental inatacável.\"",
     about_lead: "Sou <strong>Micheli Mac Intir</strong>, bióloga (UNIFATEA, bolsista CAPES), supervisora ambiental de obras de grande porte, especialista em fauna com foco prioritário em <strong>ornitologia</strong> e pós-graduanda em <strong>Data Science & Analytics pela USP/ESALQ</strong>.",
@@ -197,8 +197,9 @@ const translations = {
     gallery_sub: "A conservação se faz com bota na lama, água no peito, respeito à terra e amor autêntico pelos animais.",
     gal_cap1_title: "Porto de São Sebastião",
     gal_cap1_sub: "Monitoramento costeiro com câmera e tripé na água.",
-    gal_cap2_title: "Ilhabela & Litoral Norte",
-    gal_cap2_sub: "Amostragem em ilhas com caiaque oceânico.",
+    gal_cap2_title: "Mastofauna &bull; Tamanduá-bandeira",
+    gal_cap2_sub: "Registro de Myrmecophaga tridactyla durante campanha de mastofauna.",
+    gal_cap2_badge: "Tamanduá-bandeira",
     gal_cap3_title: "Serra da Bocaina",
     gal_cap3_sub: "Trilhas de fauna e amostragem em áreas remotas.",
     gal_cap4_title: "Melanophryniscus moreirae",
@@ -251,9 +252,9 @@ const translations = {
     nav_cv: "Download CV",
 
     // Sanctuary Zone
-    sanctuary_tag: "Biodiversity Butterfly Sanctuary",
-    sanctuary_inst_desktop: "<i class=\"fa-solid fa-arrow-pointer\"></i> Hover mouse to attract the butterflies &bull; <i class=\"fa-solid fa-hand-pointer\"></i> Click to disperse in a gentle floral pollen mist",
-    sanctuary_inst_mobile: "<i class=\"fa-solid fa-hand-pointer\"></i> Tap to disperse butterflies in a floral mist",
+    sanctuary_tag: "Butterfly Sanctuary",
+    sanctuary_inst_desktop: "<i class=\"fa-solid fa-arrow-pointer\"></i> Move mouse to attract in swarm &bull; <i class=\"fa-solid fa-hand-pointer\"></i> Click to scatter",
+    sanctuary_inst_mobile: "<i class=\"fa-solid fa-hand-pointer\"></i> Tap to scatter butterflies",
 
     // Hero Section
     hero_status: "Environmental Supervisor &bull; Management &bull; Data Science (Python) &bull; BioKuri",
@@ -289,7 +290,7 @@ const translations = {
     // About Section
     about_tag: "Career & Calling",
     about_title: "Environmental Supervisor, Python Data Scientist & Wildlife Specialist",
-    about_badge_ilhabela: "Ilhabela Expedition",
+    about_badge_masto: "Mammal Survey &bull; Giant Anteater",
     about_badge_bocaina: "Field Inspection",
     about_quote: "\"I do not believe in armchair biology. Rigorous wildlife science and data modeling only carry true value when they solve real ground bottlenecks and ensure unassailable environmental compliance.\"",
     about_lead: "I am <strong>Micheli Mac Intir</strong>, licensed biologist graduated from UNIFATEA (with CAPES fellowship), major infrastructure environmental supervisor, wildlife specialist with primary focus on <strong>ornithology</strong>, and pursuing an <strong>MBA in Data Science & Analytics at USP/ESALQ</strong>.",
@@ -418,8 +419,9 @@ const translations = {
     gallery_sub: "Real conservation happens with boots in the mud, water up to the chest, reverence for the land, and genuine love for wildlife.",
     gal_cap1_title: "Port of São Sebastião",
     gal_cap1_sub: "Coastal bird monitoring with camera and tripod in the water.",
-    gal_cap2_title: "Ilhabela & North Coast",
-    gal_cap2_sub: "Sampling coastal islands using ocean expedition kayaks.",
+    gal_cap2_title: "Mammal Ecology &bull; Giant Anteater",
+    gal_cap2_sub: "Record of Myrmecophaga tridactyla during wild mammal field survey.",
+    gal_cap2_badge: "Giant Anteater",
     gal_cap3_title: "Serra da Bocaina",
     gal_cap3_sub: "Wildlife trails and field sampling in remote cloud forests.",
     gal_cap4_title: "Melanophryniscus moreirae",
@@ -526,24 +528,126 @@ function initButterflyCanvas() {
     height = canvas.height = window.innerHeight;
   });
 
-  const mouse = { x: -1000, y: -1000, isOverSanctuary: false };
   const sanctuaryZone = document.getElementById('butterfly-sanctuary-zone');
+  let mouseInSanctuary = false;
+  let mouseX = -1000;
+  let mouseY = -1000;
+  let isTouchInteraction = false;
+  let touchResetTimer = null;
+  const shockwaves = [];
+  const pollenParticles = [];
+
+  function isInsideSanctuary(cx, cy) {
+    if (!sanctuaryZone) return false;
+    const rect = sanctuaryZone.getBoundingClientRect();
+    return cx >= rect.left && cx <= rect.right && cy >= rect.top && cy <= rect.bottom;
+  }
+
+  // Ondulação floral e dispersão graciosa idêntica ao santuário de Lucas
+  function triggerShockwave(x, y) {
+    shockwaves.push({
+      x: x,
+      y: y,
+      radius: 4,
+      maxRadius: 75,
+      speed: 3.5,
+      alpha: 0.85
+    });
+    setTimeout(() => {
+      shockwaves.push({
+        x: x,
+        y: y,
+        radius: 3,
+        maxRadius: 52,
+        speed: 2.4,
+        alpha: 0.52
+      });
+    }, 75);
+
+    // Efeito de pólen botânico em suspensão
+    for (let i = 0; i < 28; i++) {
+      pollenParticles.push(new Pollen(x, y));
+    }
+
+    // Dispersão com aceleração das borboletas no raio de choque
+    butterflies.forEach(b => {
+      const dx = b.x - x;
+      const dy = b.y - y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 260) {
+        b.targetAngle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.4;
+        b.angle = b.targetAngle;
+        b.speed = 1.95;
+        setTimeout(() => {
+          b.speed = 0.75 + Math.random() * 0.4;
+        }, 950);
+      }
+    });
+  }
 
   if (sanctuaryZone) {
     sanctuaryZone.addEventListener('mousemove', e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.isOverSanctuary = true;
+      if (isTouchInteraction) return;
+      mouseInSanctuary = true;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
     });
+
+    sanctuaryZone.addEventListener('mouseenter', e => {
+      if (isTouchInteraction) return;
+      mouseInSanctuary = true;
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
     sanctuaryZone.addEventListener('mouseleave', () => {
-      mouse.x = -1000;
-      mouse.y = -1000;
-      mouse.isOverSanctuary = false;
+      mouseInSanctuary = false;
+      mouseX = -1000;
+      mouseY = -1000;
     });
+
     sanctuaryZone.addEventListener('click', e => {
-      burstPollenCloud(e.clientX, e.clientY);
+      if (isTouchInteraction) return;
+      triggerShockwave(e.clientX, e.clientY);
     });
+
+    sanctuaryZone.addEventListener('touchstart', e => {
+      isTouchInteraction = true;
+      mouseInSanctuary = false;
+      mouseX = -1000;
+      mouseY = -1000;
+
+      clearTimeout(touchResetTimer);
+      touchResetTimer = setTimeout(() => {
+        isTouchInteraction = false;
+      }, 800);
+
+      if (e.touches && e.touches.length > 0) {
+        const touch = e.touches[0];
+        triggerShockwave(touch.clientX, touch.clientY);
+      }
+    }, { passive: true });
+
+    sanctuaryZone.addEventListener('touchend', () => {
+      mouseInSanctuary = false;
+      mouseX = -1000;
+      mouseY = -1000;
+    }, { passive: true });
+
+    sanctuaryZone.addEventListener('touchcancel', () => {
+      mouseInSanctuary = false;
+      mouseX = -1000;
+      mouseY = -1000;
+    }, { passive: true });
   }
+
+  window.addEventListener('scroll', () => {
+    if (mouseInSanctuary && !isInsideSanctuary(mouseX, mouseY)) {
+      mouseInSanctuary = false;
+      mouseX = -1000;
+      mouseY = -1000;
+    }
+  }, { passive: true });
 
   // Paletas botânicas autênticas de borboletas da Mata Atlântica
   const SPECIES = [
@@ -594,15 +698,14 @@ function initButterflyCanvas() {
       this.y = Math.random() * height;
       this.species = SPECIES[Math.floor(Math.random() * SPECIES.length)];
       this.scale = 0.55 + Math.random() * 0.45;
-      this.speed = 0.75 + Math.random() * 0.4; // Voo calmo e tranquilo
+      this.baseSpeed = 0.75 + Math.random() * 0.4; // Voo biológico sereno
+      this.speed = this.baseSpeed;
       this.angle = Math.random() * Math.PI * 2;
       this.targetAngle = this.angle;
-      this.turnRate = 0.02 + Math.random() * 0.02;
+      this.turnRate = 0.03 + Math.random() * 0.02;
 
-      // Opacidade viva para aparecerem nítidas no espaço livre e no santuário
-      // O desfoque dos cards (backdrop-filter: blur(16px)) cuidará de embaçá-las ao passarem por trás!
       this.isDeep = Math.random() > 0.6;
-      this.alpha = this.isDeep ? (0.45 + Math.random() * 0.15) : (0.75 + Math.random() * 0.20);
+      this.alpha = this.isDeep ? (0.45 + Math.random() * 0.15) : (0.78 + Math.random() * 0.18);
 
       this.wingPhase = Math.random() * Math.PI * 2;
       this.wingSpeed = 0.14 + Math.random() * 0.08;
@@ -613,7 +716,7 @@ function initButterflyCanvas() {
     }
 
     update(allButterflies) {
-      // Alternância orgânica entre bater de asas e planar suave
+      // 1. Ciclo orgânico de bater de asas e planar suave
       if (this.glideTimer > 0) {
         this.glideTimer--;
         this.isGliding = true;
@@ -621,11 +724,11 @@ function initButterflyCanvas() {
         this.isGliding = false;
         this.wingPhase += this.wingSpeed;
         if (Math.random() < 0.008) {
-          this.glideTimer = 30 + Math.floor(Math.random() * 45); // Plana suave
+          this.glideTimer = 30 + Math.floor(Math.random() * 45);
         }
       }
 
-      // Separação orgânica para evitar empacotamento ou aglomeração
+      // 2. Separação espacial entre indivíduos para voo natural sem sobreposição
       let sepX = 0;
       let sepY = 0;
       let neighbors = 0;
@@ -655,39 +758,57 @@ function initButterflyCanvas() {
         );
       }
 
-      // Atração suave se o cursor estiver sobre a zona do santuário
-      if (mouse.isOverSanctuary) {
-        const dx = mouse.x - this.x;
-        const dy = mouse.y - this.y;
+      // 3. Atração e revoada dinâmica ao cursor do mouse no santuário (idêntico à Lagoa de Lucas)
+      if (mouseInSanctuary && !isTouchInteraction) {
+        const dx = mouseX - this.x;
+        const dy = mouseY - this.y;
         const dist = Math.hypot(dx, dy);
-        if (dist < 400 && dist > 70) {
-          const attractAngle = Math.atan2(dy, dx);
-          this.targetAngle += (attractAngle - this.targetAngle) * 0.04;
+
+        if (dist < 420 && dist > 45) {
+          const toMouse = Math.atan2(dy, dx);
+          let diff = toMouse - this.angle;
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          while (diff > Math.PI) diff -= Math.PI * 2;
+
+          const steer = Math.max(0.04, 0.16 * (1 - dist / 420));
+          this.angle += diff * Math.min(1.0, steer);
+          this.speed = Math.min(this.speed + 0.05, 1.85);
+        } else if (dist <= 45) {
+          // Órbita fluida graciosa em torno do cursor
+          this.angle += 0.06;
+          this.speed = Math.max(this.baseSpeed, this.speed * 0.96);
+        } else {
+          this.naturalWander();
         }
       } else {
-        // Voo livre randômico em ondas suaves
-        this.wanderTimer--;
-        if (this.wanderTimer <= 0) {
-          this.targetAngle += (Math.random() - 0.5) * 0.9;
-          this.wanderTimer = 80 + Math.floor(Math.random() * 120);
-        }
+        this.naturalWander();
       }
 
-      // Rotação suave em direção ao ângulo alvo
-      let diff = this.targetAngle - this.angle;
-      while (diff < -Math.PI) diff += Math.PI * 2;
-      while (diff > Math.PI) diff -= Math.PI * 2;
-      this.angle += diff * this.turnRate;
-
-      // Movimentação fluida
+      // Movimentação com física suave
       this.x += Math.cos(this.angle) * this.speed;
       this.y += Math.sin(this.angle) * this.speed;
 
-      // Envoltório suave nas bordas da tela
+      // Envoltório contínuo nas bordas da tela
       if (this.x < -60) this.x = width + 60;
       if (this.x > width + 60) this.x = -60;
       if (this.y < -60) this.y = height + 60;
       if (this.y > height + 60) this.y = -60;
+    }
+
+    naturalWander() {
+      // Retorno gradual à cadência biológica tranquila
+      if (this.speed > this.baseSpeed) {
+        this.speed = Math.max(this.baseSpeed, this.speed * 0.985);
+      }
+      this.wanderTimer--;
+      if (this.wanderTimer <= 0) {
+        this.targetAngle += (Math.random() - 0.5) * 0.85;
+        this.wanderTimer = 75 + Math.floor(Math.random() * 110);
+      }
+      let diff = this.targetAngle - this.angle;
+      while (diff < -Math.PI) diff += Math.PI * 2;
+      while (diff > Math.PI) diff -= Math.PI * 2;
+      this.angle += diff * this.turnRate;
     }
 
     draw(ctx) {
@@ -779,8 +900,6 @@ function initButterflyCanvas() {
   }
 
   // Partículas de Névoa Floral e Pólen
-  const pollenParticles = [];
-
   class Pollen {
     constructor(x, y) {
       this.x = x;
@@ -792,7 +911,7 @@ function initButterflyCanvas() {
       this.radius = 1.5 + Math.random() * 2.5;
       this.alpha = 0.85;
       this.decay = 0.015 + Math.random() * 0.02;
-      const colors = ['#D4AF37', '#FEF08A', '#F5EFE6', '#86EFAC'];
+      const colors = ['#8E6A3A', '#D4AF37', '#FEF08A', '#F5EFE6', '#58755C'];
       this.color = colors[Math.floor(Math.random() * colors.length)];
     }
 
@@ -816,41 +935,38 @@ function initButterflyCanvas() {
     }
   }
 
-  function burstPollenCloud(x, y) {
-    for (let i = 0; i < 28; i++) {
-      pollenParticles.push(new Pollen(x, y));
-    }
-
-    // Leve dispersão das borboletas próximas sem espanto abrupto
-    butterflies.forEach(b => {
-      const dx = b.x - x;
-      const dy = b.y - y;
-      const dist = Math.hypot(dx, dy);
-      if (dist < 220) {
-        b.targetAngle = Math.atan2(dy, dx) + (Math.random() - 0.5) * 0.5;
-        b.speed = 1.6;
-        setTimeout(() => {
-          b.speed = 0.75 + Math.random() * 0.4;
-        }, 1200);
-      }
-    });
-  }
-
-  // População abundante de borboletas (cerca de 100 borboletas em voo suave)
-  const isCompactScreen = window.innerWidth < 640;
-  const count = isCompactScreen ? 80 : 100;
+  // População abundante de 100 borboletas em voo suave
+  const count = 100;
   const butterflies = Array.from({ length: count }, () => new Butterfly());
 
   function animate() {
     ctx.clearRect(0, 0, width, height);
 
-    // Atualiza e desenha borboletas
+    // 1. Atualiza e desenha ondas de choque circulares (efeito ondulação)
+    for (let i = shockwaves.length - 1; i >= 0; i--) {
+      const sw = shockwaves[i];
+      sw.radius += sw.speed;
+      sw.alpha -= 0.018;
+      if (sw.alpha <= 0) {
+        shockwaves.splice(i, 1);
+        continue;
+      }
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(142, 106, 58, ${Math.max(0, sw.alpha * 0.65)})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // 2. Atualiza e desenha as 100 borboletas
     for (let i = 0; i < butterflies.length; i++) {
       butterflies[i].update(butterflies);
       butterflies[i].draw(ctx);
     }
 
-    // Atualiza e desenha névoa de pólen
+    // 3. Atualiza e desenha partículas de névoa de pólen
     for (let i = pollenParticles.length - 1; i >= 0; i--) {
       const p = pollenParticles[i];
       p.update();
