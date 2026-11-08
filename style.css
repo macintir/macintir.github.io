@@ -9,9 +9,10 @@
   /* Paleta Oficial BioKuri no Padrão Claro Institucional */
   --bg-cream: #F5EFE6;            /* Fundo Creme Nobre Oficial BioKuri */
   --bg-cream-alt: #EFE8DC;        /* Variação quente */
-  --bg-surface: rgba(255, 255, 255, 0.90);
-  --bg-surface-glass: rgba(255, 255, 255, 0.86);
+  --bg-surface: rgba(255, 255, 255, 0.92);
+  --bg-surface-glass: rgba(255, 255, 255, 0.90);
   --bg-surface-tint: #F7F2E8;     /* Fundo suave para subcards */
+  --bg-surface-alt: rgba(247, 242, 233, 0.95);
   --border-cream: #DDD4C3;        /* Linha sutil pergaminho */
   --border-ochre: rgba(142, 106, 58, 0.22); /* Borda ocre BioKuri */
   --border-focus: #13381B;
@@ -134,17 +135,30 @@ img {
 }
 
 .section-heading {
-  margin: 0 auto 50px auto;
-  padding: 1.6rem 2.2rem;
-  background: rgba(255, 255, 255, 0.90);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(142, 106, 58, 0.22);
+  margin: 0 auto 40px auto;
+  padding: 2.2rem 2.8rem;
+  background: rgba(255, 255, 255, 0.93) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(142, 106, 58, 0.25) !important;
   border-radius: var(--radius-lg);
-  box-shadow: 0 4px 20px rgba(14, 50, 21, 0.04);
-  max-width: 860px;
+  box-shadow: 0 10px 32px rgba(14, 50, 21, 0.05) !important;
+  max-width: 920px;
   position: relative;
   z-index: 2;
+  text-align: center;
+  transition: var(--transition);
+}
+
+.section-heading::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(142, 106, 58, 0.45), transparent);
+  pointer-events: none;
 }
 
 .text-center {
@@ -2073,10 +2087,14 @@ img {
    FOOTER
    ========================================================================== */
 .page-footer {
-  background: var(--bg-surface-alt);
+  background: rgba(245, 239, 230, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-cream);
   padding: 40px 0 25px;
   margin-top: 50px;
+  position: relative;
+  z-index: 2;
 }
 
 .footer-content {
