@@ -101,7 +101,7 @@ const translations = {
 
     // BioKuri Section
     biokuri_tag: "Empresa Fundada & Liderada",
-    biokuri_quote: "<em>Kuri</em> — do tupi-guarani para a nobre <strong>Araucária</strong> (pinheiro-do-paraná). Raízes profundas, visão de longo alcance e respeito inegociável à vida silvestre.",
+    biokuri_quote: "<em>Kuri</em> — do tupi-guarani significa <strong>Araucária</strong>. Raízes profundas, visão de longo alcance e respeito inegociável à vida silvestre.",
     biokuri_headline: "Soluções Ambientais Inteligentes, Ágeis e Humanas",
     biokuri_desc1: "A <strong>BioKuri</strong> nasceu da sinergia entre o rigor taxonômico de museu e a urgência do mercado corporativo por consultorias que realmente entendam o cronograma rígido da engenharia, traduzindo as exigências de órgãos ambientais (IBAMA, IAT, CETESB, IMASUL) em conformidade técnica e documentada.",
     biokuri_desc2: "Como sócia-fundadora ao lado do biólogo e taxonomista <strong>Lucas Aøsf</strong>, lidero a gestão estratégica de contratos, coordenação de equipes de campo, diagnósticos de fauna e modelagem de indicadores ecológicos orientados a dados.",
@@ -323,7 +323,7 @@ const translations = {
 
     // BioKuri Section
     biokuri_tag: "Founded & Led Enterprise",
-    biokuri_quote: "<em>Kuri</em> — Tupi-Guarani term for the noble <strong>Araucaria</strong> (Paraná pine). Deep roots, far-reaching vision, and non-negotiable reverence for wildlife.",
+    biokuri_quote: "<em>Kuri</em> — from Tupi-Guarani means <strong>Araucaria</strong>. Deep roots, far-reaching vision, and non-negotiable reverence for wildlife.",
     biokuri_headline: "Intelligent, Agile, and Human Environmental Solutions",
     biokuri_desc1: "<strong>BioKuri</strong> was created from the synergy between museum-grade taxonomic rigor and the corporate market's urgent need for consultancies that truly understand tight engineering timelines, translating environmental agency requirements (IBAMA, IAT, CETESB, IMASUL) into documented compliance.",
     biokuri_desc2: "As co-founder alongside biologist and taxonomist <strong>Lucas Aøsf</strong>, I oversee strategic contracts, field crew coordination, biodiversity baselines, and data-driven ecological indicator pipelines.",
