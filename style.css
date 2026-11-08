@@ -102,7 +102,7 @@ img {
   display: block;
 }
 
-/* Fundo Interativo em Canvas (Borboletas em Voo Livre no Fundo, similar aos girinos do Lucas) */
+/* Fundo Interativo em Canvas (Borboletas em Voo Livre no Fundo) */
 .bio-canvas {
   position: fixed;
   top: 0;
@@ -436,10 +436,6 @@ img {
 }
 
 /* ==========================================================================
-   BUTTERFLY SANCTUARY OBSERVATION ZONE (Espaço Interativo no Fundo)
-   Similar à Lagoa dos Girinos de Lucas Aøsf, adaptado para BioKuri Creme & Borboletas
-   ========================================================================== */
-/* ==========================================================================
    GLASSMORPHISM PANEL STANDARD (BioKuri Padrão Claro Nobre)
    Efeito idêntico ao padrão da empresa:
    As borboletas aparecem nítidas no espaço livre e no santuário superior,
@@ -524,8 +520,7 @@ img {
 
 /* ==========================================================================
    BUTTERFLY SANCTUARY OBSERVATION ZONE (Espaço Interativo no Topo)
-   Idêntico à Lagoa dos Girinos de Lucas Aøsf: janela ampla, badge no topo,
-   instruções na base e revoada livre no centro para computador e mobile
+   Janela ampla, badge no topo, instruções na base e revoada livre no centro
    ========================================================================== */
 .butterfly-sanctuary-zone {
   position: relative;

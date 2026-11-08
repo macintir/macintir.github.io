@@ -73,7 +73,7 @@ const translations = {
     about_quote: "\"Não acredito em biologia de gabinete. O rigor técnico em fauna e a modelagem de dados só têm valor real quando resolvem gargalos no chão da obra e garantem conformidade ambiental inatacável.\"",
     about_lead: "Sou <strong>Micheli Mac Intir</strong>, bióloga (UNIFATEA, bolsista CAPES), supervisora ambiental de obras de grande porte, especialista em fauna com foco prioritário em <strong>ornitologia</strong> e pós-graduanda em <strong>Data Science & Analytics pela USP/ESALQ</strong>.",
     about_p1: "Minha trajetória combina o comando técnico na <strong>supervisão e gestão ambiental</strong> em rodovias federais (BR-153 e BR-369 na Caruso), grandes complexos industriais de celulose (megafábrica da Arauco em Inocência/MS) e terminais portuários (Porto de São Sebastião) com a inteligência computacional em <strong>Python</strong> para automação de rotinas, cálculo de índices ecológicos e estruturação de métricas ESG.",
-    about_p2: "Na frente de fauna silvestre, dedico especial dedicação à <strong>ornitologia</strong> — atuando desde o monitoramento de aves marinhas e costeiras em caiaque oceânico e áreas portuárias até o anilhamento científico (CEMAVE/ICMBio) e projetos de conservação como o Ornitofauna de Guaratinguetá (fomento BASF). Ao lado do taxonomista Lucas Aøsf, fundei a <strong>BioKuri — Pesquisa e Soluções Ambientais</strong>.",
+    about_p2: "Na frente de fauna silvestre, dedico especial dedicação à <strong>ornitologia</strong> — atuando desde o monitoramento de aves marinhas e costeiras em caiaque oceânico e áreas portuárias até o anilhamento científico (CEMAVE/ICMBio) e projetos de conservação como o Ornitofauna de Guaratinguetá (fomento BASF). Como fundadora, atuo na liderança da <strong>BioKuri — Pesquisa e Soluções Ambientais</strong>.",
     about_card1_title: "Supervisão & Gestão de Obras",
     about_card1_text: "Tratamento ágil de NCs, planos de ação imediatos e interface direta com engenharia civil.",
     about_card2_title: "Data Science em Python (USP)",
@@ -81,7 +81,7 @@ const translations = {
     about_card3_title: "Fauna & Ornitologia",
     about_card3_text: "Aves marinhas, costeiras e continentais, anilhamento CEMAVE e bioacústica.",
     about_card4_title: "BioKuri Soluções",
-    about_card4_text: "Co-fundadora unindo rigor taxonômico de ponta à conformidade corporativa rápida.",
+    about_card4_text: "Fundadora unindo rigor técnico de ponta à conformidade corporativa rápida.",
 
     // Road Supervision
     road_tag: "Liderança Operacional",
@@ -104,7 +104,7 @@ const translations = {
     biokuri_quote: "<em>Kuri</em> — do tupi-guarani significa <strong>Araucária</strong>. Raízes profundas, visão de longo alcance e respeito inegociável à vida silvestre.",
     biokuri_headline: "Soluções Ambientais Inteligentes, Ágeis e Humanas",
     biokuri_desc1: "A <strong>BioKuri</strong> nasceu da sinergia entre o rigor taxonômico de museu e a urgência do mercado corporativo por consultorias que realmente entendam o cronograma rígido da engenharia, traduzindo as exigências de órgãos ambientais (IBAMA, IAT, CETESB, IMASUL) em conformidade técnica e documentada.",
-    biokuri_desc2: "Como sócia-fundadora ao lado do biólogo e taxonomista <strong>Lucas Aøsf</strong>, lidero a gestão estratégica de contratos, coordenação de equipes de campo, diagnósticos de fauna e modelagem de indicadores ecológicos orientados a dados.",
+    biokuri_desc2: "Como sócia-fundadora da <strong>BioKuri</strong>, lidero a gestão estratégica de contratos, coordenação de equipes de campo, diagnósticos de fauna e modelagem de indicadores ecológicos orientados a dados.",
     biokuri_s1: "Supervisão Ambiental de Obras",
     biokuri_s2: "Estudos de Fauna (EIA/RIMA, PCA, RCA)",
     biokuri_s3: "Resgate de Fauna & Germoplasma",
@@ -112,11 +112,10 @@ const translations = {
     biokuri_s5: "Ciência de Dados & Relatórios ESG",
     biokuri_btn_contact: "Falar com a BioKuri",
     biokuri_btn_proposal: "Solicitar Proposta Técnica",
-    biokuri_partner_title: "Sociedade & Visão Complementar",
-    biokuri_partner_sub: "Taxonomia de Ponta &bull; Execução Operacional",
-    biokuri_partner_quote: "\"Na BioKuri, o conhecimento taxonômico e ecológico profundo encontra o pulso firme da supervisão de obras. Desatamos gargalos ambientais com embasamento inatacável.\"",
+    biokuri_partner_title: "Liderança & Rigor Técnico",
+    biokuri_partner_sub: "Supervisão Operacional &bull; Inteligência de Dados",
+    biokuri_partner_quote: "\"Na BioKuri, o conhecimento técnico e ecológico profundo encontra o pulso firme da supervisão de obras. Desatamos gargalos ambientais com embasamento inatacável e segurança jurídica.\"",
     biokuri_founder_micheli_role: "Sócia-Fundadora &bull; Supervisão & Gestão",
-    biokuri_founder_lucas_role: "Sócio-Fundador &bull; Taxonomia & R/Python",
 
     // Science Section
     science_tag: "Rigor Científico",
@@ -124,23 +123,23 @@ const translations = {
     science_sub: "Artigos internacionais com dados de Ciência Cidadã, fomento industrial corporativo e presença climática global.",
     paper1_badge_intl: "Periódico Internacional (2026)",
     paper1_badge_status: "Aceito para Publicação",
-    paper1_meta: "<strong>Revista:</strong> Reptiles & Amphibians (2026) &bull; <strong>Autores:</strong> Aøsf, L.; <strong>Mac Intir, M. D.</strong>; Azevedo, T. M.; Menezes, L. B.; Moroti, M. T.",
+    paper1_meta: "<strong>Revista:</strong> Reptiles & Amphibians (2026) &bull; <strong>Autores:</strong> <strong>Mac Intir, M. D.</strong>; Azevedo, T. M.; Menezes, L. B.; Moroti, M. T.; et al.",
     paper1_abstract: "Estudo inovador demonstrando a expansão da área de ocorrência do sapinho-flamenguinho de altitude (<em>Melanophryniscus moreirae</em>, anuro bioindicador de áreas montanhosas da Mata Atlântica) no Sudeste brasileiro através da integração de dados de ciência cidadã com validação morfológica e bioacústica rigorosa em campo.",
     paper1_species_tag: "<em>Melanophryniscus moreirae</em> (Miranda-Ribeiro, 1920) &bull; Registro Científico Autêntico (Vistas Dorsal e Ventral)",
     paper2_badge_cop: "COP 30 (2025)",
     paper2_badge_status: "Conferência ONU",
     paper2_title: "O Papel do Reflorestamento na Restauração Microclimática e Atração da Avifauna no Parque das Nascentes",
-    paper2_meta: "<strong>Evento:</strong> Conferência das Nações Unidas sobre Mudanças Climáticas (COP 30), 2025 &bull; <strong>Autores:</strong> Aøsf, L.; Oliveira, H. J.; Moreira, R. G.; <strong>Intir, M. M.</strong>",
+    paper2_meta: "<strong>Evento:</strong> Conferência das Nações Unidas sobre Mudanças Climáticas (COP 30), 2025 &bull; <strong>Autores:</strong> <strong>Intir, M. M.</strong>; Oliveira, H. J.; Moreira, R. G.; et al.",
     paper2_abstract: "Avaliação empírica demonstrando como o adensamento florestal com espécies nativas amenizou a temperatura superficial do solo e atuou como refúgio térmico, multiplicando a riqueza da avifauna na bacia do Paraíba do Sul.",
     paper3_badge_basf: "Fomento BASF",
     paper3_badge_status: "2023 — 2025",
     paper3_title: "Projeto Ornitofauna de Guaratinguetá",
-    paper3_meta: "<strong>Financiador:</strong> BASF (Matriz São Paulo) &bull; <strong>Integrantes:</strong> <strong>Micheli Mac Intir</strong>; Lucas Aøsf; Matheus Moroti; Henry Alexandre",
+    paper3_meta: "<strong>Financiador:</strong> BASF (Matriz São Paulo) &bull; <strong>Integrantes:</strong> <strong>Micheli Mac Intir</strong>; Matheus Moroti; Henry Alexandre",
     paper3_abstract: "Levantamento sazonal sistemático e anilhamento de ornitofauna, mapeando gradientes de pressão antrópica e áreas prioritárias de restauração florestal em matriz agropecuária e industrial.",
     paper4_badge_bocaina: "Em Andamento",
     paper4_badge_status: "2025 — Atual",
     paper4_title: "Herpetofauna da Serra da Bocaina",
-    paper4_meta: "<strong>Responsável:</strong> <strong>Micheli Mac Intir</strong> &bull; <strong>Integrante:</strong> Lucas Aøsf",
+    paper4_meta: "<strong>Responsável Técnica:</strong> <strong>Micheli Mac Intir</strong>",
     paper4_abstract: "Expedições sistemáticas de campo na parte alta da Serra da Bocaina (São José do Barreiro/SP) para preencher lacunas de distribuição biogeográfica de anfíbios anuros e répteis de mata nebular.",
 
     // Timeline Experience Section
@@ -295,7 +294,7 @@ const translations = {
     about_quote: "\"I do not believe in armchair biology. Rigorous wildlife science and data modeling only carry true value when they solve real ground bottlenecks and ensure unassailable environmental compliance.\"",
     about_lead: "I am <strong>Micheli Mac Intir</strong>, licensed biologist graduated from UNIFATEA (with CAPES fellowship), major infrastructure environmental supervisor, wildlife specialist with primary focus on <strong>ornithology</strong>, and pursuing an <strong>MBA in Data Science & Analytics at USP/ESALQ</strong>.",
     about_p1: "My career unites decisive technical command in <strong>environmental supervision and management</strong> across federal highways (BR-153 & BR-369 at Caruso), massive pulp industrial complexes (Arauco megamill in Inocência/MS), and deep-water ports (São Sebastião) with computational intelligence in <strong>Python</strong> for automated ecological pipelines and ESG metrics.",
-    about_p2: "In wildlife biology, I place core dedication on <strong>ornithology</strong> — ranging from marine and coastal bird surveys via ocean expedition kayaks and port basins to scientific bird banding (CEMAVE/ICMBio) and corporate-sponsored conservation programs such as the Guaratinguetá Avifauna Project (BASF). Alongside taxonomist Lucas Aøsf, I co-founded <strong>BioKuri — Research & Environmental Solutions</strong>.",
+    about_p2: "In wildlife biology, I place core dedication on <strong>ornithology</strong> — ranging from marine and coastal bird surveys via ocean expedition kayaks and port basins to scientific bird banding (CEMAVE/ICMBio) and corporate-sponsored conservation programs such as the Guaratinguetá Avifauna Project (BASF). As founder, I lead <strong>BioKuri — Research & Environmental Solutions</strong>.",
     about_card1_title: "Works Supervision & Management",
     about_card1_text: "Swift resolution of Non-Conformances, immediate corrective action plans, and active civil engineering interface.",
     about_card2_title: "Data Science in Python (USP)",
@@ -303,7 +302,7 @@ const translations = {
     about_card3_title: "Wildlife & Ornithology",
     about_card3_text: "Marine, coastal, and continental birds, CEMAVE bird banding, and bioacoustics.",
     about_card4_title: "BioKuri Solutions",
-    about_card4_text: "Co-founder merging museum-grade taxonomy with swift corporate environmental compliance.",
+    about_card4_text: "Founder merging rigorous technical ground with swift corporate environmental compliance.",
 
     // Road Supervision
     road_tag: "Operational Leadership",
@@ -326,7 +325,7 @@ const translations = {
     biokuri_quote: "<em>Kuri</em> — from Tupi-Guarani means <strong>Araucaria</strong>. Deep roots, far-reaching vision, and non-negotiable reverence for wildlife.",
     biokuri_headline: "Intelligent, Agile, and Human Environmental Solutions",
     biokuri_desc1: "<strong>BioKuri</strong> was created from the synergy between museum-grade taxonomic rigor and the corporate market's urgent need for consultancies that truly understand tight engineering timelines, translating environmental agency requirements (IBAMA, IAT, CETESB, IMASUL) into documented compliance.",
-    biokuri_desc2: "As co-founder alongside biologist and taxonomist <strong>Lucas Aøsf</strong>, I oversee strategic contracts, field crew coordination, biodiversity baselines, and data-driven ecological indicator pipelines.",
+    biokuri_desc2: "As co-founder of <strong>BioKuri</strong>, I lead strategic contract management, field team coordination, wildlife assessments, and data-driven ecological indicator modeling.",
     biokuri_s1: "Highway & Works Environmental Supervision",
     biokuri_s2: "Fauna Baseline Studies (EIA/RIMA, PCA, RCA)",
     biokuri_s3: "Fauna & Flora Germplasm Rescue",
@@ -334,11 +333,10 @@ const translations = {
     biokuri_s5: "Data Science & Corporate ESG Reporting",
     biokuri_btn_contact: "Contact BioKuri",
     biokuri_btn_proposal: "Request Technical Proposal",
-    biokuri_partner_title: "Partnership & Complementary Vision",
-    biokuri_partner_sub: "Top-Tier Taxonomy &bull; Operational Execution",
-    biokuri_partner_quote: "\"At BioKuri, deep taxonomic and ecological understanding meets decisive construction supervision. We resolve environmental bottlenecks with unassailable technical backing.\"",
+    biokuri_partner_title: "Leadership & Technical Rigor",
+    biokuri_partner_sub: "Operational Supervision &bull; Data Intelligence",
+    biokuri_partner_quote: "\"At BioKuri, deep technical and ecological insight meets the firm hand of construction supervision. We resolve environmental bottlenecks with unassailable technical ground and regulatory safety.\"",
     biokuri_founder_micheli_role: "Co-Founder &bull; Supervision & Management",
-    biokuri_founder_lucas_role: "Co-Founder &bull; Taxonomy & R/Python",
 
     // Science Section
     science_tag: "Scientific Rigor",
@@ -346,23 +344,23 @@ const translations = {
     science_sub: "International peer-reviewed articles using Citizen Science data, corporate industrial sponsorships, and global climate engagement.",
     paper1_badge_intl: "International Journal (2026)",
     paper1_badge_status: "Accepted for Publication",
-    paper1_meta: "<strong>Journal:</strong> Reptiles & Amphibians (2026) &bull; <strong>Authors:</strong> Aøsf, L.; <strong>Mac Intir, M. D.</strong>; Azevedo, T. M.; Menezes, L. B.; Moroti, M. T.",
+    paper1_meta: "<strong>Journal:</strong> Reptiles & Amphibians (2026) &bull; <strong>Authors:</strong> <strong>Mac Intir, M. D.</strong>; Azevedo, T. M.; Menezes, L. B.; Moroti, M. T.; et al.",
     paper1_abstract: "Pioneering study documenting the distribution expansion of the high-altitude redbelly toad (<em>Melanophryniscus moreirae</em>, a bioindicator anuran of Atlantic Forest mountain summits) across Southeastern Brazil by merging citizen science databases with rigorous field morphological and bioacoustic validation.",
     paper1_species_tag: "<em>Melanophryniscus moreirae</em> (Miranda-Ribeiro, 1920) &bull; Authentic Scientific Record (Dorsal & Ventral Views)",
     paper2_badge_cop: "COP 30 (2025)",
     paper2_badge_status: "UN Climate Conference",
     paper2_title: "The Role of Reforestation in Microclimatic Restoration and Avifauna Attraction in Nascentes Park",
-    paper2_meta: "<strong>Event:</strong> United Nations Climate Change Conference (COP 30), 2025 &bull; <strong>Authors:</strong> Aøsf, L.; Oliveira, H. J.; Moreira, R. G.; <strong>Intir, M. M.</strong>",
+    paper2_meta: "<strong>Event:</strong> United Nations Climate Change Conference (COP 30), 2025 &bull; <strong>Authors:</strong> <strong>Intir, M. M.</strong>; Oliveira, H. J.; Moreira, R. G.; et al.",
     paper2_abstract: "Empirical assessment proving that native reforestation reduced surface ground temperature and served as a thermal refuge, dramatically increasing avian richness across the Paraíba do Sul basin.",
     paper3_badge_basf: "BASF Sponsorship",
     paper3_badge_status: "2023 — 2025",
     paper3_title: "Guaratinguetá Avifauna Project",
-    paper3_meta: "<strong>Funder:</strong> BASF (São Paulo HQ) &bull; <strong>Researchers:</strong> <strong>Micheli Mac Intir</strong>; Lucas Aøsf; Matheus Moroti; Henry Alexandre",
+    paper3_meta: "<strong>Funder:</strong> BASF (São Paulo HQ) &bull; <strong>Researchers:</strong> <strong>Micheli Mac Intir</strong>; Matheus Moroti; Henry Alexandre",
     paper3_abstract: "Systematic seasonal bird surveys and mist-net banding, modeling anthropogenic pressure gradients and prioritizing forest restoration corridors across agricultural and industrial landscapes.",
     paper4_badge_bocaina: "Ongoing Project",
     paper4_badge_status: "2025 — Present",
     paper4_title: "Herpetofauna of Serra da Bocaina",
-    paper4_meta: "<strong>Principal Investigator:</strong> <strong>Micheli Mac Intir</strong> &bull; <strong>Co-Investigator:</strong> Lucas Aøsf",
+    paper4_meta: "<strong>Principal Investigator:</strong> <strong>Micheli Mac Intir</strong>",
     paper4_abstract: "Systematic field expeditions in the high-altitude cloud forest summits of Serra da Bocaina (São José do Barreiro/SP) to close biogeographical gaps in endemic anurans and montane reptiles.",
 
     // Timeline Experience Section
@@ -543,7 +541,7 @@ function initButterflyCanvas() {
     return cx >= rect.left && cx <= rect.right && cy >= rect.top && cy <= rect.bottom;
   }
 
-  // Ondulação floral e dispersão graciosa idêntica ao santuário de Lucas
+  // Ondulação floral e dispersão graciosa no santuário interativo
   function triggerShockwave(x, y) {
     shockwaves.push({
       x: x,
@@ -758,7 +756,7 @@ function initButterflyCanvas() {
         );
       }
 
-      // 3. Atração e revoada dinâmica ao cursor do mouse no santuário (idêntico à Lagoa de Lucas)
+      // 3. Atração e revoada dinâmica ao cursor do mouse no santuário
       if (mouseInSanctuary && !isTouchInteraction) {
         const dx = mouseX - this.x;
         const dy = mouseY - this.y;
