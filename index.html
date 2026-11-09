@@ -73,13 +73,16 @@
   <!-- Font Awesome 6 Pro / Free CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
+  <!-- Leaflet Map CSS (Visão de Satélite em Alta Resolução) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+
   <!-- Google Fonts Oficiais BioKuri: Cormorant Garamond (Serif Nobre) + Montserrat (Sans Institucional) + Inter (Corpo Técnico Legível) + JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- Folha de Estilos Principal -->
-  <link rel="stylesheet" href="style.css?v=6.4">
+  <link rel="stylesheet" href="style.css?v=7.0">
 </head>
 <body class="theme-biokuri">
 
@@ -97,6 +100,8 @@
         <a href="#sobre" class="nav-item" data-i18n="nav_about">Sobre Mim</a>
         <a href="#supervisao" class="nav-item" data-i18n="nav_road">Supervisão BR-153/369</a>
         <a href="#biokuri" class="nav-item" data-i18n="nav_biokuri">BioKuri</a>
+        <a href="#drone" class="nav-item" data-i18n="nav_drone">Drone</a>
+        <a href="#mapa" class="nav-item" data-i18n="nav_map">Expedições</a>
         <a href="#experiencia" class="nav-item" data-i18n="nav_trajectory">Trajetória</a>
         <a href="#ciencia" class="nav-item" data-i18n="nav_science">Ciência &amp; Artigos</a>
         <a href="#competencias" class="nav-item" data-i18n="nav_competencies">Competências</a>
@@ -437,6 +442,155 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pilotagem de Drones & Aerolevantamentos (BioKuri Field Intelligence) -->
+    <section class="section drone-showcase-section" id="drone">
+      <div class="container">
+        <div class="section-heading text-center glass-panel">
+          <span class="heading-tag"><i class="fa-solid fa-satellite"></i> <span data-i18n="drone_tag">Sensoriamento Remoto &amp; Aerolevantamento</span></span>
+          <h2 class="heading-title" data-i18n="drone_title">Pilotagem de Drones &amp; Imagens Aéreas</h2>
+          <div class="heading-divider"></div>
+          <p class="heading-sub" data-i18n="drone_sub">
+            Aerolevantamentos de alta precisão para diagnóstico ambiental, acompanhamento de frentes de infraestrutura, monitoramento de fauna e mapeamento de fitofisionomias em múltiplos biomas brasileiros.
+          </p>
+        </div>
+
+        <div class="drone-showcase-box glass-panel">
+          <div class="drone-showcase-header">
+            <div class="drone-tag">
+              <i class="fa-solid fa-crosshairs"></i> <span data-i18n="drone_header_tag">AEROLEVANTAMENTO EM TEMPO REAL // BIOKURI</span>
+            </div>
+            <div class="drone-model-pill">
+              <i class="fa-solid fa-shield-halved"></i> <span data-i18n="drone_badge">DJI 4K / 2.7K &bull; Inspeção Ambiental &bull; Fitofisionomias</span>
+            </div>
+          </div>
+
+          <!-- Video Player com HUD Técnico -->
+          <div class="drone-player-container">
+            <video id="drone-main-video" autoplay muted loop playsinline poster="assets/drone/drone-poster.jpg" class="drone-video-player" data-current="assets/drone/drone-showreel.mp4">
+              <source src="assets/drone/drone-showreel.mp4" type="video/mp4">
+              Seu navegador não suporta vídeos HTML5.
+            </video>
+
+            <!-- Live HUD Overlay -->
+            <div class="drone-hud-overlay">
+              <div class="drone-hud-top">
+                <span class="hud-rec"><span class="rec-dot"></span> 4K / 2.7K REC</span>
+                <span class="hud-mode" id="drone-hud-location" data-i18n="drone_hud_showreel">Showreel Geral &bull; Ilhabela, Caatinga (Patos/PB), Mata Atlântica &amp; Cerrado</span>
+              </div>
+              <div class="drone-hud-center">
+                <div class="hud-crosshair-tl"></div>
+                <div class="hud-crosshair-tr"></div>
+                <div class="hud-crosshair-bl"></div>
+                <div class="hud-crosshair-br"></div>
+              </div>
+              <div class="drone-hud-bottom">
+                <span class="hud-telemetry"><i class="fa-solid fa-wind"></i> BIOKURI FIELD SENSING // PILOTAGEM TÉCNICA</span>
+                <button id="drone-sound-btn" class="drone-sound-btn" title="Alternar áudio" aria-label="Alternar áudio do vídeo">
+                  <i class="fa-solid fa-volume-xmark"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Seletor Interativo de Voos / Biomas -->
+          <div class="drone-clip-selector">
+            <button class="drone-clip-btn active" data-src="assets/drone/drone-showreel.mp4" data-loc="Showreel Geral • Ilhabela, Caatinga (Patos/PB), Mata Atlântica &amp; Cerrado" data-i18n-loc="drone_hud_showreel">
+              <i class="fa-solid fa-film"></i> <span data-i18n="drone_btn_showreel">Showreel Geral</span>
+            </button>
+            <button class="drone-clip-btn" data-src="assets/drone/drone-caatinga.mp4" data-loc="Caatinga • Voo Técnico de Inspeção e Diagnóstico de Fauna (Patos / PB)" data-i18n-loc="drone_hud_caatinga">
+              <i class="fa-solid fa-sun"></i> <span data-i18n="drone_btn_caatinga">Caatinga (Patos/PB)</span>
+            </button>
+            <button class="drone-clip-btn" data-src="assets/drone/drone-ilhabela.mp4" data-loc="Ilhabela &amp; Canal de São Sebastião • Monitoramento Costeiro e Marinho" data-i18n-loc="drone_hud_ilhabela">
+              <i class="fa-solid fa-water"></i> <span data-i18n="drone_btn_ilhabela">Ilhabela (Litoral Norte)</span>
+            </button>
+            <button class="drone-clip-btn" data-src="assets/drone/drone-mata-atlantica.mp4" data-loc="Mata Atlântica • Dossel Florestal e Refúgio de Biodiversidade (Vale do Paraíba)" data-i18n-loc="drone_hud_mata">
+              <i class="fa-solid fa-tree"></i> <span data-i18n="drone_btn_mata">Mata Atlântica</span>
+            </button>
+            <button class="drone-clip-btn" data-src="assets/drone/drone-cerrado.mp4" data-loc="Cerrado • Mosaico de Savana, Matas de Galeria e Veredas de Altitude" data-i18n-loc="drone_hud_cerrado">
+              <i class="fa-solid fa-seedling"></i> <span data-i18n="drone_btn_cerrado">Cerrado &amp; Veredas</span>
+            </button>
+          </div>
+
+          <!-- Galeria de Fotos Aéreas com Lightbox -->
+          <div class="drone-photo-gallery">
+            <div class="drone-gallery-header">
+              <span class="drone-gallery-tag"><i class="fa-solid fa-camera-retro"></i> <span data-i18n="drone_gallery_tag">Registros Fotográficos Aéreos em Alta Resolução</span></span>
+              <span class="drone-gallery-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> <span data-i18n="drone_gallery_hint">Clique para ampliar</span></span>
+            </div>
+
+            <div class="drone-photo-grid">
+              <figure class="drone-photo-card" data-full="assets/drone/drone-foto-caatinga.jpg" data-caption="Caatinga — Voo de inspeção e fitofisionomias do semiárido sertanejo (Patos / PB)" onclick="openLightbox(this.getAttribute('data-full'), this.getAttribute('data-caption'))">
+                <img src="assets/drone/drone-foto-caatinga.jpg" alt="Foto aérea de drone na Caatinga em Patos/PB" loading="lazy">
+                <figcaption>
+                  <span class="photo-badge caatinga">Caatinga</span>
+                  <span class="photo-desc">Patos &bull; PB</span>
+                </figcaption>
+              </figure>
+
+              <figure class="drone-photo-card" data-full="assets/drone/drone-foto-ilhabela.jpg" data-caption="Ilhabela — Canal de São Sebastião e costa insular (Litoral Norte / SP)" onclick="openLightbox(this.getAttribute('data-full'), this.getAttribute('data-caption'))">
+                <img src="assets/drone/drone-foto-ilhabela.jpg" alt="Foto aérea de drone em Ilhabela" loading="lazy">
+                <figcaption>
+                  <span class="photo-badge marinho">Marinho</span>
+                  <span class="photo-desc">Ilhabela &bull; SP</span>
+                </figcaption>
+              </figure>
+
+              <figure class="drone-photo-card" data-full="assets/drone/drone-foto-mata-atlantica.jpg" data-caption="Mata Atlântica — Borda florestal e conservação de nascentes no Vale do Paraíba" onclick="openLightbox(this.getAttribute('data-full'), this.getAttribute('data-caption'))">
+                <img src="assets/drone/drone-foto-mata-atlantica.jpg" alt="Foto aérea de drone em Mata Atlântica" loading="lazy">
+                <figcaption>
+                  <span class="photo-badge mata">Mata Atlântica</span>
+                  <span class="photo-desc">Vale do Paraíba &bull; SP</span>
+                </figcaption>
+              </figure>
+
+              <figure class="drone-photo-card" data-full="assets/drone/drone-foto-cerrado.jpg" data-caption="Cerrado — Savana de altitude e mosaico fitofisionômico" onclick="openLightbox(this.getAttribute('data-full'), this.getAttribute('data-caption'))">
+                <img src="assets/drone/drone-foto-cerrado.jpg" alt="Foto aérea de drone no Cerrado" loading="lazy">
+                <figcaption>
+                  <span class="photo-badge cerrado">Cerrado</span>
+                  <span class="photo-desc">Cerrado &bull; MS / GO</span>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mapeamento Georreferenciado de Expedições pelo Brasil -->
+    <section class="section field-map-section" id="mapa">
+      <div class="container">
+        <div class="section-heading text-center glass-panel">
+          <span class="heading-tag"><i class="fa-solid fa-earth-americas"></i> <span data-i18n="map_tag">Georreferenciamento de Atuação</span></span>
+          <h2 class="heading-title" data-i18n="map_title">Distribuição Geográfica &amp; Expedições</h2>
+          <div class="heading-divider"></div>
+          <p class="heading-sub" data-i18n="map_sub">
+            Mapeamento biogeográfico dos polos, frentes de obra, municípios e expedições de campo percorridas por Micheli Mac Intir pelo território nacional.
+          </p>
+        </div>
+
+        <div class="map-showcase-box glass-panel">
+          <!-- Metrics KPI Strip -->
+          <div class="map-kpi-strip">
+            <div class="map-kpi-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <span><strong id="map-counter-points">19 Polos</strong> <span data-i18n="map_kpi_points">Registrados em Campo</span></span>
+            </div>
+            <div class="map-kpi-item">
+              <i class="fa-solid fa-mountain-sun"></i>
+              <span><strong>5 Biomas</strong> <span data-i18n="map_kpi_biomes">(Mata Atlântica, Cerrado, Caatinga, Amazônia &amp; Costeiro)</span></span>
+            </div>
+            <div class="map-kpi-item">
+              <i class="fa-solid fa-satellite"></i>
+              <span data-i18n="map_kpi_sat">Visão Fixa de Satélite em Alta Resolução</span>
+            </div>
+          </div>
+
+          <!-- Leaflet Interactive Map Container -->
+          <div id="micheli-expedition-map" class="micheli-expedition-map" aria-label="Mapa Interativo de Expedições"></div>
         </div>
       </div>
     </section>
@@ -892,6 +1046,9 @@
         <a href="#sobre" data-i18n="nav_about">Sobre Mim</a>
         <a href="#supervisao" data-i18n="nav_road">Supervisão BR-153/369</a>
         <a href="#biokuri" data-i18n="nav_biokuri">BioKuri</a>
+        <a href="#drone" data-i18n="nav_drone">Drone</a>
+        <a href="#mapa" data-i18n="nav_map">Expedições</a>
+        <a href="#experiencia" data-i18n="nav_trajectory">Trajetória</a>
         <a href="#ciencia" data-i18n="nav_science">Ciência</a>
         <a href="#galeria" data-i18n="nav_gallery">Bastidores</a>
         <a href="#contato" data-i18n="nav_contact">Contato</a>
@@ -929,6 +1086,9 @@
     <div class="lightbox-caption" id="lightboxCaption"></div>
   </div>
 
-  <script src="script.js?v=5.4"></script>
+  <!-- Leaflet Map JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <!-- Main Script -->
+  <script src="script.js?v=7.0"></script>
 </body>
 </html>

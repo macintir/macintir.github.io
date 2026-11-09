@@ -455,13 +455,15 @@ img {
 .competency-card,
 .gallery-card,
 .edu-card,
-.contact-card-box {
-  background: rgba(255, 255, 255, 0.88) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(142, 106, 58, 0.22) !important;
+.contact-card-box,
+.drone-showcase-box,
+.map-showcase-box {
+  background: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(142, 106, 58, 0.25) !important;
   border-radius: var(--radius-lg);
-  box-shadow: 0 10px 32px rgba(14, 50, 21, 0.05) !important;
+  box-shadow: 0 10px 32px rgba(14, 50, 21, 0.06) !important;
   position: relative;
   z-index: 2;
   transition: var(--transition);
@@ -2392,5 +2394,585 @@ img {
 
   .insta-info-side {
     flex-direction: column;
+  }
+}
+
+/* ==========================================================================
+   11. SEÇÃO DE DRONE & AEROLEVANTAMENTO (PADRÃO BIOKURI CLARO & FOSCO)
+   ========================================================================== */
+.drone-showcase-section {
+  position: relative;
+  z-index: 2;
+}
+
+.drone-showcase-box {
+  padding: 2.2rem;
+  margin-top: 1.5rem;
+}
+
+.drone-showcase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(142, 106, 58, 0.2);
+}
+
+.drone-tag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 1.2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+}
+
+.drone-tag i {
+  color: var(--secondary);
+}
+
+.drone-model-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(14, 50, 21, 0.08);
+  border: 1px solid rgba(14, 50, 21, 0.2);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.drone-model-pill i {
+  color: var(--secondary);
+}
+
+.drone-player-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 540px;
+  background: #000;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(14, 50, 21, 0.25);
+  box-shadow: 0 12px 36px rgba(14, 50, 21, 0.15);
+  margin: 0 auto;
+}
+
+.drone-video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* HUD Overlay Técnico */
+.drone-hud-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.2rem;
+  z-index: 5;
+}
+
+.drone-hud-top,
+.drone-hud-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.hud-rec {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 1.5px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.rec-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #e63946;
+  box-shadow: 0 0 8px #e63946;
+  animation: recBlink 1.4s infinite ease-in-out;
+}
+
+@keyframes recBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(0.8); }
+}
+
+.hud-mode {
+  background: rgba(14, 50, 21, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fff;
+  border: 1px solid rgba(142, 106, 58, 0.45);
+  max-width: 65%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.drone-hud-center {
+  position: absolute;
+  inset: 20px;
+  pointer-events: none;
+}
+
+.hud-crosshair-tl,
+.hud-crosshair-tr,
+.hud-crosshair-bl,
+.hud-crosshair-br {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-color: rgba(255, 255, 255, 0.45);
+  border-style: solid;
+}
+
+.hud-crosshair-tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.hud-crosshair-tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.hud-crosshair-bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.hud-crosshair-br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
+
+.hud-telemetry {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.74rem;
+  color: #e0e0e0;
+  font-family: 'JetBrains Mono', monospace;
+  letter-spacing: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hud-telemetry i {
+  color: #4ECCA3;
+}
+
+.drone-sound-btn {
+  pointer-events: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(14, 50, 21, 0.25);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.drone-sound-btn:hover {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+/* Seletor de Voos / Biomas */
+.drone-clip-selector {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 1.6rem 0 1.8rem 0;
+}
+
+.drone-clip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(14, 50, 21, 0.2);
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(14, 50, 21, 0.05);
+}
+
+.drone-clip-btn i {
+  color: var(--secondary);
+  transition: color 0.25s ease;
+}
+
+.drone-clip-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--secondary);
+  box-shadow: 0 6px 16px rgba(14, 50, 21, 0.12);
+}
+
+.drone-clip-btn.active {
+  background: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 6px 20px rgba(14, 50, 21, 0.28);
+}
+
+.drone-clip-btn.active i {
+  color: #4ECCA3;
+}
+
+/* Galeria de Fotos Aéreas */
+.drone-photo-gallery {
+  margin-top: 1.8rem;
+  border-top: 1px solid rgba(142, 106, 58, 0.2);
+  padding-top: 1.6rem;
+}
+
+.drone-gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.2rem;
+}
+
+.drone-gallery-tag {
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drone-gallery-tag i {
+  color: var(--secondary);
+}
+
+.drone-gallery-hint {
+  font-size: 0.82rem;
+  color: var(--secondary);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.drone-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.1rem;
+}
+
+.drone-photo-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  cursor: pointer;
+  border: 1px solid rgba(14, 50, 21, 0.18);
+  box-shadow: 0 6px 18px rgba(14, 50, 21, 0.08);
+  margin: 0;
+  transition: all 0.3s ease;
+  background: #f0ebe1;
+}
+
+.drone-photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(14, 50, 21, 0.18);
+  border-color: var(--secondary);
+}
+
+.drone-photo-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.drone-photo-card:hover img {
+  transform: scale(1.06);
+}
+
+.drone-photo-card figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 14px;
+  background: linear-gradient(0deg, rgba(14, 50, 21, 0.92) 0%, rgba(14, 50, 21, 0.5) 70%, transparent 100%);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 500;
+  z-index: 2;
+}
+
+.photo-badge {
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.photo-badge.caatinga { background: #d97706; color: #fff; }
+.photo-badge.marinho { background: #0284c7; color: #fff; }
+.photo-badge.mata { background: #15803d; color: #fff; }
+.photo-badge.cerrado { background: #ca8a04; color: #fff; }
+.photo-badge.amazonia { background: #059669; color: #fff; }
+
+.photo-desc {
+  font-size: 0.8rem;
+  color: #f5efe6;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   12. SEÇÃO DE MAPA DE DISTRIBUIÇÃO & EXPEDIÇÕES (LEAFLET BIOKURI)
+   ========================================================================== */
+.field-map-section {
+  position: relative;
+  z-index: 2;
+}
+
+.map-showcase-box {
+  padding: 2.2rem;
+  margin-top: 1.5rem;
+}
+
+.map-kpi-strip {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.4rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(142, 106, 58, 0.2);
+}
+
+.map-kpi-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+  color: var(--text-dark);
+}
+
+.map-kpi-item i {
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+.map-kpi-item strong {
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.micheli-expedition-map {
+  width: 100%;
+  height: 560px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid rgba(14, 50, 21, 0.25);
+  box-shadow: 0 10px 30px rgba(14, 50, 21, 0.12);
+  z-index: 10;
+  position: relative;
+  background: #08110b;
+}
+
+/* Custom Leaflet BioKuri Popups */
+.leaflet-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.97) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(14, 50, 21, 0.25) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 14px 36px rgba(14, 50, 21, 0.18) !important;
+  color: var(--text-dark) !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-tip {
+  background: rgba(255, 255, 255, 0.97) !important;
+  border: 1px solid rgba(14, 50, 21, 0.25) !important;
+}
+
+.micheli-map-popup {
+  padding: 16px 18px;
+  font-family: var(--font-sans);
+  max-width: 320px;
+}
+
+.micheli-map-popup .popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.micheli-map-popup .popup-biome {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.micheli-map-popup .popup-biome.caatinga { background: #fef3c7; color: #b45309; border: 1px solid #fcd34d; }
+.micheli-map-popup .popup-biome.marinho { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
+.micheli-map-popup .popup-biome.mata { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+.micheli-map-popup .popup-biome.cerrado { background: #fef9c3; color: #a16207; border: 1px solid #fef08a; }
+.micheli-map-popup .popup-biome.amazonia { background: #d1fae5; color: #047857; border: 1px solid #a7f3d0; }
+
+.micheli-map-popup .popup-year {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+.micheli-map-popup h4 {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--primary);
+  margin: 0 0 4px 0;
+  line-height: 1.25;
+}
+
+.micheli-map-popup .popup-locality {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.micheli-map-popup .popup-role {
+  display: inline-block;
+  background: rgba(14, 50, 21, 0.08);
+  border: 1px solid rgba(14, 50, 21, 0.2);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.micheli-map-popup p {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-body);
+  margin: 0;
+}
+
+/* Custom Pulsing Pin Marker */
+.micheli-pin-marker {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.micheli-pin-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #0E3215;
+  border: 2.5px solid #F5EFE6;
+  box-shadow: 0 0 10px rgba(14, 50, 21, 0.6);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.micheli-pin-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(14, 50, 21, 0.45);
+  animation: pinPulse 2.2s infinite ease-out;
+}
+
+@keyframes pinPulse {
+  0% { transform: translate(-50%, -50%) scale(0.4); opacity: 0.95; }
+  100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
+}
+
+.micheli-pin-marker:hover .micheli-pin-dot {
+  transform: translate(-50%, -50%) scale(1.35);
+  background: #8E6A3A;
+  border-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .drone-showcase-box,
+  .map-showcase-box {
+    padding: 1.4rem 1rem;
+  }
+
+  .micheli-expedition-map {
+    height: 440px;
+  }
+
+  .hud-mode {
+    display: none;
+  }
+
+  .hud-rec {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+  }
+
+  .hud-telemetry {
+    font-size: 0.68rem;
+    padding: 4px 10px;
   }
 }

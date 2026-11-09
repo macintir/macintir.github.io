@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanguageSystem();
   initButterflyCanvas();
   initMetricsCounter();
+  initDronePlayer();
+  initFieldMap();
   initLightbox();
   initSmoothScroll();
 });
@@ -22,6 +24,8 @@ const translations = {
     nav_about: "Sobre Mim",
     nav_road: "Supervisão BR-153/369",
     nav_biokuri: "BioKuri",
+    nav_drone: "Drone",
+    nav_map: "Expedições",
     nav_trajectory: "Trajetória",
     nav_science: "Ciência & Artigos",
     nav_competencies: "Competências",
@@ -233,6 +237,33 @@ const translations = {
     contact_cv_sub: "Baixe o documento detalhado com ARTs, frentes de obra e referências técnicas.",
     contact_cv_btn: "Baixar Currículo em PDF",
 
+    // Drone Section
+    drone_tag: "Sensoriamento Remoto &amp; Aerolevantamento",
+    drone_title: "Pilotagem de Drones &amp; Imagens Aéreas",
+    drone_sub: "Aerolevantamentos de alta precisão para diagnóstico ambiental, acompanhamento de frentes de infraestrutura, monitoramento de fauna e mapeamento de fitofisionomias em múltiplos biomas brasileiros.",
+    drone_header_tag: "AEROLEVANTAMENTO EM TEMPO REAL // BIOKURI",
+    drone_badge: "DJI 4K / 2.7K &bull; Inspeção Ambiental &bull; Fitofisionomias",
+    drone_hud_showreel: "Showreel Geral &bull; Ilhabela, Caatinga (Patos/PB), Mata Atlântica &amp; Cerrado",
+    drone_hud_caatinga: "Caatinga &bull; Voo Técnico de Inspeção e Diagnóstico de Fauna (Patos / PB)",
+    drone_hud_ilhabela: "Ilhabela &amp; Canal de São Sebastião &bull; Monitoramento Costeiro e Marinho",
+    drone_hud_mata: "Mata Atlântica &bull; Dossel Florestal e Refúgio de Biodiversidade (Vale do Paraíba)",
+    drone_hud_cerrado: "Cerrado &bull; Mosaico de Savana, Matas de Galeria e Veredas de Altitude",
+    drone_btn_showreel: "Showreel Geral",
+    drone_btn_caatinga: "Caatinga (Patos/PB)",
+    drone_btn_ilhabela: "Ilhabela (Litoral Norte)",
+    drone_btn_mata: "Mata Atlântica",
+    drone_btn_cerrado: "Cerrado &amp; Veredas",
+    drone_gallery_tag: "Registros Fotográficos Aéreos em Alta Resolução",
+    drone_gallery_hint: "Clique para ampliar",
+
+    // Map Section
+    map_tag: "Georreferenciamento de Atuação",
+    map_title: "Distribuição Geográfica &amp; Expedições",
+    map_sub: "Mapeamento biogeográfico dos polos, frentes de obra, municípios e expedições de campo percorridas por Micheli Mac Intir pelo território nacional.",
+    map_kpi_points: "Registrados em Campo",
+    map_kpi_biomes: "(Mata Atlântica, Cerrado, Caatinga, Amazônia &amp; Costeiro)",
+    map_kpi_sat: "Visão Fixa de Satélite em Alta Resolução",
+
     // Footer
     footer_role: "Supervisora Ambiental &bull; Gestão de Obras &bull; Data Science (Python) &bull; Especialista em Fauna (Ornitologia) &bull; CRBio 135793/01-D",
     footer_copy: "&copy; 2026 Micheli Mac Intir &bull; Todos os direitos reservados.",
@@ -243,6 +274,8 @@ const translations = {
     nav_about: "About Me",
     nav_road: "BR-153/369 Highway",
     nav_biokuri: "BioKuri",
+    nav_drone: "Drone",
+    nav_map: "Expeditions",
     nav_trajectory: "Trajectory",
     nav_science: "Research & Papers",
     nav_competencies: "Competencies",
@@ -453,6 +486,33 @@ const translations = {
     contact_cv_title: "Need the full curriculum vitae in PDF for hiring or corporate bidding?",
     contact_cv_sub: "Download the complete document featuring technical registrations (ART), project fronts, and scientific references.",
     contact_cv_btn: "Download CV in PDF",
+
+    // Drone Section
+    drone_tag: "Remote Sensing &amp; Aerial Surveys",
+    drone_title: "Drone Piloting &amp; Aerial Imagery",
+    drone_sub: "High-precision aerial surveys for environmental impact assessments, infrastructure works monitoring, wildlife telemetry, and habitat mapping across multiple Brazilian biomes.",
+    drone_header_tag: "REAL-TIME AERIAL SURVEY // BIOKURI",
+    drone_badge: "DJI 4K / 2.7K &bull; Environmental Inspection &bull; Phytophysiognomies",
+    drone_hud_showreel: "General Showreel &bull; Ilhabela, Caatinga (Patos/PB), Atlantic Forest &amp; Cerrado",
+    drone_hud_caatinga: "Caatinga &bull; Technical Inspection Flight &amp; Fauna Assessment (Patos / PB)",
+    drone_hud_ilhabela: "Ilhabela &amp; São Sebastião Channel &bull; Coastal and Marine Monitoring",
+    drone_hud_mata: "Atlantic Forest &bull; Canopy Architecture &amp; Biodiversity Refugium (Paraíba Valley)",
+    drone_hud_cerrado: "Cerrado &bull; Savanna Mosaic, Gallery Forests &amp; Highland Veredas",
+    drone_btn_showreel: "General Showreel",
+    drone_btn_caatinga: "Caatinga (Patos/PB)",
+    drone_btn_ilhabela: "Ilhabela (North Coast)",
+    drone_btn_mata: "Atlantic Forest",
+    drone_btn_cerrado: "Cerrado &amp; Savannas",
+    drone_gallery_tag: "High-Resolution Aerial Photographic Records",
+    drone_gallery_hint: "Click to enlarge",
+
+    // Map Section
+    map_tag: "Georeferenced Field Footprint",
+    map_title: "Geographic Distribution &amp; Expeditions",
+    map_sub: "Biogeographical mapping of hubs, highway works, industrial complexes, and field expeditions traversed by Micheli Mac Intir across Brazilian territory.",
+    map_kpi_points: "Field Hubs Recorded",
+    map_kpi_biomes: "(Atlantic Forest, Cerrado, Caatinga, Amazon &amp; Marine)",
+    map_kpi_sat: "Fixed High-Resolution Satellite View",
 
     // Footer
     footer_role: "Environmental Supervisor &bull; Works Management &bull; Data Science (Python) &bull; Wildlife Specialist (Ornithology) &bull; CRBio 135793/01-D",
@@ -1076,5 +1136,348 @@ function initSmoothScroll() {
         });
       }
     });
+  });
+}
+
+/* ==========================================================================
+   6. PLAYER DE VÍDEO DO DRONE & HUD TÉCNICO BIOKURI
+   ========================================================================== */
+function initDronePlayer() {
+  const video = document.getElementById('drone-main-video');
+  const hudLoc = document.getElementById('drone-hud-location');
+  const clipBtns = document.querySelectorAll('.drone-clip-btn');
+  const soundBtn = document.getElementById('drone-sound-btn');
+  if (!video || !clipBtns.length) return;
+
+  clipBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      clipBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const newSrc = btn.getAttribute('data-src');
+      const newLocKey = btn.getAttribute('data-i18n-loc');
+      const defaultLoc = btn.getAttribute('data-loc');
+
+      if (newSrc && video.getAttribute('data-current') !== newSrc) {
+        video.setAttribute('data-current', newSrc);
+        video.src = newSrc;
+        video.play().catch(() => {});
+        if (hudLoc) {
+          const currentLang = localStorage.getItem('biokuri_lang') || 'pt';
+          if (newLocKey && translations[currentLang] && translations[currentLang][newLocKey]) {
+            hudLoc.innerHTML = translations[currentLang][newLocKey];
+          } else if (defaultLoc) {
+            hudLoc.innerHTML = defaultLoc;
+          }
+        }
+      }
+    });
+  });
+
+  if (soundBtn) {
+    soundBtn.addEventListener('click', () => {
+      video.muted = !video.muted;
+      soundBtn.innerHTML = video.muted
+        ? '<i class="fa-solid fa-volume-xmark"></i>'
+        : '<i class="fa-solid fa-volume-high"></i>';
+      soundBtn.setAttribute('title', video.muted ? 'Ativar áudio' : 'Mutar áudio');
+    });
+  }
+}
+
+/* ==========================================================================
+   7. MAPA INTERATIVO DE EXPEDIÇÕES & DISTRIBUIÇÃO (LEAFLET BIOKURI)
+   ========================================================================== */
+const micheliExpeditionPoints = [
+  {
+    id: "jacarezinho",
+    title: "Jacarezinho & Ourinhos",
+    locality: "Paraná / São Paulo · BR-153 & BR-369",
+    coords: [-23.1614, -49.9703],
+    state: "PR",
+    biome: "Mata Atlântica",
+    biomeKey: "mata",
+    year: "2026 — Atual",
+    role: "Supervisão Ambiental de Obras",
+    desc: "Coordenação de campo na Caruso Soluções Ambientais nas rodovias federais BR-153 e BR-369. Gestão de licenças, condicionantes, não conformidades, supressão vegetal e resgate de fauna."
+  },
+  {
+    id: "patos_pb",
+    title: "Patos",
+    locality: "Paraíba · Sertão Paraibano / BR-230",
+    coords: [-7.0245, -37.2800],
+    state: "PB",
+    biome: "Caatinga",
+    biomeKey: "caatinga",
+    year: "2025",
+    role: "Diagnóstico de Fauna & Drone",
+    desc: "Diagnóstico de fauna silvestre para o PCA da Rodovia BR-230 pela Cayman. Inventário ornitológico, mapeamento fitofisionômico da Caatinga e inspeções aéreas por drone."
+  },
+  {
+    id: "ilhabela",
+    title: "Ilhabela & São Sebastião",
+    locality: "São Paulo · Litoral Norte & Canal de São Sebastião",
+    coords: [-23.7781, -45.3581],
+    state: "SP",
+    biome: "Marinho / Costeiro",
+    biomeKey: "marinho",
+    year: "2023 — 2025",
+    role: "Ornitologia Marinha & Caiaque",
+    desc: "Monitoramento de avifauna costeira e marinha no Porto de São Sebastião e costa de Ilhabela. Censo de aves aquáticas com uso de caiaque oceânico e documentação aérea."
+  },
+  {
+    id: "sao_sebastiao",
+    title: "São Sebastião",
+    locality: "São Paulo · Porto de São Sebastião",
+    coords: [-23.8058, -45.4025],
+    state: "SP",
+    biome: "Costeiro",
+    biomeKey: "marinho",
+    year: "2023 — 2025",
+    role: "Monitoramento Ambiental Portuário",
+    desc: "Monitoramento ambiental contínuo de fauna silvestre nas instalações portuárias e enseadas litorâneas."
+  },
+  {
+    id: "inocencia",
+    title: "Inocência",
+    locality: "Mato Grosso do Sul · Vale da Celulose",
+    coords: [-19.7258, -51.9317],
+    state: "MS",
+    biome: "Cerrado",
+    biomeKey: "cerrado",
+    year: "2024",
+    role: "Monitoramento de Fauna (Arauco)",
+    desc: "Monitoramento de fauna silvestre no mega-complexo de celulose da Arauco (Projeto Sucuriú). Foco em mastofauna terrestre, especialmente Myrmecophaga tridactyla (tamanduá-bandeira)."
+  },
+  {
+    id: "tres_lagoas",
+    title: "Três Lagoas",
+    locality: "Mato Grosso do Sul · Costa Leste MS",
+    coords: [-20.7847, -51.7008],
+    state: "MS",
+    biome: "Cerrado",
+    biomeKey: "cerrado",
+    year: "2023 — 2024",
+    role: "Monitoramento de Fauna (Cargill)",
+    desc: "Campanhas sistemáticas de monitoramento de avifauna e mastofauna em empreendimento industrial da Cargill."
+  },
+  {
+    id: "agua_clara",
+    title: "Água Clara",
+    locality: "Mato Grosso do Sul · Bacia do Rio Verde",
+    coords: [-20.4489, -52.8789],
+    state: "MS",
+    biome: "Cerrado",
+    biomeKey: "cerrado",
+    year: "2024",
+    role: "Levantamento de Fauna",
+    desc: "Levantamento e monitoramento de vertebrados silvestres em áreas de savana e transição silvicultural."
+  },
+  {
+    id: "bataguassu",
+    title: "Bataguassu",
+    locality: "Mato Grosso do Sul · Alto Rio Paraná",
+    coords: [-21.7139, -52.4222],
+    state: "MS",
+    biome: "Cerrado",
+    biomeKey: "cerrado",
+    year: "2024",
+    role: "Diagnóstico Ecológico",
+    desc: "Levantamentos e diagnósticos ecológicos em ambientes ripários e planícies do alto Rio Paraná."
+  },
+  {
+    id: "rio_verde_go",
+    title: "Rio Verde",
+    locality: "Goiás · Sudoeste Goiano",
+    coords: [-17.7925, -50.9192],
+    state: "GO",
+    biome: "Cerrado",
+    biomeKey: "cerrado",
+    year: "2023 — 2024",
+    role: "Monitoramento de Fauna (PCH Verde)",
+    desc: "Monitoramento de fauna terrestre e alada no empreendimento hidrelétrico PCH Verde."
+  },
+  {
+    id: "serra_bocaina",
+    title: "Serra da Bocaina",
+    locality: "São Paulo · São José do Barreiro",
+    coords: [-22.6461, -44.5761],
+    state: "SP",
+    biome: "Mata Atlântica",
+    biomeKey: "mata",
+    year: "2021 — 2025",
+    role: "Pico do Tira-Chapéu (2.088m)",
+    desc: "Expedições sistemáticas em campos de altitude e mata nebular da Bocaina. Pesquisa de anurofauna e ornitologia montane."
+  },
+  {
+    id: "bananal",
+    title: "Bananal",
+    locality: "São Paulo · Vale Histórico",
+    coords: [-22.6822, -44.3236],
+    state: "SP",
+    biome: "Mata Atlântica",
+    biomeKey: "mata",
+    year: "2022 — 2024",
+    role: "Herpetofauna & Ecologia",
+    desc: "Levantamento de herpetofauna e conservação de remanescentes da Serra da Bocaina."
+  },
+  {
+    id: "lorena_guara",
+    title: "Lorena & Guaratinguetá",
+    locality: "São Paulo · Vale do Paraíba",
+    coords: [-22.7561, -45.1919],
+    state: "SP",
+    biome: "Mata Atlântica",
+    biomeKey: "mata",
+    year: "2016 — 2024",
+    role: "Parque do Taboão / BASF & IMBio",
+    desc: "Monitoramento contínuo de avifauna patrocinado pela BASF, anilhamento oficial CEMAVE/ICMBio, bioacústica e educação ambiental."
+  },
+  {
+    id: "aparecida",
+    title: "Aparecida",
+    locality: "São Paulo · Bacia do Rio Paraíba",
+    coords: [-22.8469, -45.2339],
+    state: "SP",
+    biome: "Mata Atlântica",
+    biomeKey: "mata",
+    year: "2023 — 2024",
+    role: "Porto de Areia & Educação",
+    desc: "Monitoramento ambiental de fauna em extração mineral e projetos educativos na rede escolar municipal."
+  },
+  {
+    id: "cachoeira_paulista",
+    title: "Cachoeira Paulista",
+    locality: "São Paulo · Vale do Paraíba",
+    coords: [-22.6644, -45.0094],
+    state: "SP",
+    biome: "Mata Atlântica",
+    biomeKey: "mata",
+    year: "2020 — 2024",
+    role: "Educação & Manejo de Fauna",
+    desc: "Apoio a operações de triagem, reabilitação e manejo de fauna junto ao 5º BIL e Polícia Militar Ambiental."
+  },
+  {
+    id: "pindamonhangaba",
+    title: "Pindamonhangaba",
+    locality: "São Paulo · Vale do Paraíba",
+    coords: [-22.9247, -45.4614],
+    state: "SP",
+    biome: "Mata Atlântica",
+    biomeKey: "mata",
+    year: "2023",
+    role: "Levantamento de Fauna",
+    desc: "Inventário de avifauna e mastofauna em corredores florestais entre a Serra do Mar e a Mantiqueira."
+  },
+  {
+    id: "joinville",
+    title: "Joinville",
+    locality: "Santa Catarina · Litoral Norte SC",
+    coords: [-26.3044, -48.8464],
+    state: "SC",
+    biome: "Mata Atlântica",
+    biomeKey: "mata",
+    year: "2024",
+    role: "Levantamento de Fauna Silvestre",
+    desc: "Diagnósticos e inventários de fauna silvestre na Floresta Ombrófila Densa costeira de Santa Catarina."
+  },
+  {
+    id: "itapeva",
+    title: "Itapeva",
+    locality: "São Paulo · Sudoeste Paulista",
+    coords: [-23.9822, -48.8761],
+    state: "SP",
+    biome: "Cerrado / Mata Atlântica",
+    biomeKey: "cerrado",
+    year: "2024",
+    role: "Levantamentos Ambientais",
+    desc: "Estudo ecológico em ecótono florestal de transição no sudoeste paulista."
+  },
+  {
+    id: "pirituba",
+    title: "São Paulo (Pirituba)",
+    locality: "São Paulo · Região Metropolitana",
+    coords: [-23.4833, -46.7333],
+    state: "SP",
+    biome: "Mata Atlântica Urbana",
+    biomeKey: "mata",
+    year: "2023",
+    role: "Fauna Silvestre Urbana",
+    desc: "Inventariamento de espécies em remanescentes florestais urbanos na capital paulista."
+  },
+  {
+    id: "belem",
+    title: "Belém",
+    locality: "Pará · Amazônia Equatorial",
+    coords: [-1.4558, -48.4902],
+    state: "PA",
+    biome: "Amazônia",
+    biomeKey: "amazonia",
+    year: "2025",
+    role: "COP 30 — Conferência da ONU",
+    desc: "Apresentação de trabalho técnico sobre gestão ambiental, reflorestamento e restauração microclimática na Cúpula do Clima da ONU."
+  }
+];
+
+function initFieldMap() {
+  const mapContainer = document.getElementById('micheli-expedition-map');
+  if (!mapContainer || typeof L === 'undefined') return;
+
+  const brazilCenter = [-17.0, -47.0];
+  const initialZoom = window.innerWidth < 768 ? 4.0 : 4.8;
+
+  const map = L.map('micheli-expedition-map', {
+    center: brazilCenter,
+    zoom: initialZoom,
+    minZoom: 3.5,
+    maxZoom: 18,
+    scrollWheelZoom: false,
+    attributionControl: false
+  });
+
+  map.on('click', () => { map.scrollWheelZoom.enable(); });
+  mapContainer.addEventListener('mouseleave', () => { map.scrollWheelZoom.disable(); });
+
+  // 1. Esri World Imagery (Visão de Satélite em Alta Resolução)
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 18
+  }).addTo(map);
+
+  // 2. Esri Boundaries and Places (Fronteiras e Cidades)
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', {
+    maxZoom: 18,
+    opacity: 0.85
+  }).addTo(map);
+
+  // Marcadores Customizados BioKuri
+  micheliExpeditionPoints.forEach(pt => {
+    const iconHtml = `<div class="micheli-pin-marker" title="${pt.title} (${pt.state})">
+      <div class="micheli-pin-pulse"></div>
+      <div class="micheli-pin-dot"></div>
+    </div>`;
+
+    const customIcon = L.divIcon({
+      className: 'custom-micheli-pin',
+      html: iconHtml,
+      iconSize: [24, 24],
+      iconAnchor: [12, 12],
+      popupAnchor: [0, -14]
+    });
+
+    const popupHtml = `
+      <div class="micheli-map-popup">
+        <div class="popup-header">
+          <span class="popup-biome ${pt.biomeKey}">${pt.biome}</span>
+          <span class="popup-year">${pt.year}</span>
+        </div>
+        <h4>${pt.title}</h4>
+        <div class="popup-locality"><i class="fa-solid fa-location-dot"></i> ${pt.locality}</div>
+        <div class="popup-role">${pt.role}</div>
+        <p>${pt.desc}</p>
+      </div>
+    `;
+
+    L.marker(pt.coords, { icon: customIcon })
+      .bindPopup(popupHtml, { maxWidth: 320, closeButton: true })
+      .addTo(map);
   });
 }
