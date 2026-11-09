@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://macintir.github.io/sitemap.xml
