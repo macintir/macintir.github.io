@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initDronePlayer();
   initFieldMap();
   initLightbox();
+  initGalleryFilters();
   initSmoothScroll();
 });
 
@@ -66,13 +67,14 @@ const translations = {
     metric_1_label: "Anos dedicados à Biologia, Fauna & Ecologia",
     metric_2_label: "km de rodovias e frentes de infraestrutura monitoradas",
     metric_3_label: "Grandes empreendimentos e obras atendidos",
-    metric_4_label: "Artigo internacional aceito para publicação",
+    metric_4_label: "Artigo internacional aceito para publicação (2026)",
     metric_5_label: "Foco em conformidade real e conservação no chão",
 
     // About Section
     about_tag: "Trajetória & Vocação",
     about_title: "Supervisora Ambiental, Cientista de Dados em Python e Especialista em Fauna",
     about_badge_masto: "Mastofauna &bull; Tamanduá-bandeira",
+    about_badge_ornito: "Ornitologia &bull; Anilhamento Científico",
     about_badge_bocaina: "Inspeção de Campo",
     about_quote: "\"Não acredito em biologia de gabinete. O rigor técnico em fauna e a modelagem de dados só têm valor real quando resolvem gargalos no chão da obra e garantem conformidade ambiental inatacável.\"",
     about_lead: "Sou <strong>Micheli Mac Intir</strong>, bióloga (UNIFATEA, bolsista CAPES), supervisora ambiental de obras de grande porte, especialista em fauna com foco prioritário em <strong>ornitologia</strong> e pós-graduanda em <strong>Data Science & Analytics pela USP/ESALQ</strong>.",
@@ -101,6 +103,9 @@ const translations = {
     road_c3_text: "Controle estrito de condicionantes (LP, LI, LO), outorgas de captação/lançamento de recursos hídricos e auditoria de terceiros: banheiros químicos, bota-fora autorizado e controle de poeira (umectação com pipa).",
     road_c4_title: "Fauna Silvestre & Germoplasma",
     road_c4_text: "Acompanhamento de supressão vegetal autorizada, coordenação de resgate e afugentamento de animais silvestres e coleta de sementes, epífitas e propágulos de flora nativa para mitigação de impactos.",
+    road_visual_tag: "Liderança em Campo &bull; DDMA",
+    road_visual_title: "Diálogos Diários de Meio Ambiente (DDMA) &amp; Alinhamento de Frentes",
+    road_visual_desc: "Treinamento e alinhamento operacional diário com equipes e encarregados de obra na faixa de domínio da rodovia. Foco em mitigação de riscos, segregação de resíduos, respeito à fauna e prevenção proativa de passivos.",
     road_footer_note: "Elaboração de pareceres técnicos e relatórios de atendimento em resposta a ofícios e notificações oficiais dos órgãos ambientais licenciadores.",
 
     // BioKuri Section
@@ -316,13 +321,14 @@ const translations = {
     metric_1_label: "Years dedicated to Biology, Wildlife & Ecology",
     metric_2_label: "km of highways and infrastructure fronts supervised",
     metric_3_label: "Major corporate ventures and projects served",
-    metric_4_label: "International paper accepted for publication",
+    metric_4_label: "International paper accepted for publication (2026)",
     metric_5_label: "Focus on genuine compliance and ground conservation",
 
     // About Section
     about_tag: "Career & Calling",
     about_title: "Environmental Supervisor, Python Data Scientist & Wildlife Specialist",
     about_badge_masto: "Mammal Survey &bull; Giant Anteater",
+    about_badge_ornito: "Ornithology &bull; Bird Banding",
     about_badge_bocaina: "Field Inspection",
     about_quote: "\"I do not believe in armchair biology. Rigorous wildlife science and data modeling only carry true value when they solve real ground bottlenecks and ensure unassailable environmental compliance.\"",
     about_lead: "I am <strong>Micheli Mac Intir</strong>, licensed biologist graduated from UNIFATEA (with CAPES fellowship), major infrastructure environmental supervisor, wildlife specialist with primary focus on <strong>ornithology</strong>, and pursuing an <strong>MBA in Data Science & Analytics at USP/ESALQ</strong>.",
@@ -351,6 +357,9 @@ const translations = {
     road_c3_text: "Strict monitoring of license requirements (LP, LI, LO), water abstraction/discharge permits, and contractor audits: chemical sanitation units, certified disposal yards, and dust control (watering trucks).",
     road_c4_title: "Wildlife & Native Germplasm",
     road_c4_text: "Oversight of licensed vegetation clearing, coordinated wildlife rescue and pre-clearing deterrence, and harvesting native seeds, epiphytes, and propagules for environmental offset programs.",
+    road_visual_tag: "Field Leadership &bull; Daily Environmental Talks",
+    road_visual_title: "Daily Environmental Dialogues (DDMA) &amp; Front Alignment",
+    road_visual_desc: "Daily operational alignment and environmental briefing with infrastructure construction teams. Focus on risk mitigation, waste management, wildlife protection, and proactive prevention of environmental liabilities.",
     road_footer_note: "Drafting technical appraisals and formal response reports addressing inquiries from state and federal licensing authorities.",
 
     // BioKuri Section
@@ -1112,6 +1121,32 @@ function initLightbox() {
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeLightbox();
+  });
+}
+
+/* ==========================================================================
+   4.1 FILTROS DE CATEGORIA NA GALERIA DE CAMPO
+   ========================================================================== */
+function initGalleryFilters() {
+  const tabs = document.querySelectorAll('.gallery-tab');
+  const cards = document.querySelectorAll('.gallery-grid .gallery-card');
+  if (!tabs.length || !cards.length) return;
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const filter = tab.getAttribute('data-filter');
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (filter === 'all' || cat === filter) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
   });
 }
 

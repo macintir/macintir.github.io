@@ -238,8 +238,8 @@
             <span class="metric-desc" data-i18n="metric_3_label">Grandes empreendimentos e obras atendidos</span>
           </div>
           <div class="metric-block">
-            <span class="metric-val" data-target="2026">2026</span>
-            <span class="metric-desc" data-i18n="metric_4_label">Artigo internacional aceito para publicação</span>
+            <span class="metric-val" data-target="1">1</span>
+            <span class="metric-desc" data-i18n="metric_4_label">Artigo internacional aceito para publicação (2026)</span>
           </div>
           <div class="metric-block">
             <span class="metric-val" data-target="100">100%</span>
@@ -260,13 +260,13 @@
 
         <div class="about-grid">
           <div class="about-gallery-mosaic">
-            <div class="mosaic-main">
-              <img src="assets/tamandua-bandeira.jpg" alt="Micheli em campo acompanhando tamanduá-bandeira (Myrmecophaga tridactyla)" class="mosaic-img">
+            <div class="mosaic-main" onclick="openLightbox('assets/micheli-tamandua-campo.jpg', 'Micheli Mac Intir em monitoramento de campo com tamanduá-bandeira (Myrmecophaga tridactyla)')" style="cursor: pointer;" title="Clique para ampliar">
+              <img src="assets/micheli-tamandua-campo.jpg" alt="Micheli em campo com tamanduá-bandeira (Myrmecophaga tridactyla)" class="mosaic-img">
               <span class="mosaic-badge" data-i18n="about_badge_masto">Mastofauna &bull; Tamanduá-bandeira</span>
             </div>
-            <div class="mosaic-sub">
-              <img src="assets/trilha-mata.jpg" alt="Micheli em expedição de campo na mata" class="mosaic-img">
-              <span class="mosaic-badge"><i class="fa-solid fa-person-hiking"></i> <span data-i18n="about_badge_bocaina">Inspeção de Campo</span></span>
+            <div class="mosaic-sub" onclick="openLightbox('assets/micheli-ornitologia-campo.jpg', 'Micheli Mac Intir em anilhamento científico e biometria de ave silvestre na Mata Atlântica')" style="cursor: pointer;" title="Clique para ampliar">
+              <img src="assets/micheli-ornitologia-campo.jpg" alt="Micheli em anilhamento científico de aves silvestres na Mata Atlântica" class="mosaic-img">
+              <span class="mosaic-badge"><i class="fa-solid fa-dove"></i> <span data-i18n="about_badge_ornito">Ornitologia &bull; Anilhamento</span></span>
             </div>
           </div>
 
@@ -369,6 +369,22 @@
               <div class="pillar-icon"><i class="fa-solid fa-paw"></i></div>
               <h3 data-i18n="road_c4_title">Fauna Silvestre &amp; Germoplasma</h3>
               <p data-i18n="road_c4_text">Acompanhamento de supressão vegetal autorizada, coordenação de resgate e afugentamento de animais silvestres e coleta de sementes, epífitas e propágulos de flora nativa para mitigação de impactos.</p>
+            </div>
+          </div>
+
+          <!-- Showcase Visual: Liderança em Campo & DDMA -->
+          <div class="road-showcase-visual glass-subcard">
+            <div class="road-visual-img-box" onclick="openLightbox('assets/supervisao-equipe-ddma.jpg', 'Micheli Mac Intir conduzindo Diálogo Diário de Meio Ambiente (DDMA) e alinhamento operacional com a equipe de campo em frentes de infraestrutura rodoviária')" style="cursor: pointer;" title="Clique para ampliar">
+              <img src="assets/supervisao-equipe-ddma.jpg" alt="Micheli Mac Intir conduzindo alinhamento ambiental e DDMA com equipe de obra" loading="lazy">
+              <div class="road-visual-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Ver Registro em Alta Resolução</span>
+              </div>
+            </div>
+            <div class="road-visual-caption">
+              <div class="road-visual-tag"><i class="fa-solid fa-helmet-safety"></i> <span data-i18n="road_visual_tag">Liderança em Campo &bull; DDMA</span></div>
+              <h4 data-i18n="road_visual_title">Diálogos Diários de Meio Ambiente (DDMA) &amp; Alinhamento de Frentes</h4>
+              <p data-i18n="road_visual_desc">Treinamento e alinhamento operacional diário com equipes e encarregados de obra na faixa de domínio da rodovia. Foco em mitigação de riscos, segregação de resíduos, respeito à fauna e prevenção proativa de passivos.</p>
             </div>
           </div>
 
@@ -863,74 +879,358 @@
           </p>
         </div>
 
-        <div class="gallery-grid">
-          <div class="gallery-card glass-panel" onclick="openLightbox('assets/hero-field.jpg', 'Monitoramento costeiro com teleobjetiva Canon e tripé em água rasa (Porto de São Sebastião/SP)')">
+        <!-- Filtros Interativos da Galeria -->
+        <div class="gallery-filter-tabs">
+          <button class="gallery-tab active" data-filter="all"><i class="fa-solid fa-layer-group"></i> Todos os Registros (23)</button>
+          <button class="gallery-tab" data-filter="ornito"><i class="fa-solid fa-dove"></i> Ornitologia &amp; Aves</button>
+          <button class="gallery-tab" data-filter="supervisao"><i class="fa-solid fa-helmet-safety"></i> Supervisão &amp; DDMA</button>
+          <button class="gallery-tab" data-filter="fauna"><i class="fa-solid fa-paw"></i> Fauna Silvestre</button>
+          <button class="gallery-tab" data-filter="expedicoes"><i class="fa-solid fa-mountain-sun"></i> Expedições &amp; Biomas</button>
+        </div>
+
+        <div class="gallery-grid" id="main-gallery-grid">
+          <!-- 1. Supervisão DDMA com Equipe (Foto Recente) -->
+          <div class="gallery-card glass-panel" data-category="supervisao" onclick="openLightbox('assets/supervisao-equipe-ddma.jpg', 'Micheli Mac Intir conduzindo Diálogo Diário de Meio Ambiente (DDMA) e alinhamento operacional com a equipe de campo em frentes de infraestrutura rodoviária')">
             <div class="gallery-thumb-box">
-              <img src="assets/hero-field.jpg" alt="Micheli em monitoramento costeiro com câmera" loading="lazy">
+              <img src="assets/supervisao-equipe-ddma.jpg" alt="Micheli em DDMA com equipe operacional" loading="lazy">
               <div class="gallery-overlay">
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
-                <span>Ornitologia Costeira</span>
+                <span>Supervisão &bull; DDMA</span>
               </div>
             </div>
             <div class="gallery-caption">
-              <strong data-i18n="gal_cap1_title">Porto de São Sebastião</strong>
-              <p data-i18n="gal_cap1_sub">Monitoramento costeiro com câmera e tripé na água.</p>
+              <strong>Diálogo Diário &bull; DDMA</strong>
+              <p>Alinhamento ambiental com equipe operacional de obras rodoviárias.</p>
             </div>
           </div>
 
-          <div class="gallery-card glass-panel" onclick="openLightbox('assets/tamandua-bandeira.jpg', 'Monitoramento e acompanhamento de tamanduá-bandeira (Myrmecophaga tridactyla) em campanha de mastofauna')">
+          <!-- 2. Tamanduá-bandeira no Campo com Micheli -->
+          <div class="gallery-card glass-panel" data-category="fauna" onclick="openLightbox('assets/gallery/micheli-campo-18.jpg', 'Micheli Mac Intir em monitoramento e acompanhamento de tamanduá-bandeira (Myrmecophaga tridactyla) em campo aberto')">
             <div class="gallery-thumb-box">
-              <img src="assets/tamandua-bandeira.jpg" alt="Micheli Mac Intir acompanhando tamanduá-bandeira em campo" loading="lazy">
+              <img src="assets/gallery/micheli-campo-18.jpg" alt="Micheli com tamanduá-bandeira em campo" loading="lazy">
               <div class="gallery-overlay">
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
-                <span data-i18n="gal_cap2_badge">Tamanduá-bandeira</span>
+                <span>Mastofauna</span>
               </div>
             </div>
             <div class="gallery-caption">
-              <strong data-i18n="gal_cap2_title">Mastofauna &bull; Tamanduá-bandeira</strong>
-              <p data-i18n="gal_cap2_sub">Registro de Myrmecophaga tridactyla durante campanha de mastofauna.</p>
+              <strong>Tamanduá-bandeira</strong>
+              <p>Acompanhamento direto em campo de Myrmecophaga tridactyla.</p>
             </div>
           </div>
 
-          <div class="gallery-card glass-panel" onclick="openLightbox('assets/trilha-mata.jpg', 'Trilha de campo e amostragem de fauna na Mata Atlântica com equipe e equipamentos')">
+          <!-- 3. Anilhamento Científico de Aves -->
+          <div class="gallery-card glass-panel" data-category="ornito" onclick="openLightbox('assets/gallery/micheli-campo-19.jpg', 'Micheli Mac Intir em anilhamento científico e biometria de ave silvestre na Mata Atlântica')">
             <div class="gallery-thumb-box">
-              <img src="assets/trilha-mata.jpg" alt="Micheli em expedição na mata fechada" loading="lazy">
+              <img src="assets/gallery/micheli-campo-19.jpg" alt="Micheli em anilhamento científico de ave silvestre" loading="lazy">
               <div class="gallery-overlay">
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
-                <span>Trilha &amp; Mata Atlântica</span>
+                <span>Ornitologia</span>
               </div>
             </div>
             <div class="gallery-caption">
-              <strong data-i18n="gal_cap3_title">Serra da Bocaina</strong>
-              <p data-i18n="gal_cap3_sub">Trilhas de fauna e amostragem em áreas remotas.</p>
+              <strong>Anilhamento Científico</strong>
+              <p>Biometria e anilhamento com registro CEMAVE em Mata Atlântica.</p>
             </div>
           </div>
 
-          <div class="gallery-card glass-panel" onclick="openLightbox('assets/melanophryniscus-moreirae.jpg', 'Fotografia científica de Melanophryniscus moreirae (sapinho-flamenguinho de altitude) para o artigo internacional aceito')">
+          <!-- 4. Teleobjetiva e Binóculos em Campo -->
+          <div class="gallery-card glass-panel" data-category="ornito" onclick="openLightbox('assets/gallery/micheli-campo-25.jpg', 'Micheli Mac Intir equipada com teleobjetiva Canon e binóculos para censo de avifauna')">
             <div class="gallery-thumb-box">
-              <img src="assets/melanophryniscus-moreirae.jpg" alt="Fotografia de Melanophryniscus moreirae estudado" loading="lazy">
+              <img src="assets/gallery/micheli-campo-25.jpg" alt="Micheli com teleobjetiva e binóculo para ornitologia" loading="lazy">
               <div class="gallery-overlay">
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
-                <span>Pesquisa Herpetológica</span>
+                <span>Censo de Aves</span>
               </div>
             </div>
             <div class="gallery-caption">
-              <strong data-i18n="gal_cap4_title">Melanophryniscus moreirae</strong>
-              <p data-i18n="gal_cap4_sub">Artigo internacional aceito para publicação (2026).</p>
+              <strong>Ornitologia em Campo</strong>
+              <p>Equipamento de telemetria e documentação fotográfica de avifauna.</p>
             </div>
           </div>
 
-          <div class="gallery-card glass-panel" onclick="openLightbox('assets/campo-inspecao-bocaina.jpg', 'Expedição de campo e amostragem de fauna na Serra da Bocaina (Pico do Tira-Chapéu)')">
+          <!-- 5. Jacaré em Área Alagada ao Crepúsculo -->
+          <div class="gallery-card glass-panel" data-category="fauna" onclick="openLightbox('assets/gallery/micheli-campo-14.jpg', 'Micheli Mac Intir em monitoramento crepuscular de jacaré em área alagada')">
             <div class="gallery-thumb-box">
-              <img src="assets/campo-inspecao-bocaina.jpg" alt="Micheli em expedição de campo no Pico do Tira-Chapéu" loading="lazy">
+              <img src="assets/gallery/micheli-campo-14.jpg" alt="Micheli monitorando jacaré na água ao crepúsculo" loading="lazy">
               <div class="gallery-overlay">
                 <i class="fa-solid fa-magnifying-glass-plus"></i>
-                <span>Expedição Bocaina</span>
+                <span>Herpetofauna</span>
               </div>
             </div>
             <div class="gallery-caption">
-              <strong data-i18n="gal_cap5_title">Serra da Bocaina / Altitude</strong>
-              <p data-i18n="gal_cap5_sub">Inspeção ambiental e amostragem de fauna em áreas remotas.</p>
+              <strong>Fauna Aquática &bull; Crepúsculo</strong>
+              <p>Registro de crocodiliano em banhado durante censo noturno.</p>
+            </div>
+          </div>
+
+          <!-- 6. Observação de Aves na Alvorada -->
+          <div class="gallery-card glass-panel" data-category="ornito" onclick="openLightbox('assets/gallery/micheli-campo-01.jpg', 'Micheli Mac Intir em censo ornitológico ao nascer do sol com binóculos')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-01.jpg" alt="Micheli em observação de aves ao nascer do sol" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Censo Matutino</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Alvorada Ornitológica</strong>
+              <p>Ponto de escuta e registro visual no pico de atividade matinal.</p>
+            </div>
+          </div>
+
+          <!-- 7. Avifauna Aquática na Margem do Rio -->
+          <div class="gallery-card glass-panel" data-category="ornito" onclick="openLightbox('assets/gallery/micheli-campo-08.jpg', 'Micheli Mac Intir fotografando aves aquáticas e ribeirinhas com teleobjetiva na margem de rio')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-08.jpg" alt="Micheli monitorando aves na margem do rio" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Aves Aquáticas</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Ornitologia Ribeirinha</strong>
+              <p>Acompanhamento de espécies aquáticas e piscívoras em curso d'água.</p>
+            </div>
+          </div>
+
+          <!-- 8. Câmera-Trap na Mata Atlântica -->
+          <div class="gallery-card glass-panel" data-category="fauna" onclick="openLightbox('assets/gallery/micheli-campo-03.jpg', 'Micheli Mac Intir instalando armadilha fotográfica (camera trap) na floresta para levantamento de mamíferos')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-03.jpg" alt="Micheli instalando armadilha fotográfica na mata" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Armadilhas Fotográficas</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Inventário &bull; Câmera-Trap</strong>
+              <p>Mapeamento de trilhas e passagens de fauna silvestre na mata.</p>
+            </div>
+          </div>
+
+          <!-- 9. Cume da Bocaina (Pico do Tira-Chapéu) -->
+          <div class="gallery-card glass-panel" data-category="expedicoes" onclick="openLightbox('assets/gallery/micheli-campo-15.jpg', 'Micheli Mac Intir no Pico do Tira-Chapéu (Serra da Bocaina) em amostragem de fauna de altitude')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-15.jpg" alt="Micheli no topo da Serra da Bocaina" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Serra da Bocaina</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Pico do Tira-Chapéu</strong>
+              <p>Amostragem de campos de altitude e herpetofauna endêmica.</p>
+            </div>
+          </div>
+
+          <!-- 10. Mirante da Bocaina com Vista para o Mar -->
+          <div class="gallery-card glass-panel" data-category="expedicoes" onclick="openLightbox('assets/gallery/micheli-campo-16.jpg', 'Micheli Mac Intir em mirante da Serra da Bocaina com vista panorâmica para o litoral')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-16.jpg" alt="Micheli em mirante da Bocaina" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Altitude &bull; Litoral</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Mirante de Altitude</strong>
+              <p>Transição entre a floresta nebular da Bocaina e a bacia oceânica.</p>
+            </div>
+          </div>
+
+          <!-- 11. Veredas com Buritis no Cerrado -->
+          <div class="gallery-card glass-panel" data-category="expedicoes" onclick="openLightbox('assets/gallery/micheli-campo-17.jpg', 'Micheli Mac Intir em vereda com buritis no Cerrado durante vistoria de recursos hídricos')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-17.jpg" alt="Micheli em vereda de Cerrado com buriti" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Cerrado &bull; Veredas</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Vereda com Buritis</strong>
+              <p>Vistoria de cursos d'água e refúgios ecológicos no Cerrado.</p>
+            </div>
+          </div>
+
+          <!-- 12. Manguezal do Litoral Norte -->
+          <div class="gallery-card glass-panel" data-category="ornito" onclick="openLightbox('assets/gallery/micheli-campo-20.jpg', 'Micheli Mac Intir caminhando no manguezal com tripé de teleobjetiva para monitoramento de aves marinhas')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-20.jpg" alt="Micheli no manguezal com tripé fotográfico" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Manguezal &bull; Costa</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Manguezal Costeiro</strong>
+              <p>Água no joelho e tripé nos ombros para censo de garças e guarás.</p>
+            </div>
+          </div>
+
+          <!-- 13. Canal de São Sebastião a Bordo de Embarcação -->
+          <div class="gallery-card glass-panel" data-category="ornito" onclick="openLightbox('assets/gallery/micheli-campo-21.jpg', 'Micheli Mac Intir em embarcação no canal de São Sebastião para ornitologia costeira e marinha')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-21.jpg" alt="Micheli a bordo de embarcação no canal de São Sebastião" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Aves Pelágicas</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Canal de São Sebastião</strong>
+              <p>Levantamento embarcado de trinta-réis, fragatas e atobás.</p>
+            </div>
+          </div>
+
+          <!-- 14. Pôr do Sol com Bota na Lama -->
+          <div class="gallery-card glass-panel" data-category="expedicoes" onclick="openLightbox('assets/gallery/micheli-campo-22.jpg', 'Micheli Mac Intir no campo com bota na lama e binóculos no peito ao entardecer')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-22.jpg" alt="Micheli no campo com bota na lama e binóculos" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Campo Real</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Bota na Lama</strong>
+              <p>Fim de expediente após quilômetros de transecto percorrido a pé.</p>
+            </div>
+          </div>
+
+          <!-- 15. Cachoeira em Vale Serrano -->
+          <div class="gallery-card glass-panel" data-category="expedicoes" onclick="openLightbox('assets/gallery/micheli-campo-28.jpg', 'Micheli Mac Intir em trilha de altitude com cachoeira e vale na Mata Atlântica')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-28.jpg" alt="Micheli em trilha na montanha com cachoeira" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Mata Atlântica</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Trilha de Cachoeira</strong>
+              <p>Inspeção florística e microbacia em remanescente de mata serrana.</p>
+            </div>
+          </div>
+
+          <!-- 16. Monitoramento em Banhado no Pantanal -->
+          <div class="gallery-card glass-panel" data-category="fauna" onclick="openLightbox('assets/gallery/micheli-campo-33.jpg', 'Micheli Mac Intir com teleobjetiva em área alagada e vegetação flutuante no Pantanal')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-33.jpg" alt="Micheli em área alagada no Pantanal" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Pantanal &bull; MS</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Lagoa Pantaneira</strong>
+              <p>Registro de fauna associada a macrófitas aquáticas em MS.</p>
+            </div>
+          </div>
+
+          <!-- 17. Ponto de Escuta Ornitológica -->
+          <div class="gallery-card glass-panel" data-category="ornito" onclick="openLightbox('assets/gallery/micheli-campo-34.jpg', 'Micheli Mac Intir com binóculos em ponto de escuta ornitológica na orla florestal')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-34.jpg" alt="Micheli com binóculos na orla da mata" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Bioacústica</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Ponto de Escuta</strong>
+              <p>Identificação de vocalizações e censos populacionais de aves.</p>
+            </div>
+          </div>
+
+          <!-- 18. Travessia em Banhado Alagado -->
+          <div class="gallery-card glass-panel" data-category="fauna" onclick="openLightbox('assets/gallery/micheli-campo-35.jpg', 'Micheli Mac Intir realizando travessia de banhado alagado durante vistoria de fauna')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-35.jpg" alt="Micheli caminhando em água alagada" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Resgate &bull; Fauna</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Travessia de Banhado</strong>
+              <p>Acesso a áreas alagadas para verificação de ninhos e fauna silvestre.</p>
+            </div>
+          </div>
+
+          <!-- 19. Demarcação de Transectos Operacionais -->
+          <div class="gallery-card glass-panel" data-category="supervisao" onclick="openLightbox('assets/gallery/micheli-campo-06.jpg', 'Micheli Mac Intir demarcando transectos florestais e parcelas de amostragem')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-06.jpg" alt="Micheli demarcando transecto na mata" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Demarcação</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Marcação de Faixas</strong>
+              <p>Delimitação de áreas de supressão e parcelas permanentes de fauna.</p>
+            </div>
+          </div>
+
+          <!-- 20. Estrada Vicinal e Varredura de Borda -->
+          <div class="gallery-card glass-panel" data-category="ornito" onclick="openLightbox('assets/gallery/micheli-campo-11.jpg', 'Micheli Mac Intir em monitoramento com teleobjetiva em estrada de terra e borda florestal')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-11.jpg" alt="Micheli fotografando aves em estrada de terra" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Varredura de Borda</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Estrada de Terra</strong>
+              <p>Monitoramento de atropelamento e levantamento de borda de mata.</p>
+            </div>
+          </div>
+
+          <!-- 21. Laudo Científico de Melanophryniscus moreirae -->
+          <div class="gallery-card glass-panel" data-category="fauna" onclick="openLightbox('assets/melanophryniscus-moreirae.jpg', 'Fotografia científica de Melanophryniscus moreirae (sapinho-flamenguinho de altitude) para o artigo internacional aceito em 2026')">
+            <div class="gallery-thumb-box">
+              <img src="assets/melanophryniscus-moreirae.jpg" alt="Fotografia científica de Melanophryniscus moreirae" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Artigo Internacional</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Melanophryniscus moreirae</strong>
+              <p>Espécie endêmica de altitude (artigo internacional aceito em 2026).</p>
+            </div>
+          </div>
+
+          <!-- 22. Ornitologia Costeira em Água Rasa (Porto de São Sebastião) -->
+          <div class="gallery-card glass-panel" data-category="ornito" onclick="openLightbox('assets/hero-field.jpg', 'Micheli Mac Intir em monitoramento costeiro com teleobjetiva Canon e tripé em água rasa no Porto de São Sebastião/SP')">
+            <div class="gallery-thumb-box">
+              <img src="assets/hero-field.jpg" alt="Micheli em monitoramento costeiro em água rasa" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Costa &bull; Porto</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Porto de São Sebastião</strong>
+              <p>Monitoramento costeiro com câmera e tripé na água rasa da enseada.</p>
+            </div>
+          </div>
+
+          <!-- 23. Pausa Técnica em Lajeado de Cachoeira -->
+          <div class="gallery-card glass-panel" data-category="expedicoes" onclick="openLightbox('assets/gallery/micheli-campo-13.jpg', 'Micheli Mac Intir em cachoeira na Mata Atlântica durante expedição de campo')">
+            <div class="gallery-thumb-box">
+              <img src="assets/gallery/micheli-campo-13.jpg" alt="Micheli em cachoeira na Mata Atlântica" loading="lazy">
+              <div class="gallery-overlay">
+                <i class="fa-solid fa-magnifying-glass-plus"></i>
+                <span>Mata Atlântica</span>
+              </div>
+            </div>
+            <div class="gallery-caption">
+              <strong>Cachoeira &bull; Expedição</strong>
+              <p>Pausa técnica em lajeado granítico após percurso de amostragem.</p>
             </div>
           </div>
         </div>
