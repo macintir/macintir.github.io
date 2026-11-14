@@ -2189,6 +2189,12 @@ img {
   box-shadow: 0 8px 24px rgba(142, 106, 58, 0.35);
 }
 
+.contact-social-btn.biofaces:hover {
+  background: #2E7D32;
+  border-color: #2E7D32;
+  box-shadow: 0 8px 24px rgba(46, 125, 50, 0.35);
+}
+
 .contact-social-btn.email:hover {
   background: var(--primary);
   border-color: var(--primary);
